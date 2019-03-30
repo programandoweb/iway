@@ -1,45 +1,97 @@
 <?php
-    $menu                   =   array();
-    $menu["Maestros"]       =   array("Empresas"=>"Empresas","Departamentos"=>"Sucursales","Usuarios"=>"Usuarios");
-    $me_logo                =   img_logo(@get_empresa($this->user->empresa_id)->id);
+	$menu					=	array();
+	$menu["Maestros"]		=	array("Empresas"=>"Empresas","Departamentos"=>"Sucursales","Usuarios"=>"Usuarios");
+	$me_logo				=	img_logo(@get_empresa($this->user->empresa_id)->id);
     $nombre = $this->user->primer_nombre.' '.$this->user->segundo_nombre.' '.$this->user->primer_apellido.' '.$this->user->segundo_apellido;
     //pre($this->user);
-    $sucursal=(@get_empresa($this->user->empresa_id))?get_empresa($this->user->empresa_id)->nombre_legal.@get_empresa($this->user->empresa_id)->abreviacion.'</B>':'';                      
-    $img_perfil = me_img_profile();
-    //pre($menu["Maestros"]);
+	$sucursal=(@get_empresa($this->user->empresa_id))?get_empresa($this->user->empresa_id)->nombre_legal.@get_empresa($this->user->empresa_id)->abreviacion.'</B>':'';
+	$img_perfil	= me_img_profile();
+	//pre($menu["Maestros"]);
 ?>
+<header>
+		<button type="button" id="sidebarCollapse" class="btn btn-info">
+				<i class="fas fa-align-left"></i>
+		</button>
+		<!-- Sidebar  -->
+		<nav id="sidebar">
+				<div id="dismiss">
+						<i class="fas fa-arrow-left"></i>
+				</div>
+
+				<div class="sidebar-header">
+						<h3><?php echo SEO_NAME?></h3>
+				</div>
+
+				<ul class="list-unstyled components">
+						<li class="active">
+								<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
+								<ul class="collapse list-unstyled" id="homeSubmenu">
+										<li>
+												<a href="#">Home 1</a>
+										</li>
+										<li>
+												<a href="#">Home 2</a>
+										</li>
+										<li>
+												<a href="#">Home 3</a>
+										</li>
+								</ul>
+						</li>
+						<li>
+								<a href="#">About</a>
+								<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+								<ul class="collapse list-unstyled" id="pageSubmenu">
+										<li>
+												<a href="#">Page 1</a>
+										</li>
+										<li>
+												<a href="#">Page 2</a>
+										</li>
+										<li>
+												<a href="#">Page 3</a>
+										</li>
+								</ul>
+						</li>
+						<li>
+								<a href="#">Portfolio</a>
+						</li>
+						<li>
+								<a href="#">Contact</a>
+						</li>
+				</ul>
+		</nav>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary yamm " id="slide-nav">
-        <button class="navbar-toggler navbar-toggler-left mb-1" type="button" data-toggle="collapse" data-target="#navbarTopMenu" aria-controls="navbarTopMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="container" style="z-index:1000;">
+		<button class="navbar-toggler navbar-toggler-left mb-1" type="button" data-toggle="collapse" data-target="#navbarTopMenu" aria-controls="navbarTopMenu" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="container" style="z-index:1000;">
             <a class="navbar-brand" href="#">
                 <?php echo SEO_NAME; ?>
             </a>
-            <div class="collapse navbar-collapse" style=" margin-top: -5px;" id="navbarTopMenu">
-                <div style="margin:0 auto;">
+			<div class="collapse navbar-collapse" style=" margin-top: -5px;" id="navbarTopMenu">
+            	<div style="margin:0 auto;">
                     <ul class="navbar-nav mr-auto mt-2 mt-md-0 balancear bg-primary">
                         <li class="nav-item active">
                             <a class="nav-link" href="<?php echo base_url()?>">
-                                Home 
-                                <span class="sr-only">(current)</span>
-                            </a>
+                            	Home
+                            	<span class="sr-only">(current)</span>
+							</a>
                         </li>
-                        <?php 
+                        <?php
                             if(!isset($this->user->menu) && $this->user->rol_id ==1){
-                                $this->user->menu   =   menu();
+                                $this->user->menu	=	menu();
                                 $this->session->set_userdata(array('User'=>$this->user));
                             }else if(!isset($this->user->menu) && $this->user->rol_id != 1){
-                                $this->user->menu   =   menu_usuarios($this->user->rol_id);
+                                $this->user->menu	=	menu_usuarios($this->user->rol_id);
                                 $this->session->set_userdata(array('User'=>$this->user));
                             }
-                            //$this->user->menu     =   menu_usuarios($this->user->rol_id);
+                            //$this->user->menu		=	menu_usuarios($this->user->rol_id);
                             if(isset($this->user->menu)){
                                 foreach($this->user->menu['roles_modulos_padre'] as $k => $v){
                         ?>
                             <li class="dropdown yamm-fw nav-item active ">
                                 <a href="#" class="nav-link" data-toggle="dropdown">
-                                    <?php 
+                                    <?php
                                         print_r($v->modulo);
                                     ?>
                                 </a>
@@ -48,71 +100,99 @@
                                         <li class="grid-demo">
                                             <div class="row">
                                                 <?php  foreach($v2 as $k3=>$v3){?>
-                                                    <div class="col-sm-4 padding">
+                                                    <div class="col-sm-3 padding">
                                                         <div class="block">
                                                             <h5 class="block-title">
-                                                                <div class="ico"><?php print($v3->ico);?></div> <div class="ts-13 text"><?php echo $v3->modulo;?></div> 
-                                                            </h5> 
+                                                                <div class="ico"><?php print($v3->ico);?></div> <div class="ts-13 text"><?php echo $v3->modulo;?></div>
+                                                            </h5>
                                                             <?php foreach($this->user->menu['roles_modulos_nietos'][$v3->id] as $k4 => $v4){
                                                                     if($this->user->rol_id==1){
                                                                 ?>
-                                                                    <div>                                               
-                                                                        <div class="btn btn-link" data-url="<?php echo base_url($v4->url)?>">
-                                                                            <?php echo $v4->modulo;?>                                           
-                                                                        </div>
+                                                                    <div>
+                                                                        <a class="btn btn-link" href="<?php echo base_url($v4->url)?>">
+                                                                            <?php echo $v4->modulo;?>
+                                                                        </a>
                                                                     </div>
-                                                                <?php       
+                                                                <?php
                                                                     }else if(array_search($v4->id,$this->user->menu['roles_modulos_permitidos'])===false){
-                                                                        
+
                                                                     }else{
                                                                 ?>
-                                                                <div>                                               
-                                                                    <div class="btn btn-link" data-url="<?php echo base_url($v4->url)?>">
-                                                                        <?php echo $v4->modulo;?>                                           
-                                                                    </div>
+                                                                <div>
+                                                                    <a class="btn btn-link" href="<?php echo base_url($v4->url)?>">
+                                                                        <?php echo $v4->modulo;?>
+                                                                    </a>
                                                                 </div>
                                                             <?php }}?>
                                                         </div>
                                                     </div>
-                                                <?php }?>                                                                                                    
+                                                <?php }?>
                                             </div>
                                         </li>
                                     </ul>
                                 <?php }?>
                             </li>
-                        <?php   
+                        <?php
                                 }
                             }
                         ?>
                     </ul>
-                </div>                    
-            </div>
-            <ul class="nabvar-nav ml-auto ">
-                <li class="dropdown <?php if($this->uri->segment(1)==$this->ModuloActivo && in_array($this->uri->segment(2), $menu["Maestros"])){echo "active";}?>">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <img id="profile" src="<?php echo $img_perfil;?>">
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdown01">
-                            <a class="dropdown-item" href="#"><i class="fa fa-key" aria-hidden="true" style="width:24px;"></i> Modificar Contraseña</a>
-                            <?php 
-                                if($this->user->type=='CentroCostos' || $this->user->type=='Asociados'){?>
-                                <a class="dropdown-item" href="#"><i class="fa fa-money" aria-hidden="true" style="width:24px;"></i> Mis Planes de Pago</a>
-                            <?php }?>
-                            <a class="dropdown-item" href="<?php echo base_url("autenticacion/salir")?>"><i class="fa fa-unlock-alt" aria-hidden="true" style="width:24px;"></i> Salida Segura</a>
-                        </div>
+				</div>
+			</div>
+            <ul class="nabvar-nav ml-auto m-0  ">
+                <li class="nav-item dropdown <?php if($this->uri->segment(1)==$this->ModuloActivo && in_array($this->uri->segment(2), $menu["Maestros"])){echo "active";}?>">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<img style="width:30px;" src="https://testing.workplace.com.co/public/images/avatar.png" alt="Avatar">
+                        <?php
+                                if(!empty($this->user->primer_nombre)&& !empty($this->user->primer_apellido)){
+                                    echo $this->user->primer_nombre.' '.$this->user->primer_apellido;
+                                }else if(!empty($this->user->persona_contacto)){
+                                    echo $this->user->persona_contacto;
+                                }else{
+                                    //$this->user->abreviacion;
+                                }
+                        ?>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#"><i class="fa fa-key" aria-hidden="true" style="width:24px;"></i> Modificar Contraseña</a>
+                        <?php
+                            if($this->user->type=='CentroCostos' || $this->user->type=='Asociados'){?>
+                            <a class="dropdown-item" href="#"><i class="fa fa-money" aria-hidden="true" style="width:24px;"></i> Mis Planes de Pago</a>
+                        <?php }?>
+                        <a class="dropdown-item" href="<?php echo base_url("autenticacion/salir")?>"><i class="fa fa-unlock-alt" aria-hidden="true" style="width:24px;"></i> Salida Segura</a>
                     </div>
-                </li>                        
-            </ul> 
-        </div>                                               
-    </nav>
+                </li>
+            </ul>
+				</div>
+  	</nav>
+</header>
 <script>
-    /*
-    $(function() {
-        window.prettyPrint && prettyPrint()
-        $(document).on('click', '.yamm .dropdown-menu', function(e) {
-            e.stopPropagation();
-        })
-    })*/
+	/*
+	$(function() {
+		window.prettyPrint && prettyPrint()
+		$(document).on('click', '.yamm .dropdown-menu', function(e) {
+			e.stopPropagation();
+		})
+	})*/
 </script>
 
+
+<script type="text/javascript">
+		$(document).ready(function () {
+				$("#sidebar").mCustomScrollbar({
+						theme: "minimal"
+				});
+
+				$('#dismiss, .overlay').on('click', function () {
+						$('#sidebar').removeClass('active');
+						$('.overlay').removeClass('active');
+				});
+
+				$('#sidebarCollapse').on('click', function () {
+						$('#sidebar').addClass('active');
+						$('.overlay').addClass('active');
+						$('.collapse.in').toggleClass('in');
+						$('a[aria-expanded=true]').attr('aria-expanded', 'false');
+				});
+		});
+</script>
