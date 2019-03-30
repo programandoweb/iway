@@ -139,31 +139,24 @@
                     </ul>
 				</div>
 			</div>
-            <ul class="nabvar-nav ml-auto m-0  ">
-                <li class="nav-item dropdown <?php if($this->uri->segment(1)==$this->ModuloActivo && in_array($this->uri->segment(2), $menu["Maestros"])){echo "active";}?>">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<img style="width:30px;" src="https://testing.workplace.com.co/public/images/avatar.png" alt="Avatar">
-                        <?php
-                                if(!empty($this->user->primer_nombre)&& !empty($this->user->primer_apellido)){
-                                    echo $this->user->primer_nombre.' '.$this->user->primer_apellido;
-                                }else if(!empty($this->user->persona_contacto)){
-                                    echo $this->user->persona_contacto;
-                                }else{
-                                    //$this->user->abreviacion;
-                                }
-                        ?>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                        <a class="dropdown-item" href="#"><i class="fa fa-key" aria-hidden="true" style="width:24px;"></i> Modificar Contraseña</a>
-                        <?php
-                            if($this->user->type=='CentroCostos' || $this->user->type=='Asociados'){?>
-                            <a class="dropdown-item" href="#"><i class="fa fa-money" aria-hidden="true" style="width:24px;"></i> Mis Planes de Pago</a>
-                        <?php }?>
-                        <a class="dropdown-item" href="<?php echo base_url("autenticacion/salir")?>"><i class="fa fa-unlock-alt" aria-hidden="true" style="width:24px;"></i> Salida Segura</a>
+            <ul class="nabvar-nav ml-auto ">
+                <li class="dropdown <?php if($this->uri->segment(1)==$this->ModuloActivo && in_array($this->uri->segment(2), $menu["Maestros"])){echo "active";}?>">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <img id="profile" src="<?php echo $img_perfil;?>">
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" href="#"><i class="fa fa-key" aria-hidden="true" style="width:24px;"></i> Modificar Contraseña</a>
+                            <?php 
+                                if($this->user->type=='CentroCostos' || $this->user->type=='Asociados'){?>
+                                <a class="dropdown-item" href="#"><i class="fa fa-money" aria-hidden="true" style="width:24px;"></i> Mis Planes de Pago</a>
+                            <?php }?>
+                            <a class="dropdown-item" href="<?php echo base_url("autenticacion/salir")?>"><i class="fa fa-unlock-alt" aria-hidden="true" style="width:24px;"></i> Salida Segura</a>
+                        </div>
                     </div>
-                </li>
-            </ul>
-				</div>
+                </li>                        
+            </ul> 
+		</div>
   	</nav>
 </header>
 <script>
