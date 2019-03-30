@@ -1,0 +1,4 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2019-01-23 20:31:29 --> Severity: Notice --> Undefined variable: consecutivo C:\xampp\htdocs\webcamplus\application\models\Utilidades\Utilidades_model.php 308
+ERROR - 2019-01-23 20:31:29 --> Query error: Column 'consecutivo' cannot be null - Invalid query: INSERT INTO `pgrw_ut_form_control` (`consecutivo`, `data`, `nombre_form`, `user_id`, `centro_de_costos`, `empresa_id`, `estado`) VALUES (NULL, '{\"turnos\":\"turno_manama\",\"room\":\"2\",\"id_modelo\":\"00000000030\",\"suelo\":\"1\",\"cama\":\"1\",\"polvo\":\"1\",\"manchas\":\"1\",\"tendidos\":\"1\",\"cristal\":\"1\",\"lampara\":\"1\",\"armario\":\"1\",\"ventilador\":\"1\",\"pc\":\"1\",\"camara\":\"1\",\"parlantes\":\"1\",\"golpes\":\"1\",\"imagenes\":[],\"responsable\":\"Andres Felipe Casta\\u00f1eda \",\"tipo_documento\":null,\"fecha\":\"2019-01-23 20:31:29\"}', 'ControlEntregaRoom', '00000000030', '25', '24', 1)

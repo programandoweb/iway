@@ -1,0 +1,7 @@
+<?php
+/* 
+	DESARROLLO Y PROGRAMACIÓN
+	PROGRAMANDOWEB.NET
+	LCDO. JORGE MENDEZ
+	info@programandoweb.net
+*/?>

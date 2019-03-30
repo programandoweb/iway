@@ -1,0 +1,138 @@
+<?php
+/* 
+	DESARROLLO Y PROGRAMACIÓN
+	PROGRAMANDOWEB.NET
+	LCDO. JORGE MENDEZ
+	info@programandoweb.net
+*/
+$modulo		=	$this->ModuloActivo;
+$row		=	$this->$modulo->result;
+$json 		=   json_decode($row[0]->data);
+pre($row);
+//pre($json);
+if(!empty($url)){
+	$observaciones = getObservaciones($url);
+}else{
+	$observaciones = getObservaciones(base_url($this->uri->segment(1).'/'.$this->uri->segment(2).'/'.$this->uri->segment(3)));
+}
+?>
+<table class="ancho cabecera" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td width="30%" colspan="2">
+            <img src="<?php echo img_logo($empresa->user_id);?>" style="width:153px;height:90px;" />
+        </td>
+        <td style="text-align:right; font-size:12px; font-weight:bold;" valign="top" colspan="15">
+            <?php echo $empresa->nombre_legal?><br/>
+            Nit: <?php echo $empresa->identificacion;?> | <?php echo $empresa->tipo_empresa;?><br />
+            <?php echo $empresa->direccion;?><br />               
+            PBX: <?php echo $empresa->cod_telefono;?>-<?php echo $empresa->telefono?><br />
+            <?php echo $empresa->website;?><br/>
+            <?php #pre($empresa); ?>
+        </td>
+    </tr>
+</table>
+<div class="footer bordetop pie_de_pagina">
+    <table>
+        <tr>
+            <td style="width:33%; text-align: left;font-size: 9px;color :black;">Fecha impresión documento <?php echo date('Y-m-d'); ?></td>
+            <td style="text-align: center;font-size: 9px;"></td>
+            <td style="width:33%; text-align: right;font-size: 9px;">Powered by LogicSoft&reg; | www.webcamplus.com.co</td>
+        </tr>
+    </table>
+</div>
+<div style="font-family:font-family: 'Montserrat', sans-serif; line-height:16px; font-size:10px; font-family:font-family: 'Montserrat', sans-serif;text-align: justify;">
+	<div style="text-align: center;">
+		<h4>Solicitud Plataforma <?php echo centrodecostos($row[0]->centro_de_costos)->abreviacion.' '.tipo_documento(50,true).' '.ceros($row[0]->consecutivo);?></h4>
+		<h4><?php echo $json->nombre_modelo; ?></h4>
+	</div>
+	<div style="height: 20px;"></div>
+	<div class="container">
+		<div class="row justify-content-md-center">
+	    	<div class="col">
+	            <div class="row">
+	            	<div class="col-md-12">
+	                    <div class="tab-content row">
+	    					<div class="tab-pane active col-md-12" id="datos" role="tabpanel">	
+								<table class="ancho" border="0" cellpadding="0" cellspacing="0" width="100%">
+									<thead>
+										<tr class="colorFondo">
+			                            	<th class="text-center"><b>Sucursal</b></th>
+			                                <th class="text-center"><b>Usuario</b></th>
+			                                <th class="text-center"><b>Contraceña</b></th>
+			                                <th class="text-center"><b>Plataforma</b></th>
+			                                <th class="text-center"><b>Prioridad</b></th>
+			                                <th class="text-center"><b>Etapa</b></th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php		
+											foreach ($row as $k => $v) {
+												$plataforma = json_decode(@$v->data);
+										?>
+										<tr>
+											<td class="bordeAll"><?php echo nombre(centrodecostos($v->centro_de_costos)); ?></td>
+											<td class="bordeAll"><?php echo @$plataforma->usuario; ?></td>
+											<td class="bordeAll"><?php echo @$plataforma->password; ?></td>
+											<td class="bordeAll"><?php echo @$plataforma->plataforma; ?></td>
+											<td class="bordeAll">
+												<?php echo verPrioridad($plataforma->prioridad); ?>
+											</td>
+											<td class="bordeAll">
+												<?php echo verificaEstadoSolicitudPlataformas($v->estado); ?>
+											</td>
+										</tr>
+										<?php
+											}
+										?>
+									</tbody>
+								</table>
+							</div>
+							<div style="height: 20px;"></div>
+							<h4 style="text-align:center;">Observaciones</h4>
+							<div class="tab-pane col-md-12" id="observaciones" role="tabpanel">
+					            <div class="col-md-12">
+						         	<table class="ancho" border="0" cellpadding="0" cellspacing="0" width="100%">
+										<thead>
+											<tr class="colorFondo">
+												<th>
+													Solicito
+												</th>
+												<th>
+													Observación
+												</th>
+												<th>
+													Fecha
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+										<?php
+											if(!empty($observaciones)){	
+												foreach($observaciones as $k => $v){
+										?> 
+											 	<tr class="observaciones-tr">
+												 	<td class="bordeAll">
+														<?php echo nombre(centrodecostos($v->user_id)); ?>
+												 	</td>
+												 	<td class="bordeAll">
+														<?php echo $v->observacion; ?> 
+												 	</td>
+												 	<td class="bordeAll">
+														<?php echo $v->fecha; ?> 
+												 	</td>
+												</tr>
+										<?php
+												}
+											}
+										?>	
+										</tbody>
+									</table> 
+	                            </div>
+							</div>
+						</div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div> 	
+</div>

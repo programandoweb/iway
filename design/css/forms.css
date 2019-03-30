@@ -1,0 +1,51 @@
+@import url('../../assets/fonts/googlefonts.css?family=Oswald:400,500,600,700|Raleway:100,200,200i,300,400,400i,600i,700,900,900i|Roboto+Condensed');
+
+body{
+     font-family: 'Raleway', sans-serif;  
+     font-size: 14px;
+}
+
+
+.digito-verificacion{
+     visibility: hidden;
+}
+
+.orange {
+     /* color: #FF8000; */
+     color: #4ae387;
+}
+
+.font-weight-700 {
+     font-weight: 700;
+     font-family: 'Oswald', sans-serif;
+
+} 
+
+
+.sw-theme-circles > ul.step-anchor > li.active > a {
+     border-color: #292b2c;
+     color: #fff;
+     background: #292b2c;
+     text-transform: none;
+ }
+ /*#PrefijoDocumentos{
+ text-transform: uppercase;
+ }*/
+
+ .btn, .custom-file-control::before {
+     position: relative;
+     margin-bottom: 0.3125rem;
+     font-size: 0.875rem;
+     text-decoration: none;
+     text-transform: none;
+     letter-spacing: 0;
+     cursor: pointer;
+     background-color: transparent;
+     border: 0;
+     outline: 0;
+     transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+     will-change: box-shadow, transform;
+     color: white;
+     background-color: #414141;
+     border-color: #ccc; 
+}

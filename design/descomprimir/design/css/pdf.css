@@ -1,0 +1,100 @@
+/* CSS Document */
+.firmas{
+	position: absolute;
+	width: 100%;
+	font-family:font-family: 'Montserrat', sans-serif; line-height:16px; font-size:12px; font-family:font-family: 'Montserrat', sans-serif;
+}
+.firmas> .linea{
+	margin-right: 60px;
+	width: 250px;
+}
+.divicion{
+	width:50%;
+}
+.ancho{
+	width: 100%
+	margin:0;
+	padding: 0;
+}
+.textRight{
+	text-align: right;
+}
+.textLeft{
+	text-align: left;
+}
+.recuadro{
+	background: #F2F2F2;
+	padding: 15px;
+	border-radius: 8px;
+	height: 120px;
+}
+thead{
+   text-align:center; color:white; font-weight:bold; background:#666;width: 100%;
+}
+.oscurecer{
+   color:white; font-weight:bold; background:#666;border: 1px solid #666; padding: 2px;
+}
+.fondoCell{
+background: #FAFAFA;
+}
+.colorFondo{
+	background:#666;
+	margin-top: -15px;
+	margin-left: -15px;
+	margin-right: -15px;
+	margin-bottom: 15px;
+	color:white; 
+	font-weight:bold;
+	border: 1px solid #666;
+	padding: 2px;
+}
+.bordetop{
+	border-top:1px solid #D8D8D8;
+}
+.bordeBottom{
+	border-bottom:1px solid #D8D8D8;
+}
+.borderight: {
+	border-right: 1px solid #D8D8D8;
+}
+.bordeAll{
+	border: 1px solid #D8D8D8; 
+}
+.bordenone{
+	border: none; 
+}
+.margen_derecha{
+	margin-right: 30px;
+	margin-left: 0;
+}
+.table> td {
+	border-right: 1px solid #D8D8D8;
+	border-left : 1px solid #D8D8D8;
+}
+.table> .w1{
+	width: 60%;
+}
+.table> .w2{
+	width: 20%;
+}
+.par:nth-child(odd) {
+background-color:#FAFAFA;
+}
+.par>td{
+	padding:8px;
+}
+.footer{
+	width:100%;
+	font-size:10px;
+	text-align:center;
+	font-family:font-family: 'Montserrat', sans-serif;
+}
+.footer>table{
+	width:100%;
+	border-top: 1px solid #D8D8D8;
+}
+.footer>table>tr>td{
+	width: 33%;
+}
+
+

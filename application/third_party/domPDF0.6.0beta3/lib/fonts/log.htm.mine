@@ -1,0 +1,473 @@
+<span style='color: #000'>167 frames</span>	<span style='color: #900'>6,144 KB</span>	<span style='color: #090'>414.06 ms</span>	<span style='color: #009' title='Quirksmode'><span style='color: #c00'>ON</span></span><br />
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  A non-numeric value encountered</p>
+<p>Filename: include/page_frame_decorator.cls.php</p>
+<p>Line Number: 439</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/page_frame_decorator.cls.php<br />
+			Line: 439<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/block_frame_reflower.cls.php<br />
+			Line: 725<br />
+			Function: check_page_break			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/frame_decorator.cls.php<br />
+			Line: 556<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/page_frame_reflower.cls.php<br />
+			Line: 138<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/frame_decorator.cls.php<br />
+			Line: 556<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/dompdf.cls.php<br />
+			Line: 817<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/helpers/util_helper.php<br />
+			Line: 1863<br />
+			Function: render			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/controllers/Usuarios.php<br />
+			Line: 670<br />
+			Function: CertificadoLaboral_pdf			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/index.php<br />
+			Line: 385<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  A non-numeric value encountered</p>
+<p>Filename: include/absolute_positioner.cls.php</p>
+<p>Line Number: 97</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/absolute_positioner.cls.php<br />
+			Line: 97<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/frame_decorator.cls.php<br />
+			Line: 546<br />
+			Function: position			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/block_frame_reflower.cls.php<br />
+			Line: 683<br />
+			Function: position			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/frame_decorator.cls.php<br />
+			Line: 556<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/block_frame_reflower.cls.php<br />
+			Line: 722<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/frame_decorator.cls.php<br />
+			Line: 556<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/page_frame_reflower.cls.php<br />
+			Line: 138<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/frame_decorator.cls.php<br />
+			Line: 556<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/dompdf.cls.php<br />
+			Line: 817<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/helpers/util_helper.php<br />
+			Line: 1863<br />
+			Function: render			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/controllers/Usuarios.php<br />
+			Line: 670<br />
+			Function: CertificadoLaboral_pdf			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/index.php<br />
+			Line: 385<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  A non-numeric value encountered</p>
+<p>Filename: include/absolute_positioner.cls.php</p>
+<p>Line Number: 97</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/absolute_positioner.cls.php<br />
+			Line: 97<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/frame_decorator.cls.php<br />
+			Line: 546<br />
+			Function: position			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/block_frame_reflower.cls.php<br />
+			Line: 683<br />
+			Function: position			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/frame_decorator.cls.php<br />
+			Line: 556<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/block_frame_reflower.cls.php<br />
+			Line: 722<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/frame_decorator.cls.php<br />
+			Line: 556<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/page_frame_reflower.cls.php<br />
+			Line: 138<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/frame_decorator.cls.php<br />
+			Line: 556<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/dompdf.cls.php<br />
+			Line: 817<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/helpers/util_helper.php<br />
+			Line: 1863<br />
+			Function: render			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/controllers/Usuarios.php<br />
+			Line: 670<br />
+			Function: CertificadoLaboral_pdf			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/index.php<br />
+			Line: 385<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+
+<h4>A PHP Error was encountered</h4>
+
+<p>Severity: Warning</p>
+<p>Message:  A non-numeric value encountered</p>
+<p>Filename: include/block_renderer.cls.php</p>
+<p>Line Number: 105</p>
+
+
+	<p>Backtrace:</p>
+	
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/block_renderer.cls.php<br />
+			Line: 105<br />
+			Function: _error_handler			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/block_renderer.cls.php<br />
+			Line: 45<br />
+			Function: _render_border			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/renderer.cls.php<br />
+			Line: 283<br />
+			Function: render			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/renderer.cls.php<br />
+			Line: 106<br />
+			Function: _render_frame			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/renderer.cls.php<br />
+			Line: 185<br />
+			Function: render			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/renderer.cls.php<br />
+			Line: 185<br />
+			Function: render			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/renderer.cls.php<br />
+			Line: 185<br />
+			Function: render			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/renderer.cls.php<br />
+			Line: 185<br />
+			Function: render			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/renderer.cls.php<br />
+			Line: 185<br />
+			Function: render			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/renderer.cls.php<br />
+			Line: 185<br />
+			Function: render			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/page_frame_reflower.cls.php<br />
+			Line: 147<br />
+			Function: render			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/frame_decorator.cls.php<br />
+			Line: 556<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/third_party/domPDF0.6.0beta3/include/dompdf.cls.php<br />
+			Line: 817<br />
+			Function: reflow			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/helpers/util_helper.php<br />
+			Line: 1863<br />
+			Function: render			</p>
+
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/application/controllers/Usuarios.php<br />
+			Line: 670<br />
+			Function: CertificadoLaboral_pdf			</p>
+
+		
+	
+		
+	
+		
+			<p style="margin-left:10px">
+			File: /var/www/html/jorge/index.php<br />
+			Line: 385<br />
+			Function: require_once			</p>
+
+		
+	
+
+</div>

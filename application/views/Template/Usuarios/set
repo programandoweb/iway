@@ -1,0 +1,56 @@
+<?php
+/* 
+	DESARROLLO Y PROGRAMACIÓN
+	PROGRAMANDOWEB.NET
+	LCDO. JORGE MENDEZ
+	info@programandoweb.net
+*/?>
+<?php 
+$modulo		=	$this->ModuloActivo;
+$row		=	$this->$modulo->result;
+echo form_open(current_url(),array('ajaxing' => 'true'));	?>
+<div class="container" style="margin-bottom:100px;">
+	<div class="row justify-content-md-center">
+    	<div class="col-md-8">
+        	<div class="form">
+	            <div class="row form-group item">
+	                <div class="col-md-12 text-center">
+		            	<h3>Configuracion certificado comercial</h3>
+                    </div>
+                </div>
+                <div class="row form-group">
+	                <div class="col-md-4 text-right">	
+                    	<b>Salario básico Mensual *</b>
+                    </div>
+                    <div class="col-md-8">	
+                        <?php set_input("Salario_basico_mensual",@$row,"Salario basico mensual",$require=true);?>
+                    </div>
+				</div>                    
+                <div class="row form-group">
+	                <div class="col-md-4 text-right">	
+                    	<b>Auxilio de transporte *</b>
+                    </div>
+                    <div class="col-md-8">	
+                        <?php set_input("Auxilio_de_transporte",@$row,"Auxilio de transporte",$require=true);?>
+                    </div>
+				</div>
+                <div class="row form-group">
+	                <div class="col-md-4 text-right">	
+                    	<b>Comisiones, utilidades y/o Bonificaciones (Promedio) *</b>
+                    </div>
+                    <div class="col-md-8">
+                        <?php set_input("Bonificaciones",@$row,"Comisiones, utilidades y/o Bonificaciones (Promedio)",$require=true);?>
+                    </div>
+				</div> 
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>                        
+                    </div>
+                </div>                   
+			</div>
+        </div>
+    </div>
+</div>
+<?php echo form_close();?>
