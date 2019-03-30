@@ -109,9 +109,9 @@
                                                                     if($this->user->rol_id==1){
                                                                 ?>
                                                                     <div>
-                                                                        <a class="btn btn-link" href="<?php echo base_url($v4->url)?>">
+                                                                        <div class="btn btn-link" data-url="<?php echo base_url($v4->url)?>">
                                                                             <?php echo $v4->modulo;?>
-                                                                        </a>
+                                                                        </div>
                                                                     </div>
                                                                 <?php
                                                                     }else if(array_search($v4->id,$this->user->menu['roles_modulos_permitidos'])===false){
@@ -119,9 +119,9 @@
                                                                     }else{
                                                                 ?>
                                                                 <div>
-                                                                    <a class="btn btn-link" href="<?php echo base_url($v4->url)?>">
+                                                                    <div class="btn btn-link" data-url="<?php echo base_url($v4->url)?>">
                                                                         <?php echo $v4->modulo;?>
-                                                                    </a>
+                                                                    </div>
                                                                 </div>
                                                             <?php }}?>
                                                         </div>
