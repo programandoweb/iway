@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * CodeIgniter
  *
@@ -63,7 +63,7 @@
  * Different environments will require different levels of error reporting.
  * By default development will show errors but testing and live will hide them.
  */
-date_default_timezone_set('America/Bogota');
+date_default_timezone_set('America/Bogota'); 
 switch (ENVIRONMENT)
 {
 	case 'development':
@@ -92,20 +92,19 @@ switch (ENVIRONMENT)
 
 /*HEADER*/
 //define('DOMINIO',$_SERVER["REQUEST_SCHEME"].'://base.programandoweb.net/');
-define('DOMINIO','https://'.$_SERVER['SERVER_NAME'].'/iway/');
-define('NOTIFICACIONES','https://'.$_SERVER['SERVER_NAME'].'/iway/Utilidades/Notificaciones/');
+define('DOMINIO','http://'.$_SERVER['SERVER_NAME'].'/iway/');
+define('NOTIFICACIONES','http://'.$_SERVER['SERVER_NAME'].'/iway/Utilidades/Notificaciones/');
 define('SEO_KEYWORDS',"");
 define('SEO_DESCRIPTION',"");
 define('SEO_TITLE',"Iway®");
 define('SEO_NAME',"Iway®");
-define('SEO_GENERATOR',"@webcamplus.com.co");
-
+define('SEO_GENERATOR',"@programandoweb");
 /*END HEADER*/
 
 /*DATABASE*/
-define('DB_USER','iway_db');
-define('DB_PASS','fdqejH8h');
-define('DB_DATABASE','iway_db');
+define('DB_USER','root');
+define('DB_PASS','');
+define('DB_DATABASE','iway');
 /*EN DATABASE*/
 
 /*SMTP*/
@@ -113,14 +112,14 @@ define('PROTOCOL'				,	"mail");
 define('SMTP_HOST'				,	"p3plvcpnl29130.prod.phx3.secureserver.net");
 define('SMTP_PORT'				,	"465");
 
-define('SMTP_TIMEOUT'			,	"700");
-define('SMTP_USER'				,	"info@webcamplus.com.co/iway");
+define('SMTP_TIMEOUT'			,	"7");
+define('SMTP_USER'				,	"info@webcamplus.com.co");
 define('SMTP_PASS'				,	"8w7!G.rpPsTH");
-define('CHARSET'				,	"utf-8");
-define('NEWLINE'				,	"\r\n");
-define('MAILTYPE'				,	"html");
-define('VALIDATION'				,	TRUE);
-define('FROM_NAME'				,	"iway™");
+define('CHARSET'				,	"utf-8");	
+define('NEWLINE'				,	"\r\n");	
+define('MAILTYPE'				,	"html");	
+define('VALIDATION'				,	TRUE);	
+define('FROM_NAME'				,	"WebcamPlus®");
 define('FROM_EMAIL'				,	SMTP_USER);
 /*END SMTP*/
 
@@ -162,6 +161,7 @@ define('APANEL_OPERACIONES',TRUE);
 define('APANEL_CLIENTES',TRUE);
 define('APANEL_FORMULARIOS',TRUE);
 define('APANEL_UTILIDADES',TRUE);
+define('APANEL_CAJAS',TRUE);
 /*END MÚDLOS ACTIVO*/
 
 /*

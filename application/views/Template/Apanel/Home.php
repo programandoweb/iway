@@ -7,20 +7,23 @@
 <script>
 	$(document).ready(function($) {
 		$(".btn-link").click(function(event){
-			event.preventDefault();
-			history.pushState({"url":$(this).attr("href")}, "url");
-			$("#iframe").attr("src",$(this).attr("href"));
-			$("#iframe").css("height",calcularAlturaIframe());
+			history.pushState({"url":$(this).data("url")}, "url");
+			$("#iframe").attr("src",$(this).data("url"));
 		});
-		$("#iframe").attr("src",'<?php echo base_url("Usuarios/welcome"); ?>');
-		$("#iframe").css("height",calcularAlturaIframe());
+		if(history.state == undefined){
+			url = '<?php echo base_url("Usuarios/welcome"); ?>';
+		}else{
+			url = history.state.url;
+		}
+		$("#iframe").attr("src",url);
+		//$("#iframe").css("height",calcularAlturaIframe());
 	});
 <!--
 /* *** iframes *** */
 /* Mini-libreria que resuelve las acciones mas comunes con iframes */
 /* siempre que los iframes sean del mismo dominio */
 
-function getIframe(iframeElement){
+/*function getIframe(iframeElement){
 	//devuelve el document de un iframe
 	return iframeElement.contentDocument;
 }
@@ -29,6 +32,6 @@ function calcularAlturaIframe(){
 	var innerdoc = getIframe( document.getElementById('iframe') );
 	//para saber la altura del contenido del documento del iframe:
 	return innerdoc.body.scrollHeight;;
-}
+}*/
 //-->
 </script>

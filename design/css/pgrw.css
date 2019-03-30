@@ -34,11 +34,16 @@ p{
 h1,h2,h3,h4,h5,h6{
 	 font-family: 'Oswald', sans-serif;
 }
+#profile{
+	width: 48px;
+	border-radius: 50%;
+	transform: translatey(8px);
+}
 #container_iframe{
 	width: 100%;
 	padding:0;
 	margin: 0;
-	min-height: calc(100vh - 50px);
+	height: calc(100vh - 50px);
 }
 .font-weight-700{
 	 font-weight:700;
@@ -636,10 +641,8 @@ input:-moz-placeholder, textarea:-moz-placeholder {
 }
 
 /*.pgrw_windows .btn-group a{
-
 }*/
 /*.image_circle_default{
-
 }*/
 .image_rect{
 	width:260px;
@@ -806,7 +809,6 @@ td.dias{
 	/*
 	background:#FF8000;
 	color:#FFF;
-
 }*/
 #reloj{
 	background: #585858 !important;
