@@ -23,41 +23,39 @@
 				</div>
 
 				<ul class="list-unstyled components">
-						<li class="active">
-								<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-								<ul class="collapse list-unstyled" id="homeSubmenu">
-										<li>
-												<a href="#">Home 1</a>
-										</li>
-										<li>
-												<a href="#">Home 2</a>
-										</li>
-										<li>
-												<a href="#">Home 3</a>
-										</li>
-								</ul>
-						</li>
-						<li>
-								<a href="#">About</a>
-								<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-								<ul class="collapse list-unstyled" id="pageSubmenu">
-										<li>
-												<a href="#">Page 1</a>
-										</li>
-										<li>
-												<a href="#">Page 2</a>
-										</li>
-										<li>
-												<a href="#">Page 3</a>
-										</li>
-								</ul>
-						</li>
-						<li>
-								<a href="#">Portfolio</a>
-						</li>
-						<li>
-								<a href="#">Contact</a>
-						</li>
+					<li class="active">
+						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Mas Visitados</a>
+						<ul class="collapse list-unstyled" id="homeSubmenu">
+                            <?php foreach (get_links() as $k9 => $v9) { ?>
+                                <li>
+                                    <div data-id="<?php echo $v9->id_link; ?>" class="btn btn-link text-white" data-url="<?php echo base_url($v9->url)?>">
+                                        <?php echo $v9->modulo;?>
+                                    </div>
+                                </li>
+                            <?php } ?>
+						</ul>
+					</li>
+					<li>
+						<a href="#">About</a>
+						<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+						<ul class="collapse list-unstyled" id="pageSubmenu">
+							<li>
+								<a href="#">Page 1</a>
+							</li>
+							<li>
+								<a href="#">Page 2</a>
+							</li>
+							<li>
+								<a href="#">Page 3</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">Portfolio</a>
+					</li>
+					<li>
+						<a href="#">Contact</a>
+					</li>
 				</ul>
 		</nav>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary yamm " id="slide-nav">
@@ -109,7 +107,7 @@
                                                                     if($this->user->rol_id==1){
                                                                 ?>
                                                                     <div>
-                                                                        <div class="btn btn-link" data-url="<?php echo base_url($v4->url)?>">
+                                                                        <div data-id="<?php echo $v4->id; ?>" class="btn btn-link" data-url="<?php echo base_url($v4->url)?>">
                                                                             <?php echo $v4->modulo;?>
                                                                         </div>
                                                                     </div>
@@ -119,7 +117,7 @@
                                                                     }else{
                                                                 ?>
                                                                 <div>
-                                                                    <div class="btn btn-link" data-url="<?php echo base_url($v4->url)?>">
+                                                                    <div class="btn btn-link" data-id="<?php echo $v4->id; ?>" data-url="<?php echo base_url($v4->url)?>">
                                                                         <?php echo $v4->modulo;?>
                                                                     </div>
                                                                 </div>

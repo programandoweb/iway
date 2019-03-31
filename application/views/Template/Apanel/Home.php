@@ -9,6 +9,11 @@
 		$(".btn-link").click(function(event){
 			history.pushState({"url":$(this).data("url")}, "url");
 			$("#iframe").attr("src",$(this).data("url"));
+			$.post('<?php echo base_url("Utilidades/links") ?>', {id: $(this).data("id")}, function(data){
+				links.each(function(index, el){
+					console.log(el);
+				});
+			},"Json");
 		});
 		if(history.state == undefined){
 			url = '<?php echo base_url("Usuarios/welcome"); ?>';

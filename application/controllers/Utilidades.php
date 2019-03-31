@@ -61,6 +61,12 @@ class Utilidades extends CI_Controller {
 		return;
 	}
 
+	public function links(){
+		$links = insert_links(post());
+		echo json_encode($links);
+		return;
+	}
+
 	public function ConfigEmail(){
 		if(post()){
 			$set = set_form_control(post());

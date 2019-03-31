@@ -51,6 +51,39 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
   }
 
+  function insert_links($id){
+    $ci   =&  get_instance();
+    $tabla  = "op_links";
+    $row  = $ci->db->select("contador")->from($tabla)
+                          ->where('user_id',$ci->user->user_id)
+                          ->where('id_link',$id["id"])
+                          ->get()
+                          ->row();
+    if(empty($row)){
+      $contador = 1;
+      $ci->db->insert($tabla,array("id_link"=>$id["id"],"contador"=>$contador,"user_id"=>$ci->user->user_id));
+    }else{
+      $contador = $row->contador + 1 ;
+      $ci->db->where('user_id',$ci->user->user_id);
+      $ci->db->where('id_link',$id["id"]);
+      $ci->db->update($tabla,array("contador"=>$contador));
+    }
+    $links = get_links();
+    return $links;
+  }
+
+  function get_links(){
+    $ci   =&  get_instance();
+    $tabla  = "op_links t1";
+    $rows  = $ci->db->select("t1.id_link,t1.contador,t2.modulo,t2.url")->from($tabla)
+                          ->join("sys_roles_modulos t2","t1.id_link = t2.id","left")
+                          ->where('user_id',$ci->user->user_id)
+                          ->order_by("t1.contador","DESC")
+                          ->get()
+                          ->result();
+    return $rows;
+  }
+
   function user_x_token($token){
     $ci   =&  get_instance();
     $tabla            = "usuarios";
