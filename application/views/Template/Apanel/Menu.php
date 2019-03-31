@@ -29,7 +29,7 @@
                             <?php foreach (get_links() as $k9 => $v9) { ?>
                                 <li>
                                     <div data-id="<?php echo $v9->id_link; ?>" class="btn btn-link text-white" data-url="<?php echo base_url($v9->url)?>">
-                                        <?php echo $v9->modulo;?>
+                                        <?php echo $v9->modulo;?> (<?php echo $v9->contador; ?>)
                                     </div>
                                 </li>
                             <?php } ?>

@@ -10,9 +10,11 @@
 			history.pushState({"url":$(this).data("url")}, "url");
 			$("#iframe").attr("src",$(this).data("url"));
 			$.post('<?php echo base_url("Utilidades/links") ?>', {id: $(this).data("id")}, function(data){
-				links.each(function(index, el){
-					console.log(el);
+				var links = "";
+				$.each(data,function(index, el){
+					links += '<li><div data-id="'+el.id_link+'" class="btn btn-link text-white" data-url="'+el.url+'">'+el.modulo+' ('+el.contador+')</div></li>';
 				});
+				$("#homeSubmenu").html(links);
 			},"Json");
 		});
 		if(history.state == undefined){
