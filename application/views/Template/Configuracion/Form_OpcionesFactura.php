@@ -1,10 +1,4 @@
 <?php
-/* 
-	DESARROLLO Y PROGRAMACIÓN
-	PROGRAMANDOWEB.NET
-	LCDO. JORGE MENDEZ
-	info@programandoweb.net
-*/
 $modulo		=	$this->ModuloActivo;
 $row		=	$this->$modulo->result;
 $json		=	json_decode(@$row->json);

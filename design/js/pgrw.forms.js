@@ -164,10 +164,14 @@
 			
 		},'json').fail(function() {
 			callback_modal("Error consulte al administrador de sistemas");
-			console.log(elem.find('[name="redirect"]'));
+			//console.log(elem.find('[name="redirect"]'));
 		}).always(function(data){
-			if(data.message){						
-				callback_modal(data.message);
+			if(data.message){
+				if(data.parent)
+					callback_modal(data.message,data.parent);
+				}else{
+					callback_modal(data.message);
+				}						
 			}
 			if(data.code==200){
 				var redirect = elem.find('[name="redirect"]');
@@ -179,7 +183,7 @@
 			if(data.code==100){
 			}
 			if(data.callback){
-				eval(data.callback);
+				//eval(data.callback);
 			}
 		});
 	}
@@ -202,8 +206,13 @@
 		$("body").append($modal);			
 	}
 	
-	function callback_modal(message){
-		$modal.find(".modal-body").html('<div class="text-center">'+message+'</div>');
+	function callback_modal(message,parent){
+		if(parent == "parent"){
+			$modal.find(".modal-dialog").addClass('modal-personalized');
+			$modal.find(".modal-body").html('<div class="text-center">'+message+'</div>');
+		}else{
+			$modal.find(".modal-body").html('<div class="text-center">'+message+'</div>');
+		}
 		$modal.modal({ keyboard: false})
 	}
 	

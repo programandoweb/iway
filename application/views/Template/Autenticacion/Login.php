@@ -12,7 +12,8 @@
                 <div class="col-sm-12 ">
                     <div class="input-group">
                        <!-- <span class="input-group-addon" id="basic-addon1" style="width:40px;">--><!--<i class="fas fa-user" aria-hidden="true"></i></span>-->
-                        <input  style="border:none;  border-bottom: 1px solid #b3b3b3" type="text" id="email" name="username" class="form-control" placeholder="Nombre de usuario">
+                       <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                        <input  style="border:none;  border-bottom: 1px solid #b3b3b3" type="text" id="email" name="username" class="form-control oscuro" placeholder="Nombre de usuario">
                     </div>
                 </div>
             </div>
@@ -20,7 +21,12 @@
                 <div class="col-sm-12">
                     <div class="input-group">
                         <!--<span class="input-group-addon" id="basic-addon1" style="width:40px;">--><!--<i class="fa fa-lock" aria-hidden="true"></i></span>-->
-                        <input style="border:none;  border-bottom: 1px solid #b3b3b3" type="password" id="password" name="password" class="form-control" placeholder="Contraseña" require>
+                        <div class="input-group-addon"><i class="fas fa-key"></i></div>
+                        <input style="border:none;  border-bottom: 1px solid #b3b3b3" type="password" id="password" name="password" class="form-control oscuro" placeholder="Contraseña" require>
+                    </div>
+                    <div>
+                        <p class="text-right mt-2 opcion" style="cursor:pointer">Mostrar</p>
+                        <p class="text-right mt-2 opcion" style="cursor:pointer; display:none;">Ocultar</p>
                     </div>
                 </div>
             </div>
@@ -33,8 +39,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="text-center">
-                    <a class="btn  contrasena text-center" href="<?php echo base_url("autenticacion/recover")?>">
+                <div class="text-left">
+                    <a class="btn  contrasena lightbox" title="Olvidé mi contraseña" data-height="170" data-size="modal-sm" data-type="iframe" href="<?php echo base_url("autenticacion/recover")?>">
                         Olvidé mi Contraseña
                     </a>
                 </div>
@@ -45,11 +51,9 @@
                 </div>
             </div>            
         </div>
-        <div class="col-md-7 login d-none d-md-block d-xl-block">
-            <div>
-                <div>
-                    <img  src="<?php echo DOMINIO?>images/design/login.jpg" alt="..." />
-                </div>
+        <div class="col-md-7 d-none d-md-block d-xl-block" style="margin-right: 0px;">
+            <div  style="background-image: url(<?php echo DOMINIO; ?>images/design/login.jpg); width: 100%;height: 100vh; background-repeat: no-repeat;background-size: cover;">
+                <!--<img  src="<?php echo DOMINIO?>images/design/login.jpg" alt="..." />-->
             </div>
         </div>
     </div>
@@ -57,6 +61,15 @@
 <?php echo form_close();?>
 <script>
     $(document).ready(function() {
-        
+        $(".opcion").click(function(event){
+            $(".opcion").show();
+            if($(this).text() == "Mostrar"){
+                $("#password").attr("type","text");
+                $(this).hide();
+            }else{
+                $("#password").attr("type","password");
+                $(this).hide();
+            }
+        });
     });
 </script>

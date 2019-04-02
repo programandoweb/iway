@@ -42,7 +42,7 @@ h1,h2,h3,h4,h5,h6{
 #container_iframe{
 	width: 100%;
 	padding:0;
-	margin: 0;
+	margin: 50px 0 0 0;
 	height: calc(100vh - 50px);
 }
 .font-weight-700{
@@ -213,6 +213,10 @@ button, .btn-primary.disabled, .btn-primary:disabled {
     border-color: #434343;
 }
 
+.contrasena{
+	padding-left: 0;
+}
+
 .btn-info {
     color: #fff;
     /*background-color: #777;
@@ -232,6 +236,10 @@ a:focus, a:hover {
     text-decoration: underline;
 }
 
+.oscuro{
+	background: #f2f2f2;
+}
+
 .alert-info {
     background-color: #414141 !important;
     border-color: #434343 !important;
@@ -241,7 +249,7 @@ a:focus, a:hover {
 .navbar-inverse .navbar-nav .active > .nav-link, .navbar-inverse .navbar-nav .nav-link.active, .navbar-inverse .navbar-nav .nav-link.open, .navbar-inverse .navbar-nav .open > .nav-link {
 	font-family: 'Raleway', sans-serif;
 	font-weight:700;
-	font-size:14px;
+	font-size:18px;
 }
 .navbar-inverse .navbar-nav .nav-link {
 	font-family: 'Raleway', sans-serif;
@@ -256,7 +264,6 @@ a:focus, a:hover {
 	-o-background-size: cover;
 	background-size: cover;
 	height: 50px;
-
  }
 #MiInfo{
 	margin-top: 5px;
@@ -286,6 +293,7 @@ nav> ul> li> #Menu_user ,#fondo{
 
 .show>.dropdown-menu {
 	right:0;
+	top: 78%;
 }
 
 .MarcAgua{
@@ -360,7 +368,7 @@ nav> ul> li> #Menu_user ,#fondo{
 }
 .orange{
 	/*color:#FF8000;*/
-	color:#00c7ce;
+	color:#6E6E6E;
 }
 /* Grid demo styles */
 .grid-demo {
@@ -517,7 +525,7 @@ input:-moz-placeholder, textarea:-moz-placeholder {
 }
 @media (min-width: 768px) {
   .modal-lg {
-	   width: 95%;
+	   width: 65%;
 	   max-width:1200px;
   }
 }
@@ -787,7 +795,7 @@ td.dias{
 	padding-top:12.5px;
 	margin-left:40px;
 	background-color:#fff;
-	color:#00c7ce;
+	color:#6E6E6E;
 }
 .dropdown-menu .btn{
 	line-height: 0.25;
@@ -970,11 +978,53 @@ background-color:#f2f2f2;
 #sidebar {
     width: 250px;
     position: fixed;
-    top: 0;
+    top: 50px;
     left: -250px;
-    height: 100vh;
+    height: calc(100vh - 50px);
     z-index: 9990000;
-    background: #7386D5;
+    background: #6E6E6E;;
+    color: #fff;
+    transition: all 0.3s;
+    overflow-y: scroll;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+#sidebar2 {
+    width: 250px;
+    position: fixed;
+    top: 50px;
+    left: -250px;
+    height: calc(100vh - 50px);
+    z-index: 9990000;
+    background: #6E6E6E;;
+    color: #fff;
+    transition: all 0.3s;
+    overflow-y: scroll;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+#sidebar3 {
+    width: 250px;
+    position: fixed;
+    top: 50px;
+    left: -250px;
+    height: calc(100vh - 50px);
+    z-index: 9990000;
+    background: #6E6E6E;;
+    color: #fff;
+    transition: all 0.3s;
+    overflow-y: scroll;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+#sidebar4 {
+    width: 250px;
+    position: fixed;
+    top: 50px;
+    left: -250px;
+    height: calc(100vh - 50px);
+    z-index: 9990000;
+    background: #6E6E6E;
     color: #fff;
     transition: all 0.3s;
     overflow-y: scroll;
@@ -990,7 +1040,6 @@ background-color:#f2f2f2;
     height: 35px;
     line-height: 35px;
     text-align: center;
-    background: #7386D5;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -1022,11 +1071,9 @@ background-color:#f2f2f2;
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #6d7fcc;
 }
 
 #sidebar ul.components {
-    padding: 20px 0;
     border-bottom: 1px solid #47748b;
 }
 
@@ -1036,20 +1083,22 @@ background-color:#f2f2f2;
 }
 
 #sidebar ul li a {
-    padding: 10px;
-    font-size: 1.1em;
+    padding: 4px;
+    font-size: 1.2em;
     display: block;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 #sidebar ul li a:hover {
-    color: #7386D5;
+    color:  black;
     background: #fff;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
-    color: #fff;
-    background: #6d7fcc;
+    color: black;
+    text-decoration:none;
 }
 
 a[data-toggle="collapse"] {
@@ -1112,4 +1161,40 @@ a.article:hover {
 	top: 60px;
 	left: 0;
 	z-index: 9999;
+}
+
+#sidebarCollapse2{
+	position: absolute;
+	top: 100px;
+	left: 0;
+	z-index: 9999;
+}
+
+#sidebarCollapse3{
+	position: absolute;
+	top: 140px;
+	left: 0;
+	z-index: 9999;
+}
+
+#sidebarCollapse4{
+	position: absolute;
+	top: 180px;
+	left: 0;
+	z-index: 9999;
+}
+
+.modal{
+	top:9em;
+}
+
+.modal-header{
+	min-height: 60px;
+	background: #6E6E6E;
+	color: white;
+}
+
+#smartwizard{
+	margin-left: -15px;
+	margin-right: -15px;
 }

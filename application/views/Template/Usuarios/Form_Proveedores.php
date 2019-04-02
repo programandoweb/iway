@@ -9,7 +9,7 @@
    $hidden   =   array('user_id' => (isset($row->user_id))?$row->user_id:'','id' =>(isset($row->id))?$row->id:'',);
    echo form_open(current_url(),array('ajaxing' => 'true'),$hidden); 
    ?>
-   <div class="container mt-4">
+   <div class="mt-4">
 
 <!-- SmartWizard html -->
 <div id="smartwizard">

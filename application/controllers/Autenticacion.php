@@ -148,7 +148,7 @@ class Autenticacion extends CI_Controller {
 	}
 	
 	public function recoverpass(){
-		if ($this->input->is_ajax_request()) {
+		if ($this->input->is_ajax_request()){
 			if($this->Autenticacion){
 				if(method_exists($this->Autenticacion,"get_user_by_email")){
 					$user			=	$this->Autenticacion->get_user_by_email(post());
@@ -156,7 +156,7 @@ class Autenticacion extends CI_Controller {
 					$this->db->where('user_id', $user->user_id)->update("usuarios", array("token"=>$user->token));
 					$var		=	array(	
 										"view"		=>	"recover",
-										"data"		=>	array(	"userName"	=>	$user->nombre,
+										"data"		=>	array(	"userName"	=>	$user->primer_nombre.' '.$user->segundo_nombre.' '.$user->primer_apellido.' '.$user->segundo_apellido,
 																"href"		=>	base_url("autenticacion/recovertoken/".$user->token)
 									));
 					$mensaje	=	set_template_mail($var);
@@ -169,7 +169,8 @@ class Autenticacion extends CI_Controller {
 						$sendmail	=	send_mail($var);	
 						if(!$sendmail['error']){
 							$this->Response 		=			array(	"message"	=>	"Envío de reinicio de clave exitoso, revise su correo electrónico",
-																"code"		=>	"200");
+																"code"		=>	"200",
+																"parent"    =>  true);
 						}else{
 							$this->Response 		=			array(	"message"	=>	"Error, no se puedo reiniciar la clave, reintente más tarde",
 																"code"		=>	"203");
@@ -196,8 +197,7 @@ class Autenticacion extends CI_Controller {
 			$respuesta	=	$this->Autenticacion->login(post());
 		//	return;
 			if(is_object($respuesta)){
-				$this->Response 		=			array(	"message"	=>	"Inicio Satisfactorio, será redirigido",
-																"code"		=>	"200");
+				$this->Response 		=			array(	"code"		=>	"200");
 			}elseif(isset($respuesta["session"])){
 				$this->Response 		=			array(	"message"	=>	$respuesta['session'],
 																"code"		=>	"200");	

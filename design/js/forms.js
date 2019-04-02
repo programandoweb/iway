@@ -339,7 +339,5 @@ $(document).ready(function(){
          $(".digito-verificacion").css("visibility", "hidden");
         }
      });
-
-
   }); 
 

@@ -5,7 +5,7 @@
 	</div>
 </div>
 <script>
-	$(document).ready(function($) {
+	$(document).ready(function($){
 		$(".btn-link").click(function(event){
 			history.pushState({"url":$(this).data("url")}, "url");
 			$("#iframe").attr("src",$(this).data("url"));
@@ -14,7 +14,7 @@
 				$.each(data,function(index, el){
 					links += '<li><div data-id="'+el.id_link+'" class="btn btn-link text-white" data-url="'+el.url+'">'+el.modulo+' ('+el.contador+')</div></li>';
 				});
-				$("#homeSubmenu").html(links);
+				$("#homeSubmenu").html($(links));
 			},"Json");
 		});
 		if(history.state == undefined){

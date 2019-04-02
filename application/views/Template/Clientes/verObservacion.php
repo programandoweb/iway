@@ -1,10 +1,4 @@
 <?php
-/* 
-	DESARROLLO Y PROGRAMACIÓN
-	PROGRAMANDOWEB.NET
-	LCDO. JORGE MENDEZ
-	info@programandoweb.net
-*/
 $modulo		=	$this->ModuloActivo;
 ?>
 <?php if(count($this->$modulo->result["observacion"])>0){?>

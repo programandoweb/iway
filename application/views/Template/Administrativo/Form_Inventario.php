@@ -5,7 +5,7 @@
     echo form_open(current_url(),array('ajaxing' => 'true'),$hidden); 
 ?>
     
-<div class="container mt-4">
+<div class="mt-4">
         <div id="smartwizard">
             <ul class="d-flex justify-content-around">
                    <li><a href="#step-1"><i class="fas fa-user"></i><br /><small>Información producto</small></a></li>

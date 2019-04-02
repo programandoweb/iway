@@ -27,7 +27,7 @@ $campos= '["primer_nombre","segundo_nombre","primer_apellido","segundo_apellido"
 $hidden   =   array('user_id' => (isset($row->user_id))?$row->user_id:'');
 echo form_open(current_url(),array('ajaxing' => 'true'),$hidden); 
 ?>
-<div class="container mt-4">
+<div class="mt-4">
 <!-- SmartWizard html -->
 <div id="smartwizard">
     <ul class="d-flex justify-content-around">

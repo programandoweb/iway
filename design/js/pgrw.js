@@ -22,8 +22,8 @@ function make_modal_ajax(obj){
 	$modal			=	modal.clone();	
 	var contenido  	=	$modal.find(".modal-dialog").find(".modal-content");
 		$modal.addClass("pgrw_modal_confirm_ajax").attr("aria-labelledby","modalLabel_confirm_ajax").find(".modal-dialog").addClass(size);
-		contenido.find(".modal-header").html("<h5>"+'<i class="fas fa-info-circle"></i> ' +obj.attr("title")+"</h5>");
-		contenido.find(".modal-footer").html('<button type="button" class="btn btn-warning cancelar" data-dismiss="modal"><i class="fas fa-window-close"></i> Cerrar</button>');
+		contenido.find(".modal-header").html("<h5>"+'<i class="fas fa-info-circle"></i> ' +obj.attr("title")+"</h5><button type='button' class='btn btn-warning cancelar' data-dismiss='modal'><b>x</b></button>");
+		//contenido.find(".modal-footer").html('<button type="button" class="btn btn-warning cancelar" data-dismiss="modal"><i class="fas fa-window-close"></i> Cerrar</button>');
 	$("body").append($modal);
 	$modal.find(".modal-body").html('<div class="text-center"><i class="fa fa-cog fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span></div>');
 	if(obj.data("type")=='iframe'){
@@ -1035,8 +1035,8 @@ function make_message(title,message){
 	$modal			=	modal.clone();
 	var contenido  	=	$modal.find(".modal-dialog").find(".modal-content");
 		$modal.addClass("pgrw_modal_confirm_ajax").attr("aria-labelledby","modalLabel_confirm_ajax").find(".modal-dialog").addClass("modal-md");
-		contenido.find(".modal-header").html("<h5>"+title+"</h5>");
-		contenido.find(".modal-footer").html('<button type="button" class="btn btn-warning cancelar" data-dismiss="modal">Cerrar</button>');
+		contenido.find(".modal-header").html('<h5>'+title+'</h5><button type="button" class="btn btn-warning cancelar" data-dismiss="modal">Cerrar</button>');
+		//contenido.find(".modal-footer").html('<button type="button" class="btn btn-warning cancelar" data-dismiss="modal">Cerrar</button>');
 	$("body").append($modal);
 	$modal.find(".modal-body").html('<div class="text-center"> '+message+'</div>');
 	$modal.modal({ keyboard: false})			
@@ -1127,7 +1127,7 @@ function closeAll(){
 	});
 }
 
-var	modal	=	$('<div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"></div><div class="modal-body"></div><div class="modal-footer"></div></div></div></div>');
+var	modal	=	$('<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"></div><div class="modal-body"></div><div class="modal-footer"></div></div></div></div>');
 
 function id_equivalencia(){
 	$("#id_equivalencia").change(function(){

@@ -1,5 +1,4 @@
 <?php
-
 $modulo		=	$this->ModuloActivo;
 ?>
 <div class="container">

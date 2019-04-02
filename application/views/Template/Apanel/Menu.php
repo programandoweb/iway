@@ -9,56 +9,195 @@
 	//pre($menu["Maestros"]);
 ?>
 <header>
-		<button type="button" id="sidebarCollapse" class="btn btn-info">
-				<i class="fas fa-align-left"></i>
-		</button>
-		<!-- Sidebar  -->
-		<nav id="sidebar">
-				<div id="dismiss">
-						<i class="fas fa-arrow-left"></i>
-				</div>
-
-				<div class="sidebar-header">
-						<h3><?php echo SEO_NAME?></h3>
-				</div>
-
-				<ul class="list-unstyled components">
-					<li class="active">
-						<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Mas Visitados</a>
-						<ul class="collapse list-unstyled" id="homeSubmenu">
-                            <?php foreach (get_links() as $k9 => $v9) { ?>
-                                <li>
-                                    <div data-id="<?php echo $v9->id_link; ?>" class="btn btn-link text-white" data-url="<?php echo base_url($v9->url)?>">
-                                        <?php echo $v9->modulo;?> (<?php echo $v9->contador; ?>)
-                                    </div>
-                                </li>
-                            <?php } ?>
-						</ul>
+<div>
+    
+</div>
+	<button type="button" id="sidebarCollapse" class="btn btn-info">
+		<i class="fas fa-align-left"></i>
+	</button>
+    <button type="button" id="sidebarCollapse2" class="btn btn-info">
+        <i class="fas fa-align-left"></i>
+    </button>
+    <button type="button" id="sidebarCollapse3" class="btn btn-info">
+        <i class="fas fa-align-left"></i>
+    </button>
+    <button type="button" id="sidebarCollapse4" class="btn btn-info">
+        <i class="fas fa-align-left"></i>
+    </button>
+	<!-- Sidebar  -->
+	<nav id="sidebar">
+		<div id="dismiss">
+			<i class="fas fa-arrow-left"></i>
+		</div>
+		<div class="sidebar-header">
+			<h3><?php echo SEO_NAME?></h3>
+		</div>
+		<ul class="list-unstyled components">
+			<li class="active">
+				<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Mas Visitados</a>
+				<ul class="collapse list-unstyled" id="homeSubmenu">
+                    <?php foreach (get_links() as $k9 => $v9) { ?>
+                        <li>
+                            <div data-id="<?php echo $v9->id_link; ?>" class="btn btn-link text-white" data-url="<?php echo base_url($v9->url)?>">
+                                <?php echo $v9->modulo;?> (<?php echo $v9->contador; ?>)
+                            </div>
+                        </li>
+                    <?php } ?>
+				</ul>
+			</li>
+			<li>
+				<a href="#">About</a>
+				<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+				<ul class="collapse list-unstyled" id="pageSubmenu">
+					<li>
+						<a href="#">Page 1</a>
 					</li>
 					<li>
-						<a href="#">About</a>
-						<a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-						<ul class="collapse list-unstyled" id="pageSubmenu">
-							<li>
-								<a href="#">Page 1</a>
-							</li>
-							<li>
-								<a href="#">Page 2</a>
-							</li>
-							<li>
-								<a href="#">Page 3</a>
-							</li>
-						</ul>
+						<a href="#">Page 2</a>
 					</li>
 					<li>
-						<a href="#">Portfolio</a>
-					</li>
-					<li>
-						<a href="#">Contact</a>
+						<a href="#">Page 3</a>
 					</li>
 				</ul>
-		</nav>
-    <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary yamm " id="slide-nav">
+			</li>
+			<li>
+				<a href="#">Portfolio</a>
+			</li>
+			<li>
+				<a href="#">Contact</a>
+			</li>
+		</ul>
+	</nav>
+    <nav id="sidebar2">
+        <div id="dismiss2">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="sidebar-header">
+            <h3><?php echo SEO_NAME?></h3>
+        </div>
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Mas Visitados</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <?php foreach (get_links() as $k9 => $v9) { ?>
+                        <li>
+                            <div data-id="<?php echo $v9->id_link; ?>" class="btn btn-link text-white" data-url="<?php echo base_url($v9->url)?>">
+                                <?php echo $v9->modulo;?> (<?php echo $v9->contador; ?>)
+                            </div>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </li>
+            <li>
+                <a href="#">About</a>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Portfolio</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </nav>
+    <nav id="sidebar3">
+        <div id="dismiss3">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="sidebar-header">
+            <h3><?php echo SEO_NAME?></h3>
+        </div>
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Mas Visitados</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <?php foreach (get_links() as $k9 => $v9) { ?>
+                        <li>
+                            <div data-id="<?php echo $v9->id_link; ?>" class="btn btn-link text-white" data-url="<?php echo base_url($v9->url)?>">
+                                <?php echo $v9->modulo;?> (<?php echo $v9->contador; ?>)
+                            </div>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </li>
+            <li>
+                <a href="#">About</a>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Portfolio</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </nav>
+    <nav id="sidebar4">
+        <div id="dismiss4">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="sidebar-header">
+            <h3><?php echo SEO_NAME?></h3>
+        </div>
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Mas Visitados</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <?php foreach (get_links() as $k9 => $v9) { ?>
+                        <li>
+                            <div data-id="<?php echo $v9->id_link; ?>" class="btn btn-link text-white" data-url="<?php echo base_url($v9->url)?>">
+                                <?php echo $v9->modulo;?> (<?php echo $v9->contador; ?>)
+                            </div>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </li>
+            <li>
+                <a href="#">About</a>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Portfolio</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </nav>
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary yamm fixed-top" id="slide-nav">
 		<button class="navbar-toggler navbar-toggler-left mb-1" type="button" data-toggle="collapse" data-target="#navbarTopMenu" aria-controls="navbarTopMenu" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -173,9 +312,20 @@
 				$("#sidebar").mCustomScrollbar({
 						theme: "minimal"
 				});
-
+                $("#sidebar2").mCustomScrollbar({
+                        theme: "minimal"
+                });
+                $("#sidebar3").mCustomScrollbar({
+                        theme: "minimal"
+                });
+                $("#sidebar4").mCustomScrollbar({
+                        theme: "minimal"
+                });
 				$('#dismiss, .overlay').on('click', function () {
 						$('#sidebar').removeClass('active');
+                        $('#sidebar2').removeClass('active');
+                        $('#sidebar3').removeClass('active');
+                        $('#sidebar4').removeClass('active');
 						$('.overlay').removeClass('active');
 				});
 
@@ -185,5 +335,23 @@
 						$('.collapse.in').toggleClass('in');
 						$('a[aria-expanded=true]').attr('aria-expanded', 'false');
 				});
+                $('#sidebarCollapse2').on('click', function () {
+                        $('#sidebar2').addClass('active');
+                        $('.overlay').addClass('active');
+                        $('.collapse.in').toggleClass('in');
+                        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                });
+                $('#sidebarCollapse3').on('click', function () {
+                        $('#sidebar3').addClass('active');
+                        $('.overlay').addClass('active');
+                        $('.collapse.in').toggleClass('in');
+                        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                });
+                $('#sidebarCollapse4').on('click', function () {
+                        $('#sidebar4').addClass('active');
+                        $('.overlay').addClass('active');
+                        $('.collapse.in').toggleClass('in');
+                        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                });
 		});
 </script>
