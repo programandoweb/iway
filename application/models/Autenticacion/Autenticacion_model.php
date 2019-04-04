@@ -26,7 +26,7 @@ class Autenticacion_model extends CI_Model {
 
   public function login($var){
 	//	pre($var); return;
-		$data = $this->db->select('*,t1.estado as estatus')->from("usuarios t1")->join('mae_cliente_joberp t2', 't1.user_id = t2.id_representante_legal',"left")->where('t1.username',$var['username'])->get()->row();
+		$data = $this->db->select('*,t1.estado as estatus')->from("usuarios t1")->join('mae_cliente_joberp t2', 't1.empresa_id = t2.empresa_id',"left")->where('t1.username',$var['username'])->get()->row();
 
 		if(!empty($data)){
 			if($data->rol_id == 1){
