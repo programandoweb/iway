@@ -5,7 +5,7 @@
 				message:{"form_require":'Este dato es requerido'},
 				hasestatus:{"success":'has-success',"warning":'has-warning',"danger":'has-danger'},
 				formcontrol:{"success":'form-control-success',"warning":'form-control-warning',"danger":'form-control-danger'},
-				contenedor_message:$('<div class="form-control-feedback"/>')		
+				contenedor_message:$('<div class="form-control-feedback col-md-12"/>')		
 			},
 			publicMethod,
 			$forms,
@@ -121,11 +121,11 @@
 											"elem":elem
 										}
 		;
-
+		//console.log(feedback);
 		if(feedback.grand_contenedor.find(".form-control-feedback").length==0){
 			feedback.clone.html(defaults.message.form_require);
 			//console.log(feedback.grand_contenedor),
-			feedback.grand_contenedor.addClass(defaults.hasestatus.danger).find("div").append(feedback.clone);
+			feedback.grand_contenedor.addClass(defaults.hasestatus.danger).append(feedback.clone);
 			efx(feedback.clone);
 			feedback.elem.focus().addClass(defaults.formcontrol.danger);
 			feedback.form_control_feedback	=	feedback.grand_contenedor.find(".form-control-feedback");
