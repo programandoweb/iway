@@ -39,33 +39,6 @@ class Apanel extends CI_Controller {
 		if(file_exists($this->Path.'/Menu.php')){
 			$this->load->view('Template/Apanel/Menu');			
 		}
-		/* if(defined('APANEL_REPORTES')){
-			$this->load->model("Reportes/Reportes_model");
-			$this->Reportes				= 	new Reportes_model();
-			$this->load->model("Usuarios/Usuarios_model");
-			$this->Usuarios	= 	new Usuarios_model();
-			$descuentos = $this->Usuarios->get_usuarios_descuentos(false,true);
-			$item = new stdClass;
-			$array_descuentos = array();
-			foreach($descuentos as $k => $v){
-				$item->tipo_documento    = $v->tipo_documento;
-                $item->total             = $v->valor;
-                $item->fecha             = $v->fecha;
-                $item->nombre_cliente    = $v->primer_nombre.' '.@$v->segundo_nombre.' '.$v->primer_apellido.' '.@$segundo_apellido;
-                $item->consecutivo       = $v->consecutivo;
-                $item->abreviacion       = centrodecostos($v->centro_de_costos)->abreviacion;
-                $item->estatus           = $v->estatus;
-                $item->modelo_id         = $v->modelo_id;
-                $array_descuentos[] = $item;
-			}
-			$array_me_deben = array_merge($this->Reportes->get_facturas_new()['pendiente'],$array_descuentos);
-			$this->Reportes->medeben	=	$array_me_deben;
-			$this->Reportes->debo		=	$this->Reportes->get_facturas2(NULL,array(13,8,31),1);	
-			$this->load->model("Operaciones/Operaciones_model");
-			$this->Operaciones	= 	new Operaciones_model();
-			$this->Operaciones->ResumenBancos();
-			$this->Operaciones->bancos=$this->Operaciones->ResumenBancos();
-		}*/
 		$this->load->view('Template/Apanel/Home');
 		#$this->load->view('Template/Welcome');
 		$this->load->view('Template/Footer');
