@@ -50,6 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
+$route['install'] = 'Main/Install';
 $route['Configuracion/CerrarCiclo'] 	= 	'Ventas/CerrarCiclo';
 $route['default_controller'] 	= 	'Main';
 $route['404_override'] 			= 	'Main/error_404';
