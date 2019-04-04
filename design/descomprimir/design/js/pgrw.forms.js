@@ -1,9 +1,3 @@
-/* 
-	DESARROLLO Y PROGRAMACIÓN
-	PROGRAMANDOWEB.NET
-	LCDO. JORGE MENDEZ
-	info@programandoweb.net
-*/
 (function ($, document, window, undefined ) {
 	
 	var 	pluginName 		= 	'pgrwForms',
