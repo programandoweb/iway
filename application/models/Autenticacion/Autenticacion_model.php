@@ -26,22 +26,15 @@ class Autenticacion_model extends CI_Model {
 
   public function login($var){
 	//	pre($var); return;
-		$user = $this->db->select('*')->from("usuarios")->where('login',$var['username'])->get()->row();
+		$data = $this->db->select('*,t1.estado as estatus')->from("usuarios t1")->join('mae_cliente_joberp t2', 't1.user_id = t2.id_representante_legal',"left")->where('t1.username',$var['username'])->get()->row();
 
-		if(!empty($user)){
-			if($user->type_id != 1){
-				$empresa = 	$this->db->select('*')->from("mae_cliente_joberp")->where('empresa_id',$user->empresa_id)->get()->row();
-			}
-			
-			if(isset($empresa)){
-				if(md5($var['password']) == $user->password){
-					$this->db->where("use_id",$user_id);
-					$update['password'] = encriptar($var['password']); 
-					$this->db->update("usuarios",$update);					
+		if(!empty($data)){
+			if($data->rol_id == 1){
+				if(md5($var['password']) == $data->password){
+					$this->db->where("user_id",$data->user_id);
+					$update['password'] = $data->password = encriptar($var['password']); 
+					$this->db->update("usuarios",$update);				
 				}
-				$data = array_merge($user,$empresa);
-			}else{
-				$data = $user;
 			}
 			//pre(desencriptar($data->password)); return;
 			if(desencriptar($data->password)==$var['password']){
