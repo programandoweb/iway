@@ -26,48 +26,49 @@ class Autenticacion_model extends CI_Model {
 
   public function login($var){
 	//	pre($var); return;
-		$data = $this->db->select('*,t1.estado as estatus')->from("usuarios t1")->join('mae_cliente_joberp t2', 't1.empresa_id = t2.empresa_id',"left")->where('t1.username',$var['username'])->get()->row();
+		$data = $this->db->select('*,t1.estado as estatus')->from("usuarios t1")->join('mae_cliente_joberp t2', 't1.empresa_id = t2.empresa_id',"left")->where('t1.login',$var['username'])->get()->row();
 
 		if(!empty($data)){
-			if($data->rol_id == 1){
+			if($data->type_id == 1){
 				if(md5($var['password']) == $data->password){
 					$this->db->where("user_id",$data->user_id);
-					$update['password'] = $data->password = encriptar($var['password']); 
+					$data->password = encriptar($var['password']);
+					$update['password'] = $data->password; 
 					$this->db->update("usuarios",$update);				
 				}
 			}
 			//pre(desencriptar($data->password)); return;
-			if(desencriptar($data->password)==$var['password']){
-        if($data->estatus==0){
-          return array("error"=>"Esta cuenta se encuentra inactiva, consulte con el administrador");
-        }
-        $session  = $this->db->select('*')->from("sys_session")->where('user_id',$data->user_id)->get()->row();
-        if(empty($session)){
-          unset($data->password);
-				//	pre($data->rol_id); return;
-					if($data->rol_id == 1){
-            $data->menu   = menu();
-          }else{
-            $data->menu   = menu_usuarios($data->rol_id,$data->empresa_id);
-          }
-          if($session   = ini_session($data)){
-            $this->set_session_login($session);
-            return $data;
-          }else{
-            return false;
-          }
-        }else{
-          $data->session_id   = md5(date("Y-m-d H:i:s"));
-          if($this->db->where("user_id",$data->user_id)->update("sys_session",array("fecha"=>date("Y-m-d H:i:s"),"session_id"=>$data->session_id))){
-          	$this->set_session_login($data);
-            return array("session"=>"Ya existe otra sesión abierta con este usuario y será eliminada");
-          }else{
-            return array("error"=>"Ha ocurrido un error por favor contacte al administrador de sistemas");
-          }
-        }
-      }else{
-        return array("error"=>"La contraseña es incorrecta");
-      }
+		if(desencriptar($data->password)==$var['password']){
+        	if($data->estatus==0){
+          		return array("error"=>"Esta cuenta se encuentra inactiva, consulte con el administrador");
+        	}
+        	$session  = $this->db->select('*')->from("sys_session")->where('user_id',$data->user_id)->get()->row();
+	        if(empty($session)){
+	          unset($data->password);
+					//	pre($data->rol_id); return;
+			if($data->type_id == 1){
+	           $data->menu   = menu();
+	        }else{
+	           $data->menu   = menu_usuarios($data->rol_id,$data->empresa_id);
+	        }
+	        if($session   = ini_session($data)){
+	            $this->set_session_login($session);
+	            	return $data;
+	        	}else{
+	        		return false;
+	        	}
+	        }else{
+	          $data->session_id   = md5(date("Y-m-d H:i:s"));
+	          if($this->db->where("user_id",$data->user_id)->update("sys_session",array("fecha"=>date("Y-m-d H:i:s"),"session_id"=>$data->session_id))){
+	          	$this->set_session_login($data);
+	            return array("session"=>"Ya existe otra sesión abierta con este usuario y será eliminada");
+	          }else{
+	            return array("error"=>"Ha ocurrido un error por favor contacte al administrador de sistemas");
+	          }
+	        }
+	    }else{
+	        return array("error"=>"La contraseña es incorrecta");
+	    }
     }else{
       return array("error"=>"Este usuario no esta registrado en la base de datos");
     }

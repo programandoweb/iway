@@ -2,7 +2,7 @@
 	$menu					=	array();
 	$menu["Maestros"]		=	array("Empresas"=>"Empresas","Departamentos"=>"Sucursales","Usuarios"=>"Usuarios");
 	$me_logo				=	img_logo(@get_empresa($this->user->empresa_id)->id);
-    $nombre = $this->user->primer_nombre.' '.$this->user->segundo_nombre.' '.$this->user->primer_apellido.' '.$this->user->segundo_apellido;
+    @$nombre = $this->user->primer_nombre.' '.$this->user->segundo_nombre.' '.$this->user->primer_apellido.' '.$this->user->segundo_apellido;
     //pre($this->user);
 	$sucursal=(@get_empresa($this->user->empresa_id))?get_empresa($this->user->empresa_id)->nombre_legal.@get_empresa($this->user->empresa_id)->abreviacion.'</B>':'';
 	$img_perfil	= me_img_profile();
@@ -284,10 +284,6 @@
                         </button>
                         <div class="dropdown-menu mt-3" aria-labelledby="dropdown01">
                             <a class="dropdown-item" href="#"><i class="fa fa-key" aria-hidden="true" style="width:24px;"></i> Modificar Contraseña</a>
-                            <?php 
-                                if($this->user->type=='CentroCostos' || $this->user->type=='Asociados'){?>
-                                <a class="dropdown-item" href="#"><i class="fa fa-money" aria-hidden="true" style="width:24px;"></i> Mis Planes de Pago</a>
-                            <?php }?>
                             <a class="dropdown-item" href="<?php echo base_url("autenticacion/salir")?>"><i class="fa fa-unlock-alt" aria-hidden="true" style="width:24px;"></i> Salida Segura</a>
                         </div>
                     </div>

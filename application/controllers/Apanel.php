@@ -28,7 +28,6 @@ class Apanel extends CI_Controller {
 			$this->load->model("Profesiones/Profesiones_model");
 			$this->Profesiones	= 	new Profesiones_model();
 		}
-
 		chequea_session($this->user);
     }
 	

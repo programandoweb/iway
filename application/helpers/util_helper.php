@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
     $roles            = $ci->roles          = $ci->db->get()->row();
     $menu_search        = json_decode(@$roles->json);
-    $menu_edit          = json_decode($roles->json_edit);
+    $menu_edit          = json_decode(@$roles->json_edit);
     if(is_array($menu_search)&& is_array($menu_edit)){
       $in             = array_merge($menu_search,$menu_edit);
     }else if(is_array($menu_search)&& !is_array($menu_edit)){
@@ -23,14 +23,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $in             = array();
     }
     $tabla            = "sys_roles_modulos";
-    $roles_modulos_padre  = $ci->db->select("*")->from($tabla)->where('modulo_padre',0)->order_by('order','ASC')->get()->result();
+    $roles_modulos_padre  = $ci->db->select("*")->from($tabla)->where('modulo_padre',0)->order_by('order_','ASC')->get()->result();
     $roles_modulos_hijos  = array();
     $roles_modulos_nietos = array();
     foreach($roles_modulos_padre as $k =>$v){
-      $hijos                  = $ci->db->select("*")->from($tabla)->where('modulo_padre',$v->id)->order_by('order','ASC')->get()->result();
+      $hijos                  = $ci->db->select("*")->from($tabla)->where('modulo_padre',$v->id)->order_by('order_','ASC')->get()->result();
       $roles_modulos_hijos[$v->id][]  = $hijos;
       foreach($hijos as $k2 => $v2){
-        $roles_modulos_nietos[$v2->id]  = $ci->db->select("*")->from($tabla)->where('modulo_padre',$v2->id)->order_by('order','ASC')->get()->result();
+        $roles_modulos_nietos[$v2->id]  = $ci->db->select("*")->from($tabla)->where('modulo_padre',$v2->id)->order_by('order_','ASC')->get()->result();
       }
     }
     return array( "roles_modulos_padre" =>  $roles_modulos_padre,
@@ -1046,7 +1046,7 @@ function FormAjax($view){
   function get_empresa($id){
     $ci   =&  get_instance();
     $tabla            = "mae_cliente_joberp";
-    return $ci->db->select("*")->from($tabla)->where("id",$id)->get()->row();
+    return $ci->db->select("*")->from($tabla)->where("empresa_id",$id)->get()->row();
   }
 
   function answers_json($array){
