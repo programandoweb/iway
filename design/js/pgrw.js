@@ -22,12 +22,15 @@ function make_modal_ajax(obj){
 	$modal			=	modal.clone();	
 	var contenido  	=	$modal.find(".modal-dialog").find(".modal-content");
 		$modal.addClass("pgrw_modal_confirm_ajax").attr("aria-labelledby","modalLabel_confirm_ajax").find(".modal-dialog").addClass(size);
+		if(size == "modal-sm"){
+			$modal.addClass('modal_margin_top');
+		}
 		contenido.find(".modal-header").html("<h5>"+'<i class="fas fa-info-circle"></i> ' +obj.attr("title")+"</h5><button type='button' class='btn btn-warning cancelar' data-dismiss='modal'><b>x</b></button>");
 		//contenido.find(".modal-footer").html('<button type="button" class="btn btn-warning cancelar" data-dismiss="modal"><i class="fas fa-window-close"></i> Cerrar</button>');
 	$("body").append($modal);
 	$modal.find(".modal-body").html('<div class="text-center"><i class="fa fa-cog fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span></div>');
 	if(obj.data("type")=='iframe'){
-		$iframe		=	$('<iframe src="'+obj.attr("href")+'" allowfullscreen="" frameborder="0" width="100%" height="100%" />');
+		$iframe		=	$('<iframe src="'+obj.attr("href")+'" allowfullscreen="" frameborder="0" width="100%" height="100%" /><div class="col-md-12 text-center"><div id="message_iframe"></div></div>');
 		$modal.find(".modal-body").height(height).html($iframe);
 	}
 	$modal.modal({ keyboard: true})	
@@ -212,7 +215,7 @@ $(document).ready(function(){
 	});
 }*/
 
-function validar_form_sin_require(selector){
+/*function validar_form_sin_require(selector){
     $('button[type="submit"]').click(function(event){
         var data = $(selector);
         event.preventDefault();
@@ -232,7 +235,7 @@ function validar_form_sin_require(selector){
             }
         });
     });
-}
+}*/
 
 function configEmail(){
 	$('#configEmail').click(function(e){

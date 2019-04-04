@@ -1,4 +1,3 @@
-
 <div id="container_iframe">
 	<div class="card embed-responsive embed-responsive-16by9">
 		<iframe id="iframe" src="" class="embed-responsive-item" scrolling="no" frameborder="0"></iframe>

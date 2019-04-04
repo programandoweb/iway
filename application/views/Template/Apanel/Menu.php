@@ -279,10 +279,10 @@
             <ul class="nabvar-nav ml-auto ">
                 <li class="dropdown <?php if($this->uri->segment(1)==$this->ModuloActivo && in_array($this->uri->segment(2), $menu["Maestros"])){echo "active";}?>">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <img id="profile" src="<?php echo $img_perfil;?>">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img id="profile" src="<?php echo $img_perfil;?>">
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <div class="dropdown-menu mt-3" aria-labelledby="dropdown01">
                             <a class="dropdown-item" href="#"><i class="fa fa-key" aria-hidden="true" style="width:24px;"></i> Modificar Contraseña</a>
                             <?php 
                                 if($this->user->type=='CentroCostos' || $this->user->type=='Asociados'){?>

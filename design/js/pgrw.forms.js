@@ -99,7 +99,11 @@
 				
 				inpustRequireEmpty($(v));
 				return_value	=	false;	
-				callback_modal("Por favor complete los datos requeridos");
+				if(parent.$modal.find(".modal-dialog").attr("class") == "modal-dialog modal-sm"){
+					message_iframe("Por favor complete los datos requeridos");
+				}else{
+					callback_modal("Por favor complete los datos requeridos");
+				}
 				return false; 
 			}else{
 				return_value	=	true;
@@ -163,15 +167,18 @@
 		$.post(elem.attr("action"),elem.serialize(),function(data){
 			
 		},'json').fail(function() {
-			callback_modal("Error consulte al administrador de sistemas");
+			if(parent.$modal.find(".modal-dialog").attr("class") == "modal-dialog modal-sm"){
+				message_iframe("Error consulte al administrador de sistemas");
+			}else{
+				callback_modal("Error consulte al administrador de sistemas");
+			}
 			//console.log(elem.find('[name="redirect"]'));
 		}).always(function(data){
 			if(data.message){
-				if(data.parent)
-					callback_modal(data.message,data.parent);
-				}else{
-					callback_modal(data.message);
-				}						
+				callback_modal(data.message);					
+			}
+			if(data.message_iframe){
+				message_iframe(data.message_iframe);
 			}
 			if(data.code==200){
 				var redirect = elem.find('[name="redirect"]');
@@ -183,8 +190,18 @@
 			if(data.code==100){
 			}
 			if(data.callback){
-				//eval(data.callback);
+				eval(data.callback);
 			}
+		});
+	}
+
+	function message_iframe(message){
+		$(parent.$iframe[0]).hide();
+		var button = $('<div class="text-center m-4"><h4>'+message+'</h4></div><button background-color: #414141; color: #fff; " type="button" class="btn btn-primary"><b>Aceptar</b></button>');
+		$(parent.$iframe[1]).html(button);
+		button.click(function(event){
+			$(parent.$iframe[0]).show();
+			$(parent.$iframe[1]).html('');
 		});
 	}
 	

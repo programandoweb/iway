@@ -152,6 +152,11 @@ class Autenticacion extends CI_Controller {
 			if($this->Autenticacion){
 				if(method_exists($this->Autenticacion,"get_user_by_email")){
 					$user			=	$this->Autenticacion->get_user_by_email(post());
+					if(empty($user)){
+						echo json_encode(array(	"message_iframe"	=>	"Error, Usuario no encontrado",
+																					"code"		=>	"203"));
+						return;
+					}
 					$user->token	=	md5(date("Y-m-d H:i:s"));
 					$this->db->where('user_id', $user->user_id)->update("usuarios", array("token"=>$user->token));
 					$var		=	array(	
@@ -168,24 +173,24 @@ class Autenticacion extends CI_Controller {
 										);
 						$sendmail	=	send_mail($var);	
 						if(!$sendmail['error']){
-							$this->Response 		=			array(	"message"	=>	"Envío de reinicio de clave exitoso, revise su correo electrónico",
+							$this->Response 		=			array(	"message_iframe"	=>	"Envío de reinicio de clave exitoso, revise su correo electrónico",
 																"code"		=>	"200",
 																"parent"    =>  true);
 						}else{
-							$this->Response 		=			array(	"message"	=>	"Error, no se puedo reiniciar la clave, reintente más tarde",
+							$this->Response 		=			array(	"message_iframe"	=>	"Error, no se puedo reiniciar la clave, reintente más tarde",
 																"code"		=>	"203");
 						}
 						
 					}else{
-						$this->Response 		=			array(		"message"	=>	"Error, no se puedo reiniciar la clave, reintente más tarde",
+						$this->Response 		=			array(		"message_iframe"	=>	"Error, no se puedo reiniciar la clave, reintente más tarde",
 																		"code"		=>	"203");
 					}
 				}else{
-					$this->Response 		=			array(	"message"	=>	"Error, método no encontrado",
+					$this->Response 		=			array(	"message_iframe"	=>	"Error, método no encontrado",
 																"code"		=>	"203");
 				}
 			}else{
-				$this->Response 		=			array(	"message"	=>	"Error, Clase no encontrado",
+				$this->Response 		=			array(	"message_iframe"	=>	"Error, Clase no encontrado",
 															"code"		=>	"203");
 			}
 			echo answers_json($this->Response);
