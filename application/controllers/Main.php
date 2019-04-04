@@ -33,8 +33,8 @@ class Main extends CI_Controller {
 		$file_array 	= explode(';', $file_restore);
 		foreach ($file_array as $query){
 			$this->db->query("SET FOREIGN_KEY_CHECKS = 0");
+			$query=trim($query);
 			if(!empty($query)){
-				//echo $query;
 				$this->db->query($query);
 			}
 			$this->db->query("SET FOREIGN_KEY_CHECKS = 1");
@@ -44,49 +44,7 @@ class Main extends CI_Controller {
 	public function Install(){
 		ini_set('display_errors', 0);
 		if (!$this->db->table_exists("usuarios") ){
-			$this->import_dump(PATH_BASE.'iway_db2.sql');
-			return;
-			$this->db->insert("mae_cliente_joberp",array(	"regimen_empresa"=>"root",
-																										"naturaleza"=>"root",
-																										"fecha_matricula"=>date("Y-m-d"),
-																										"declara_renta"=>"r",
-																										"prefijo_documento"=>"r",
-																										"tipo_identificacion"=>"r",
-																										"numero_identificacion"=>"r",
-																										"digitos_verificacion"=>"r",
-																										"nombre_legal"=>"r",
-																										"nombre_comercial"=>"r",
-																										"id_representante_legal"=>"r",
-																										"ciudad_expedicion"=>"r",
-																										"direccion"=>"r",
-																										"ciudad"=>"r",
-																										"telefono"=>"r",
-																										"celular"=>"r",
-																										"email"=>"r",
-																										"persona_contacto"=>"r",
-																										"cargo"=>"r",
-																										"pagina_web"=>"r",
-																										"descripcion_cliente"=>"r",
-																										"divisa_oficial"=>"r",
-																										"documento_moneda_extranjera"=>"r",
-																										"logo"=>"r",
-																										"logo_json"=>"r",
-																										"fecha_registro"=>"r",
-																										"responsable_creacion"=>"r",
-																										"demo"=>"r",
-																										"color_aplicativo"=>"r",
-																										"estado"=>"r",
-																										"empresa_id1"=>"r",
-																										));
-
-			$this->db->insert("usuarios",array(	"empresa_id"=>$this->db->insert_id(),
-																					"type_id"=>"Root",
-																					"login"=>"root",
-																					"email"=>SMTP_USER,
-																					"password"=>encriptar("123456"),
-																					"intentos_errados"=>0,
-																					"estado"=>0,
-																					"token"=>md5(date("Y-m-d H:i:s"))));
+			$this->import_dump(PATH_BASE.'iway_db.iway');
 			redirect(base_url("apanel"));
   	}else{
 			redirect(base_url());
