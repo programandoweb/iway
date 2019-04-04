@@ -32,16 +32,15 @@ class Autenticacion_model extends CI_Model {
 			if($user->type_id != 1){
 				$empresa = 	$this->db->select('*')->from("mae_cliente_joberp")->where('empresa_id',$user->empresa_id)->get()->row();
 			}
-			
-			if(isset($empresa)){
+			if(!isset($empresa)){
 				if(md5($var['password']) == $user->password){
-					$this->db->where("use_id",$user_id);
-					$update['password'] = encriptar($var['password']); 
-					$this->db->update("usuarios",$update);					
+					$this->db->where("user_id",$user->user_id);
+					$update['password'] = encriptar($var['password']);
+					$this->db->update("usuarios",$update);
 				}
-				$data = array_merge($user,$empresa);
-			}else{
 				$data = $user;
+			}else{
+				$data = array_merge($user,$empresa);
 			}
 			//pre(desencriptar($data->password)); return;
 			if(desencriptar($data->password)==$var['password']){

@@ -867,6 +867,8 @@ ALTER TABLE usuarios ADD CONSTRAINT mae_cliente_joberp_usuarios
 ALTER TABLE usuarios ADD CONSTRAINT sys_tipo_usuario_usuarios
     FOREIGN KEY (type_id) REFERENCES sys_tipo_usuario (type_id);
 
+ALTER TABLE `sys_tipo_usuario` ADD `empresa_id` INT(11) NULL DEFAULT '1' AFTER `tipo`;     
+
 INSERT INTO `sys_tipo_usuario` (`type_id`, `tipo`) VALUES (1, 'Root'),        (2, 'Empresa'),        (3, 'Sucursal'),        (4, 'Asociado'),        (5, 'Directivo'),        (6, 'Administrativo'),        (7, 'Comercial'),        (8, 'Operativo'),        (9, 'Cliente'),        (10, 'Proveedor');
 INSERT INTO `mae_cliente_joberp` (`empresa_id`, `regimen_empresa`, `naturaleza`,
             `fecha_matricula`, `declara_renta`, `prefijo_documento`, `tipo_identificacion`,
