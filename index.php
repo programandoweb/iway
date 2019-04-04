@@ -63,7 +63,7 @@
  * Different environments will require different levels of error reporting.
  * By default development will show errors but testing and live will hide them.
  */
-date_default_timezone_set('America/Bogota'); 
+date_default_timezone_set('America/Bogota');
 switch (ENVIRONMENT)
 {
 	case 'development':
@@ -104,7 +104,7 @@ define('SEO_GENERATOR',"@programandoweb");
 /*DATABASE*/
 define('DB_USER','root');
 define('DB_PASS','');
-define('DB_DATABASE','iway');
+define('DB_DATABASE','iway_db2');
 /*EN DATABASE*/
 
 /*SMTP*/
@@ -115,10 +115,10 @@ define('SMTP_PORT'				,	"465");
 define('SMTP_TIMEOUT'			,	"7");
 define('SMTP_USER'				,	"info@webcamplus.com.co");
 define('SMTP_PASS'				,	"8w7!G.rpPsTH");
-define('CHARSET'				,	"utf-8");	
-define('NEWLINE'				,	"\r\n");	
-define('MAILTYPE'				,	"html");	
-define('VALIDATION'				,	TRUE);	
+define('CHARSET'				,	"utf-8");
+define('NEWLINE'				,	"\r\n");
+define('MAILTYPE'				,	"html");
+define('VALIDATION'				,	TRUE);
 define('FROM_NAME'				,	"WebcamPlus®");
 define('FROM_EMAIL'				,	SMTP_USER);
 /*END SMTP*/
