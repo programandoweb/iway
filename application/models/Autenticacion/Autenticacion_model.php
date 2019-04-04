@@ -29,7 +29,7 @@ class Autenticacion_model extends CI_Model {
 		$user = $this->db->select('*')->from("usuarios")->where('login',$var['username'])->get()->row();
 
 		if(!empty($user)){
-			if($user->rol_id != 1){
+			if($user->type_id != 1){
 				$empresa = 	$this->db->select('*')->from("mae_cliente_joberp")->where('empresa_id',$user->empresa_id)->get()->row();
 			}
 			
