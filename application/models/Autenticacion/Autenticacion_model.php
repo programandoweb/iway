@@ -26,10 +26,14 @@ class Autenticacion_model extends CI_Model {
 
   public function login($var){
 	//	pre($var); return;
-		$data = $this->db->select('*,t1.estado as estatus')->from("usuarios t1")->join('mae_cliente_joberp t2', 't1.user_id = t2.id_representante_legal',"left")->where('t1.login',$var['username'])->get()->row();
+		$user = $this->db->select('*')->from("usuarios")->where('login',$var['username'])->get()->row();
 
-		if(!empty($data)){
-		//	pre(desencriptar($data->password)); return;
+		if(!empty($user)){
+			if($user->rol_id != 1){
+				$empresa = 	$this->db->select('*')->from("mae_cliente_joberp")->where('empresa_id',$user->empresa_id)->get()->row();
+			}
+			if(isset($empresa))?$data = array_merge($user,$empresa):$data = $user;
+			//pre(desencriptar($data->password)); return;
 			if(desencriptar($data->password)==$var['password']){
         if($data->estatus==0){
           return array("error"=>"Esta cuenta se encuentra inactiva, consulte con el administrador");
