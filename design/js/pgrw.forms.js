@@ -205,14 +205,14 @@
 		});
 	}
 	
-/*	function make_modal_confirm(){
+	function make_modal_confirm(){
 		$modal			=	modal.clone();
 		var contenido  	=	$modal.find(".modal-dialog").find(".modal-content");
 			$modal.addClass("pgrw_modal_confirm_"+pluginName).attr("aria-labelledby","modalLabel_confirm_"+pluginName).find(".modal-dialog").addClass("modal-md");
 			contenido.find(".modal-header").html("<h5>Atención</h5>");
 			contenido.find(".modal-footer").html('<button type="button" class="btn btn-primary aceptar" data-dismiss="modal">Aceptar</button><button type="button" class="btn btn-danger cancelar" data-dismiss="modal">Cancelar</button>');
 		$("body").append($modal);			
-	}*/
+	}
 	
 	function make_modal_alert(){
 		$modal			=	modal.clone();
