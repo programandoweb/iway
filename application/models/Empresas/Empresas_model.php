@@ -12,7 +12,7 @@ class Empresas_model extends CI_Model {
         if($this->uri->segment(3)){
             $this->db->where("t1.id",$this->uri->segment(3));
         }
-        if($this->user->rol_id <> 1){
+        if($this->user->type_id <> 1){
             $this->db->where("t1.empresa_id",$this->user->empresa_id);
         }
         $query=$this->db->get();

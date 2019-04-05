@@ -25,7 +25,6 @@ class Autenticacion_model extends CI_Model {
 	}
 
   public function login($var){
-	//	pre($var); return;
 		$data = $this->db->select('*,t1.estado as estatus')->from("usuarios t1")->join('mae_cliente_joberp t2', 't1.empresa_id = t2.empresa_id',"left")->where('t1.login',$var['username'])->get()->row();
 
 		if(!empty($data)){
@@ -76,7 +75,7 @@ class Autenticacion_model extends CI_Model {
 
 	public function get_user_by_email($var){
 		$ci 	=& 	get_instance();
-		return $ci->db->select('*')->from("usuarios")->where('username',$var["nombre_usuario"])->get()->row();
+		return $ci->db->select('*')->from("usuarios")->where('login',$var["nombre_usuario"])->get()->row();
 	}
 
 	public function set_user_by_token($token){

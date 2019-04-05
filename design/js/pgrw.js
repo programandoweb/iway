@@ -57,7 +57,7 @@ $(document).ready(function(){
 	$("input[type='search']").on("keyup", function () {
 		alert('keyup');
 	});
-	
+	make_message("Bienbenido a tu asistente de configuracion",);
 	/*table.on( 'search.dt', function () {
 		recalcular($(this).find("tbody"));
 	});*/

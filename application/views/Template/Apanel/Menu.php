@@ -215,10 +215,10 @@
 							</a>
                         </li>
                         <?php
-                            if(!isset($this->user->menu) && $this->user->rol_id ==1){
+                            if(!isset($this->user->menu) && $this->user->type_id ==1){
                                 $this->user->menu	=	menu();
                                 $this->session->set_userdata(array('User'=>$this->user));
-                            }else if(!isset($this->user->menu) && $this->user->rol_id != 1){
+                            }else if(!isset($this->user->menu) && $this->user->type_id != 1){
                                 $this->user->menu	=	menu_usuarios($this->user->rol_id);
                                 $this->session->set_userdata(array('User'=>$this->user));
                             }
