@@ -294,9 +294,9 @@
 </header>
 
 <?php 
-    /*if(get_configuracion()){*/
+    if(get_configuracion()){
         echo '<script>make_message("Bienvenido al asistente de configuración",Configuracion);</script>';
-    /*}*/ 
+    } 
 ?>
 <script type="text/javascript">
 		$(document).ready(function () {

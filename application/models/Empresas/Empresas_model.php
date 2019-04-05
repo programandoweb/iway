@@ -8,7 +8,7 @@ class Empresas_model extends CI_Model {
 	public function getEmpresa(){
 		$tabla	=	"mae_cliente_joberp t1";
 		$tabla2	=	"usuarios t2";
-		$this->db->select('t1.*,t2.*')->from($tabla)->join($tabla2,"t1.id = t2.empresa_id","left")->where("t1.estado",1);
+		$this->db->select('t1.*,t2.*')->from($tabla)->join($tabla2,"t1.empresa_id = t2.empresa_id","left")->where("t1.estado",1);
         if($this->uri->segment(3)){
             $this->db->where("t1.id",$this->uri->segment(3));
         }
@@ -21,11 +21,11 @@ class Empresas_model extends CI_Model {
         
         $tabla  =   "mae_cliente_joberp t1";
         $tabla2 =   "usuarios t2";
-        $this->db->select('t1.*,t2.*')->from($tabla)->join($tabla2,"t1.id = t2.empresa_id","left")->where("t1.estado",0);
+        $this->db->select('t1.*,t2.*')->from($tabla)->join($tabla2,"t1.empresa_id = t2.empresa_id","left")->where("t1.estado",0);
         if($this->uri->segment(3)){
             $this->db->where("t1.id",$this->uri->segment(3));
         }
-        if($this->user->rol_id <> 1){
+        if($this->user->type_id <> 1){
             $this->db->where("t1.empresa_id",$this->user->empresa_id);
         }
         $query=$this->db->get();
