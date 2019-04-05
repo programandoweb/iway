@@ -243,7 +243,7 @@
                                                                 <div class="ico"><?php print($v3->ico);?></div> <div class="ts-13 text"><?php echo $v3->modulo;?></div>
                                                             </h5>
                                                             <?php foreach($this->user->menu['roles_modulos_nietos'][$v3->id] as $k4 => $v4){
-                                                                    if($this->user->rol_id==1){
+                                                                    if($this->user->type_id==1){
                                                                 ?>
                                                                     <div>
                                                                         <div data-id="<?php echo $v4->id; ?>" class="btn btn-link" data-url="<?php echo base_url($v4->url)?>">

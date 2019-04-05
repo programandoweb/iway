@@ -183,7 +183,7 @@
 			if(data.code==200){
 				var redirect = elem.find('[name="redirect"]');
 				if( redirect.length >0){
-					setTimeout(function(){ document.location.href	=	redirect.val(); }, 3000); 
+					document.location.href	=	redirect.val(); 
 					//setInterval(function(){ document.location.href	=	redirect.val(); }, 1000);					
 				}
 			}
