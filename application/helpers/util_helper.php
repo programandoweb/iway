@@ -41,6 +41,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             "modulo_edit"       =>  $menu_edit);
   }
 
+  function get_configuracion(){
+    
+  }
+
   function set_template_mail($var=array()){
     $ci   =&  get_instance();
     $view = PATH_VIEW.'/Template/Emails/'.$var['view'].'.php';
