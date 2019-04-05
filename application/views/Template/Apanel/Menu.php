@@ -292,17 +292,12 @@
 		</div>
   	</nav>
 </header>
-<script>
-	/*
-	$(function() {
-		window.prettyPrint && prettyPrint()
-		$(document).on('click', '.yamm .dropdown-menu', function(e) {
-			e.stopPropagation();
-		})
-	})*/
-</script>
 
-
+<?php 
+    /*if(get_configuracion()){*/
+        echo '<script>make_message("Bienvenido al asistente de configuración",Configuracion);</script>';
+    /*}*/ 
+?>
 <script type="text/javascript">
 		$(document).ready(function () {
 				$("#sidebar").mCustomScrollbar({

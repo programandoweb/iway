@@ -57,7 +57,6 @@ $(document).ready(function(){
 	$("input[type='search']").on("keyup", function () {
 		alert('keyup');
 	});
-	make_message("Bienbenido a tu asistente de configuracion",);
 	/*table.on( 'search.dt', function () {
 		recalcular($(this).find("tbody"));
 	});*/
@@ -164,6 +163,8 @@ $(document).ready(function(){
 		});
 	}
 });
+
+var Configuracion = '<div class="container" id="Configuracion"><button type="button" class="btn btn-default form-control text-white rounded">Configurar niveles de acceso (Roles)</button><button type="button" class="btn btn-default form-control text-white rounded">Configurar otra cosa</button><button type="button" class="btn btn-default form-control text-white rounded">Configurar otra cosa2</button><button type="button" class="btn btn-default form-control text-white rounded">Configurar otra cosa3</button><button type="button" class="btn btn-default form-control text-white rounded">Configurar otra cosa4</button><button type="button" class="btn btn-default form-control text-white rounded">Configurar otra cosa5</button><button type="button" class="btn btn-default form-control text-white rounded">Configurar otra cosa6</button></div><div id="container_iframe_modal" class="d-none"><div class="card embed-responsive embed-responsive-16by9"><iframe id="iframe" src="" class="embed-responsive-item" scrolling="no" frameborder="0"></iframe></div></div>';
 
 /*function ordenar_tabla(){
 	if($('.ordenar').attr("ordercol")){
