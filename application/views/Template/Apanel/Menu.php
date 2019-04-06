@@ -294,7 +294,7 @@
 </header>
 
 <?php 
-    if(get_configuracion()){
+    if(empty(get_configuracion_roles()) && $this->user->type_id == 2){
         echo '<script>make_message("Bienvenido al asistente de configuración",Configuracion);</script>';
     } 
 ?>

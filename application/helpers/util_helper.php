@@ -41,9 +41,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             "modulo_edit"       =>  $menu_edit);
   }
 
-  function get_configuracion(){
+  function get_configuracion_roles(){
     $ci = get_instance();
-    $ci->db->select("*")->from("sys_roles")->where("type_id",$ci->user->);
+    return $ci->db->select("*")->from("sys_roles")->where("type_id",$ci->user->type_id)->get()->result();
   }
 
   function set_template_mail($var=array()){
