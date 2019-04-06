@@ -42,7 +42,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   }
 
   function get_configuracion(){
-    
+    $ci = get_instance();
+    $ci->db->select("*")->from("sys_roles")->where("type_id",$ci->user->);
   }
 
   function set_template_mail($var=array()){
@@ -122,7 +123,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   $options    = $ci->db->get()->result();
   $option     =   array(""=>"Seleccione");
   foreach($options as $v){
-    $option[$v->id]   =   $v->tipo_identidad;
+    $option[$v->tipo_identidad_id]   =   $v->tipo_identidad;
   }
   //pre($option); return;
   return form_dropdown($name, $option, $estado,$extra);
@@ -365,7 +366,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     $html = '';
     //  $rowid = $ci->db->select("*")->from($tabla)->where('id',$row)->get()->row();
-    $html .=  '<input type="text" class="form-control" id="'.$name.'" placeholder="'.$placeholder.'" maxlength="150"  value="'.@$rowid->union.'"';
+    $html .=  '<input type="text" class="form-control" id="'.$name.'" placeholder="'.$placeholder.'" maxlength="150"  value="'.@$rowid->union_.'"';
     $html .=  ($require)? 'require="require"':'""';
     $html .=  '/>';
     $html	.=	'<input type="hidden" name="'.$name.'" id="content'.$name.'" require="require"  value="'.@$row.'" />';
@@ -375,7 +376,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   foreach($rows as $k => $v){
                     $html .=  '{
                             value: "'.$v->id.'",
-                            label: "'.$v->union.'"
+                            label: "'.$v->union_.'"
 
                           },';
                   }
@@ -1078,7 +1079,7 @@ function FormAjax($view){
     }
 
     $html = '';
-    $html .=  '<input type="text" class="form-control" id="'.$name.'" placeholder="'.$placeholder.'" maxlength="150"  value="'.@$rowid->union.'"';
+    $html .=  '<input type="text" class="form-control" id="'.$name.'" placeholder="'.$placeholder.'" maxlength="150"  value="'.@$rowid->union_.'"';
     $html .=  ($require)? 'require="require"':'""';
     $html .=  '/>';
     $html	.=	'<input type="hidden" name="'.$name.'" id="content'.$name.'" require="require"  value="'.@$row.'" />';
@@ -1089,7 +1090,7 @@ function FormAjax($view){
                   foreach(get_municipios() as $k => $v){
                     $html .=  '{
                       value: "'.$v->id.'",
-                      label: "'.$v->union.'",
+                      label: "'.$v->union_.'",
 
                           },';
                   }

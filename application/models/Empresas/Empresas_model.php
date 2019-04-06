@@ -33,10 +33,9 @@ class Empresas_model extends CI_Model {
 	}
 
     public function set($var){
-        //pre($var); return;
         $tabla      =       "mae_cliente_joberp";
         $tabla2     =       "usuarios";
-        if(isset($var["id"]) && !empty($var["id"]) && isset($var['user_id'])&& !empty($var['user_id'])){
+        if(isset($var["empresa_id"]) && !empty($var["empresa_id"]) && isset($var['user_id'])&& !empty($var['user_id'])){
             $user_id = $var['user_id'];
             unset($var['user_id']);
             $email                  =   $var['email'];
@@ -80,7 +79,7 @@ class Empresas_model extends CI_Model {
             unset($var['rol_id']);
             $var['fecha_registro'] = date('Y-m-d');
             $var['responsable_creacion']=$this->user->user_id;
-            $this->db->where("id", $var["id"]);
+            $this->db->where("empresa_id", $var["empresa_id"]);
             if($this->db->update($tabla, $var)){
                 //logs($insert2['responsable_id'],2,"mae_clientes_joberp,usuarios",$var['id'],"update_Empresas","1",$var);
                 $this->db->where("user_id", $user_id);
@@ -91,35 +90,33 @@ class Empresas_model extends CI_Model {
                 }
             }    
         }else{
+            unset($var["id"]);
+            unset($var["user_id"]);
             $email                  =   $var['email'];
             $pass                   =   explode("@",$var['email']);
             $insert2['token']           =   md5(date("H:i:s Y-M-d"));
             $password               =   $pass[0].rand(1000,50000);
            // $insert2['responsable_id']  =   $var['responsable_id']
-            $insert2['username'] = $var['username'];
-            $insert2['email_user']= $email;
+            $insert2['login'] = $var['username'];
+            $insert2['email']= $email;
             unset($var['nombre_usuario']);
             /*$insert2['nombre'] = $var['representante_legal'];
             $var['representante_legal'] = id_representante();*/
-            $insert2['rol_id']   = $var['rol_id'];
-            $insert2['username'] = $var['username'];
-            $insert2['primer_nombre'] = $var['primer_nombre'];
-            $insert2['segundo_nombre'] = $var['segundo_nombre'];
-            $insert2['primer_apellido'] = $var['primer_apellido'];
-            $insert2['segundo_apellido'] = $var['segundo_apellido'];
-            $insert2['ciudad_expedicion'] = $var['ciudad_expedicion'];
-            $insert2['tipo_identificacion']=$var['tipo_identificacion'];
-            $insert2['nombre_legal']= $var['nombre_legal'];
-            $insert2['nombre_comercial']= $var['nombre_comercial'];
-            $insert2['regimen_empresa']= $var['regimen_empresa'];
-            $insert2['naturaleza']= $var['naturaleza'];
-            $insert2['cargo'] = $var['cargo'];
-            $insert2['numero_identificacion'] = $var['numero_identificacion'];
-            $insert2['divisa_oficial'] = $var['divisa_oficial'];
-            $insert2['documento_moneda_extranjera'] = $var['documento_moneda_extranjera'];
-            $insert2['pagina_web'] = $var['pagina_web'];
+            $insert2['type_id']   = $var['rol_id'];
+            $insert2['login'] = $var['username'];
+            $nombre = $insert2['primer_nombre'] = $var['primer_nombre'].' '.$insert2['segundo_nombre'] = $var['segundo_nombre'].' '.$insert2['primer_apellido'] = $var['primer_apellido'].' '.$insert2['segundo_apellido'] = $var['segundo_apellido'];
+            //$insert2['ciudad_expedicion'] = $var['ciudad_expedicion'];
+            //$insert2['tipo_identificacion']=$var['tipo_identificacion'];
+            //$insert2['nombre_legal']= $var['nombre_legal'];
+            //$insert2['nombre_comercial']= $var['nombre_comercial'];
+            //$insert2['regimen_empresa']= $var['regimen_empresa'];
+            //$insert2['naturaleza']= $var['naturaleza'];
+            //$insert2['cargo'] = $var['cargo'];
+            //$insert2['numero_identificacion'] = $var['numero_identificacion'];
+            //$insert2['divisa_oficial'] = $var['divisa_oficial'];
+            //$insert2['documento_moneda_extranjera'] = $var['documento_moneda_extranjera'];
+            //$insert2['pagina_web'] = $var['pagina_web'];
             unset($var['rol_id']);
-            unset($var['user_id']);
             unset($var['redirect']);
             unset($var['type']);
             unset($var['nombre']);
@@ -132,7 +129,7 @@ class Empresas_model extends CI_Model {
             unset($var['segundo_apellido']);
 
             $var["id_representante_legal"] = id_representante();
-            $insert2['documento'] = $var['documento'];
+            //$insert2['documento'] = $var['documento'];
             unset($var['documento']);
             $pass					=	'contrasena';
             $var['fecha_registro'] = date('Y-m-d');
@@ -148,7 +145,7 @@ class Empresas_model extends CI_Model {
                     send_mail(array(
                                         "recipient"=>$email,
                                         "subject"=>"Bienvenido a nuestro sistema",
-                                        "body"=>$this->load->view('Template/Emails/bienvenida',array("userType"=>"Representante legal","userPassword"=>$password,"userEmail"=>$email,"userName"=>$insert2['nombre'],"userUsuario"=>$insert2['username'],"href"=>DOMINIO),TRUE),
+                                        "body"=>$this->load->view('Template/Emails/bienvenida',array("userType"=>"Representante legal","userPassword"=>$password,"userEmail"=>$email,"userName"=>$nombre,"userUsuario"=>$insert2['login'],"href"=>DOMINIO),TRUE),
                                         ));
                     $response = "La empresa ha sido creada";
                 }else{

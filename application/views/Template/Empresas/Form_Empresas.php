@@ -10,7 +10,7 @@
   //pre($this->user);
   
 
-  $hidden   =   array('user_id' => (isset($row->user_id))?$row->user_id:'','id' =>(isset($row->id))?$row->id:'',);
+  $hidden   =   array('user_id' => (isset($row->user_id))?$row->user_id:'','empresa_id' =>(isset($row->id))?$row->id:'',);
   echo form_open(current_url(),array('ajaxing' => 'true'),$hidden); 
 ?>
     <div class="container mt-4">
@@ -206,12 +206,12 @@
                                 ?> 
                               </div>
                               
-                              <div class="col-md-6">
+                              <!--<div class="col-md-6">
                                 <label for="cargo">Cargo *</label>  
                                <?php    
                                 echo  cargo(@$row->cargo,'cargo',$placeholder='Cargo',$require=true);
                                 ?> 
-                              </div>
+                              </div>-->
                               
                             </div>
                           </div>

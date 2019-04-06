@@ -105,7 +105,7 @@ class Empresas extends CI_Controller {
 		if(post()){
 			//pre(post()); return;
 			$set	=	$this->Empresas->set(post());
-		   //return;
+		    return;
 			if ($this->input->is_ajax_request()){
 				if($set){
 					$this->Response 		=			array(	"message"	=>	"Los datos han sido guardados correctamente",
