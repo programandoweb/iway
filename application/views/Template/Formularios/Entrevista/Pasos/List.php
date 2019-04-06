@@ -56,7 +56,7 @@
             </ul>
 			<div class="section tab-content">
                 <div id="general" class="tab-pane active" role="tabpanel">
-                    <table class="ordenar display table table-hover" ordercol=1 order="desc">
+                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=1 order="desc">
                         <thead>
                             <tr>
                                 <th>Nombre Aspirante</th>
@@ -119,7 +119,7 @@
                     </table>
                 </div>
                 <div id="aprobadas" class="tab-pane" role="tabpanel">
-                    <table class="ordenar display table table-hover" ordercol=1 order="desc">
+                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=1 order="desc">
                         <thead>
                             <tr>
                                 <th>Nombre Aspirante</th>
@@ -173,7 +173,7 @@
                     </table>
                 </div>
                 <div id="rechazadas" class="tab-pane" role="tabpanel">
-                    <table class="ordenar display table table-hover" ordercol=1 order="desc">
+                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=1 order="desc">
                         <thead>
                             <tr>
                                 <th>Nombre Aspirante</th>
@@ -227,7 +227,7 @@
                     </table>
                 </div>
                 <div id="inasistente" class="tab-pane" role="tabpanel">
-                    <table class="ordenar display table table-hover" ordercol=1 order="desc">
+                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=1 order="desc">
                         <thead>
                             <tr>
                                 <th>Nombre Aspirante</th>

@@ -44,7 +44,7 @@ $modulo		=	$this->ModuloActivo;
                     </ul>
                     <div class="tab-content row">
     					<div class="tab-pane active col-md-12" id="activos" role="tabpanel">	
-                            <table class="ordenar display table table-hover" ordercol=3 order="desc">
+                            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=3 order="desc">
                                 <thead>
                                     <th class="text-center">Avatar</th>
                                     <th>Tercero</th>

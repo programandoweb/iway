@@ -44,7 +44,7 @@
                     <div class="bd-example bd-example-tabs" role="tabpanel">                        
                         <div class="tab-content" id="myTabContent">
                             <div role="tabpanel" class="tab-pane fade active show" id="home" aria-labelledby="home-tab" aria-expanded="false">
-                                <table class="ordenar display table table-hover">
+                                <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                     <thead>
                                         <tr>
                                             <td><b>Sucursal</b></td>

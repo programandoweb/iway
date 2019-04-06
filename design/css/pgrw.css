@@ -1214,3 +1214,10 @@ a.article:hover {
 .embed-responsive{
 	height: 100%;
 }
+.avatar-md{
+	width: 40px;
+	transition: transform .5s ease;
+}
+.avatar-md:hover{
+	transform: scale(2.5);
+}

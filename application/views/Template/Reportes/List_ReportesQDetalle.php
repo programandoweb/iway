@@ -27,7 +27,7 @@
 						$suma_token			=	0;
 						$suma_equivalencia	=	0;
 					?>
-					<table class="ordenar display table table-hover" ordercol=0 order="desc">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=0 order="desc">
 						<thead>
 							<tr>
 								<th><b>Fecha</b></th>

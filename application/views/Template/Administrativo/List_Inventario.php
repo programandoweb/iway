@@ -31,7 +31,7 @@ $modulo		=	$this->ModuloActivo;
         <div id="activo" class="tab-pane active col-md-12" role="tabpanel">
             <div class="row">
                 <div class=" col-md-12">
-					<table class="ordenar display table table-hover">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
 						<thead>
 							<tr>
                                 <!--<th><b>Avatar</b></th>-->
@@ -81,7 +81,7 @@ $modulo		=	$this->ModuloActivo;
         <div id="inactivo" class="tab-pane col-md-12" role="tabpanel">
             <div class="row">
                 <div class=" col-md-12">
-                    <table class="ordenar display table table-hover">
+                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                         <thead>
                             <tr>
 							<th class="text-center" width="300"><b>Foto del producto</b></th>

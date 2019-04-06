@@ -58,7 +58,7 @@
 	        </ul>
 	        <div class="tab-content col-md-12 ">
 	            <div id="Vigente" class="tab-pane active row justify-content-md-center" role="tabpanel">
-					<table class="ordenar display table table-hover" ordercol=1 order="desc">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=1 order="desc">
 						<thead>
 							<tr>
 								<th><b>Fecha</b></th>
@@ -176,7 +176,7 @@
 					</table>
                 </div>
 	            <div id="Anulado" class="tab-pane row justify-content-md-center" role="tabpanel">
-					<table class="ordenar display table table-hover" ordercol=1 order="desc">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=1 order="desc">
 						<thead>
 							<tr>
 								<th><b>Fecha</b></th>

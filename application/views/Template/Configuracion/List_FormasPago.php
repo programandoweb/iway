@@ -31,7 +31,7 @@ $modulo		=	$this->ModuloActivo;
         <div id="activo" class="tab-pane active col-md-12" role="tabpanel">
             <div class="row">
                 <div class=" col-md-12">
-					<table class="ordenar display table table-hover">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
 						<thead>
 							<tr>
                                
@@ -76,7 +76,7 @@ $modulo		=	$this->ModuloActivo;
         <div id="inactivo" class="tab-pane col-md-12" role="tabpanel">
             <div class="row">
                 <div class=" col-md-12">
-                    <table class="ordenar display table table-hover">
+                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                         <thead>
                             <tr>
                                 <th w class="text-center"><b>Forma de pago</b></th>

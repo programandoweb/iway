@@ -19,7 +19,7 @@ $modulo		=	$this->ModuloActivo;
         	<div class="row">
             	<?php //pre($this->$modulo->result)?>
             	<div class="col-md-12">
-					<table class="ordenar display table table-hover">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                         <thead>
                             <tr>
                                <th>Nombre Legal / Comercial</th>

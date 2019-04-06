@@ -30,7 +30,7 @@
 						</ul>
                         <div class="tab-content" id="myTabContent">
                           	<div role="tabpanel" class="tab-pane fade active show" id="item1" aria-labelledby="item-tab" aria-expanded="false">
-								<table class="ordenar display table table-hover">
+								<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
 			                        <thead>
 			                            <th>Fecha</th>
 			                            <th style="50" class="text-right">TRM</th>
@@ -51,7 +51,7 @@
 			                    </table>
 							</div>
                             <div role="tabpanel" class="tab-pane fade" id="item2" aria-labelledby="item-tab" aria-expanded="false"> 
-								<table class="ordenar display table table-hover">
+								<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
 			                        <thead>
 			                            <th>Fecha</th>
 			                            <th style="50" class="text-right">TRM</th>

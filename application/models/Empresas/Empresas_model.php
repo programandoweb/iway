@@ -2,34 +2,40 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Empresas_model extends CI_Model {
-	
+
 	var $fields,$result,$where,$total_rows,$pagination,$search;
 
 	public function getEmpresa(){
 		$tabla	=	"mae_cliente_joberp t1";
 		$tabla2	=	"usuarios t2";
-		$this->db->select('t1.*,t2.*')->from($tabla)->join($tabla2,"t1.empresa_id = t2.empresa_id","left")->where("t1.estado",1);
+		$this->db->select('SQL_CALC_FOUND_ROWS t1.empresa_id', false);
+		$this->db->select("	concat(nombre_legal,' ',nombre_comercial) as concat_nombres,
+												login,
+												concat(telefono, ' ', celular , '<br/>',direccion) as concat_contacto,
+												user_id,
+												1 as edit")
+							->from($tabla)
+							->join($tabla2,"t1.empresa_id = t2.empresa_id","left")
+							->where("t1.estado",1);
+							//->where("t1.empresa_id>",1);
         if($this->uri->segment(3)){
             $this->db->where("t1.id",$this->uri->segment(3));
         }
         if($this->user->type_id <> 1){
             $this->db->where("t1.empresa_id",$this->user->empresa_id);
         }
-        $query=$this->db->get();
-      
-        $this->result["Activos"]=$query->result();
-        
-        $tabla  =   "mae_cliente_joberp t1";
-        $tabla2 =   "usuarios t2";
-        $this->db->select('t1.*,t2.*')->from($tabla)->join($tabla2,"t1.empresa_id = t2.empresa_id","left")->where("t1.estado",0);
-        if($this->uri->segment(3)){
-            $this->db->where("t1.id",$this->uri->segment(3));
-        }
-        if($this->user->type_id <> 1){
-            $this->db->where("t1.empresa_id",$this->user->empresa_id);
-        }
-        $query=$this->db->get();
-        $this->result["Inactivos"]=$query->result();
+        $query	=	$this->db->get();
+				$rows		=	$query->result();
+				$result	=	array();
+				foreach ($rows as $key => $value) {
+					$result[$key]	=	$value;
+					$result[$key]->avatar=avatar($value->user_id);
+					$result[$key]->concat_nombres=$value->concat_nombres;
+				}
+				$this->result["data"]	=	$rows;
+				$totalquery = 	$this->db->query('SELECT FOUND_ROWS() as total;');
+				$this->result["recordsTotal"]	=	(!empty($totalquery->row()))?$totalquery->row()->total:0;
+				$this->result["recordsFiltered"]	=	(!empty($totalquery->row()))?$totalquery->row()->total:0;
 	}
 
     public function set($var){
@@ -88,7 +94,7 @@ class Empresas_model extends CI_Model {
                 }else{
                     $response = "La empresa ha sido modificada, pero el usuario asociado a la empresa no fue modificado por favor consulte al administrador de sistema";
                 }
-            }    
+            }
         }else{
             unset($var["id"]);
             unset($var["user_id"]);

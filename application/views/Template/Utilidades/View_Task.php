@@ -139,7 +139,7 @@ $json		=	json_decode($row->descripcion);
                             <h3>Adjuntos</h3>
                         </div>
                     </div>
-                    <table class="ordenar display table table-hover">
+                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                         <thead>
                             <tr>
                                 <td><b>Archivo</b></td>
@@ -204,7 +204,7 @@ $json		=	json_decode($row->descripcion);
                             <h3>Usuarios Asignados</h3>
                         </div>
                     </div>
-                    <table class="ordenar display table table-hover">
+                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                         <thead>
                             <tr>
                                 <td width="200"><b>Responsable</b></td>

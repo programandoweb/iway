@@ -65,7 +65,7 @@ $seguridad        =   get_ConfigSeguridadSocial("id_cf_SeguridadSocial");
                     </ul>
                     <div class="tab-content row">
                         <div class="tab-pane active col-md-12" id="Activas" role="tabpanel">
-                            <table class="ordenar display table table-hover" ordercol=0 "ASC">
+                            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=0 "ASC">
                                 <thead>
                                     <tr>
                                         <th width="250">
@@ -136,7 +136,7 @@ $seguridad        =   get_ConfigSeguridadSocial("id_cf_SeguridadSocial");
                             </table>
                         </div>
                         <div class="tab-pane col-md-12" id="Inactivas" role="tabpanel">
-                            <table class="ordenar display table table-hover">
+                            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                 <thead>
                                     <tr>
                                         <th width="250">

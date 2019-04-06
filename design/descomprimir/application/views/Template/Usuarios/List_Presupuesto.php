@@ -26,7 +26,7 @@
 						$modulo		=	$this->ModuloActivo;
 						$ciclo		=	$this->$modulo->fields;
 					?>
-					<table class="ordenar display table table-hover">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
 						<thead>
 							<tr>
 								<td><b>Modelos</b></td>

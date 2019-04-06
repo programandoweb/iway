@@ -67,7 +67,7 @@ $(document).ready(function(){
 
 	donde_debitar();
 	money();
-	//anular();
+	table = DataTable();
 	id_equivalencia();
 	pgrw_rooms();
 	pgrw_ajax();
@@ -76,7 +76,6 @@ $(document).ready(function(){
 	_confirm();
 	getTime();
 	input_dinamico();
-	//validar_file_upload();
 	upcase();
 	clonar();
 	printer();
@@ -86,32 +85,45 @@ $(document).ready(function(){
 	tabs();
 	popup();
 	identificacion();
-	Info_Formulario_Dinamico();
-	//check_email();
 	validarExtension();
 	meta_ideal();
 	confirma_proveedor();
 	configEmail();
 
-	/*$(function () {
-	    $("#fecha").datepicker({
-	        closeText: 'Cerrar',
-	        prevText: '<Ant',
-	        nextText: 'Sig>',
-	        currentText: 'Hoy',
-	        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-	        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-	        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-	        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-	        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-	        weekHeader: 'Sm',
-	        dateFormat: 'dd/mm/yy',
-	        firstDay: 1,
-	        isRTL: false,
-	        showMonthAfterYear: false,
-	        yearSuffix: ''
-	    });
-	});*/
+	function DataTable(){
+		var newURL	=	$(location).attr('href');
+		var tablas	=	$('.tablas_listados');
+		var columnas=	"";
+		var order		=	0;
+		var desc		=	0;
+		var labels	=	[];
+
+
+		if(tablas.length){
+			tablas.each(function(){
+				tabla	=	$(this);
+				columnas	=	tabla.find('thead th');
+				order	=	($(this).data("order"))?$(this).data("order"):0;
+				desc	=	($(this).data("desc"))?$(this).data("desc"):"desc";
+
+				columnas.each(function(index,v){
+					labels[index]	=	{"data": $(v).data("columna")};
+				})
+
+				var table		=	tabla.DataTable({
+					ajax: newURL,
+					"processing": true,
+					"serverSide": true,
+					"language": {
+						"url": $("body").data("lang")
+					},
+					"order": [ order, desc ],
+					"columns": labels
+				});
+			});
+		}
+	}
+
 	var ordenar_tabla = $(".ordenar");
 	if(ordenar_tabla.length){
 		//ordenar_tabla();
@@ -126,6 +138,9 @@ $(document).ready(function(){
 			var order	=	"asc";
 		}
 		var table 		=	$('.ordenar').DataTable({
+			"ajax": $('.ordenar').data("url")+'&format=json',
+			"processing": true,
+			"serverSide": true,
 			"paging":   false,
 			"pageLength": 50,
 			"order": [[ ordercol, order ]],
@@ -135,7 +150,6 @@ $(document).ready(function(){
 			"initComplete": function(settings, json) {
 				var obj = 	$(this);
 				   $('#'+$(this).attr("id")+'_filter input').bind('keyup', function(e) {
-
 					var trs	=	obj.find("tbody").find("tr");
 					if(trs.length>0){
 						var valor = 0;
@@ -150,15 +164,11 @@ $(document).ready(function(){
 							valor	=	valor + num;
 							valor2	=	valor2 + num2;
 							valor3	=	(valor3 + num3)/cont;
-
 							$("#total_general").html(valor.toFixed(2));
 							$("#total_general2").html(valor2.toFixed(2));
 							$("#total_general3").html(valor3.toFixed(2));
 						})
-						//console.log(valor);
 					}
-
-					//console.log(obj.find("tbody").find("tr").find("td:last").find(".monto_oculto").val())
 				});
 			}
 		});
@@ -167,77 +177,6 @@ $(document).ready(function(){
 
 var Configuracion = '<div class="container" id="Configuracion"><button type="button" class="btn btn-default form-control text-white rounded">Configurar niveles de acceso (Roles)</button><button type="button" class="btn btn-default form-control text-white rounded">Configurar otra cosa</button><button type="button" class="btn btn-default form-control text-white rounded">Configurar otra cosa2</button><button type="button" class="btn btn-default form-control text-white rounded">Configurar otra cosa3</button><button type="button" class="btn btn-default form-control text-white rounded">Configurar otra cosa4</button><button type="button" class="btn btn-default form-control text-white rounded">Configurar otra cosa5</button><button type="button" class="btn btn-default form-control text-white rounded">Configurar otra cosa6</button></div><div id="container_iframe_modal" class="d-none"><div class="card embed-responsive embed-responsive-16by9"><iframe id="iframe" src="" class="embed-responsive-item" scrolling="no" frameborder="0"></iframe></div></div>';
 
-/*function ordenar_tabla(){
-	if($('.ordenar').attr("ordercol")){
-		var ordercol	=	$('.ordenar').attr("ordercol");
-	}else{
-		var ordercol	=	2;
-	}
-	if($('.ordenar').attr("order")){
-		var order	=	$('.ordenar').attr("order");
-	}else{
-		var order	=	"asc";
-	}
-	var table 		=	$('.ordenar').DataTable({
-        "paging":   false,
-		"pageLength": 50,
-		"order": [[ ordercol, order ]],
-		"language": {
-			"url": "design/Spanish.json"
-		},
-		"initComplete": function(settings, json) {
-			var obj = 	$(this);
-           	$('#'+$(this).attr("id")+'_filter input').bind('keyup', function(e) {
-
-				var trs	=	obj.find("tbody").find("tr");
-				if(trs.length>0){
-					var valor = 0;
-					var valor2 = 0;
-					var valor3 = 0;
-					var cont = 0;
-					trs.each(function(index,v){
-						cont+1;
-						var num3 = 	parseFloat($(v).find("td").find(".monto_oculto3").val());
-						var num2 = 	parseFloat($(v).find("td").find(".monto_oculto2").val());
-						var num = 	parseFloat($(v).find("td").find(".monto_oculto").val());
-						valor	=	valor + num;
-						valor2	=	valor2 + num2;
-						valor3	=	(valor3 + num3)/cont;
-
-						$("#total_general").html(valor.toFixed(2));
-						$("#total_general2").html(valor2.toFixed(2));
-						$("#total_general3").html(valor3.toFixed(2));
-					})
-					//console.log(valor);
-				}
-
-				//console.log(obj.find("tbody").find("tr").find("td:last").find(".monto_oculto").val())
-            });
-        }
-	});
-}*/
-
-/*function validar_form_sin_require(selector){
-    $('button[type="submit"]').click(function(event){
-        var data = $(selector);
-        event.preventDefault();
-        var input = 0;
-        data.each(function(index, el) {
-            if(el.value.length > 0){
-                if(el.value != "Seleccione"){
-                    input += 1;
-                    if(input == 3){
-                        $('form').submit();
-                    }
-                }else{
-                    $(this).parent("div").parent("div").find('.advertencia').html('<div class="alert alert-danger" role="alert"><strong>Importante!</strong> Este campo es obligatorio.</div>');
-                }
-            }else{
-                $(this).parent("div").parent("div").find('.advertencia').html('<div class="alert alert-danger" role="alert"><strong>Importante!</strong> Este campo es obligatorio.</div>');
-            }
-        });
-    });
-}*/
 
 function configEmail(){
 	$('#configEmail').click(function(e){
@@ -339,32 +278,7 @@ function recalcular(obj){
 	}
 }
 
-function Info_Formulario_Dinamico(){
-
-    /*$('.verificar').change(function() {
-        var TipoMoto = $('#ddlTipoMoto').val();
-        var TipoServicio = $('#ddlTipoServicio').val();
-        var valSelector = $(this).val();
-        var selector = $(this).attr("id");
-        var CampoDinamico;
-        if(selector == "ddlTipoRevision"){
-            CampoDinamico = ["id_Tipo_Revision",valSelector];
-        }else{
-            CampoDinamico = ["id_Actividad_OT",valSelector];
-        }
-        $.post(uri+'/ordenTrabajo/VerificarOT',{TipoMoto:TipoMoto,TipoServicio:TipoServicio,CampoDinamico:CampoDinamico}, function($data){
-            if($data === "true"){
-                make_message("Error","Esta orden de trabajo ya existe");
-                $("#boton").attr('disabled','disabled');
-                alert("Esta orden de trabajo ya existe");
-            }else{
-                $("#boton").removeAttr('disabled');
-            }
-        });*/
-
-}
-
-	function makemail(data){
+function makemail(data){
 		var sucursal = $('#identificacion').data("sucursal");
 		data	=	data.toLowerCase();
 		data	=	getCleanedString(data);
@@ -406,25 +320,6 @@ function identificacion(){
 		})
 	});
 }
-
-/* function check_email(){
-	$("#correo").focusout(function(){
-		var correo = $(this).val();
-		var url = $(this).data("url");
-		$.post(url,{email:correo},function(data){
-			},'json').fail(function(){
-				make_message("Error Critico","Por favor consulte al administrador del sistema");
-				//$(".form").remove();
-			}).done(function(data){
-				console.log(data);
-				if(data.code==200){
-					make_message("Importante","Este correo electronico : "+correo+", ya fue registrado en el sistema por favor elija otro.");
-					$("#correo").val('');
-				}
-			});
-	});
-}*/
-
 
 function windows_reload(){
 	parent.location.reload();
@@ -498,19 +393,6 @@ function tabs(){
 			$( ".bd-example-tabs .nav-item:first .nav-link" ).addClass("active show");
 			$( ".bd-example-tabs .tab-content:first .tab-pane" ).addClass("active show");
 		}
-
-		/*
-		var nav_link	=	$( ".bd-example-tabs .nav-item .nav-link" );
-		var tab_pane	=	$( ".bd-example-tabs .tab-content .tab-pane" );
-
-		if(nav_link.length>0){
-			nav_link.each(function(index,v){
-				console.log($(this));
-			})
-		}
-		//$( ".bd-example-tabs .nav-item .nav-link" ).addClass("active show");
-		//$( ".bd-example-tabs .tab-content .tab-pane" ).addClass("active show");
-		*/
 	}
 }
 
@@ -923,56 +805,6 @@ function upcase(){
 		$(this).val($(this).val().firstLetterUpper());
 	});
 }
-
-/*function validar_file_upload(){
-	forms		=	$( "form" );
-	forms.each(function(index,v){
-		var _return = 	true;
-		$(v).submit(function(){
-			var inputs		=	$(v).find("input:file");
-			inputs.each(function(index,v2){
-				var v2	=	$(v2);
-				if(v2.val()==''){
-					_return	=	false;
-					return false;
-				}
-				extensiones_permitidas 	= 	v2.data("filetype");
-				eval(extensiones_permitidas);
-				if(filtroExtensionPermitida(v2.val(),filestype)==false){
-					_return	=	false;
-					return false;
-				}
-
-				if(v2.val()!=''){
-					if(window.File && window.FileReader && window.FileList && window.Blob){
-						if(this.files[0].size > v2.data("sizemax")){
-							make_message("Error en Formulario","El archivo supera el peso permitido");
-							_return	=	false;
-							return false;
-						}
-					}else{
-						// IE
-						var Fs = new ActiveXObject("Scripting.FileSystemObject");
-						var ruta = document.upload.file.value;
-						var archivo = Fs.getFile(ruta);
-						var size = archivo.size;
-						if(size > v2.data("sizemax")){
-							make_message("Error en Formulario","El archivo supera el peso permitido");
-							_return	=	false;
-							return false;
-						}
-					}
-				}
-
-			});
-			if(_return==false){
-				return false;
-			}else{
-				return true;
-			}
-		});
-	});
-}*/
 
 function filtroExtensionPermitida(archivo,extensiones_permitidas){
 	var mierror		= 	"";

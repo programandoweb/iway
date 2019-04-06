@@ -54,7 +54,7 @@
                     </ul>
                     <div class="tab-content row">
     					<div class="tab-pane active col-md-12" id="Modelos" role="tabpanel">
-							<table class="ordenar display table table-hover" ordercol= 0  order="asc">
+							<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol= 0  order="asc">
 								<thead>
 									<tr>
 										<th><b>Nombre</b></th>
@@ -129,7 +129,7 @@
 							</table>
 						</div>
 						<div class="tab-pane col-md-12" id="Monitores" role="tabpanel">
-							<table class="ordenar display table table-hover" ordercol= 0  order="asc">
+							<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol= 0  order="asc">
 								<thead>
 									<tr>
 										<th><b>Nombre</b></th>
@@ -187,7 +187,7 @@
 								</tfoot>
 							</table>
 						</div>
-						<div class="tab-pane col-md-12" id="Administrativos" role="tabpanel">	 <table class="ordenar display table table-hover" ordercol= 0  order="asc">
+						<div class="tab-pane col-md-12" id="Administrativos" role="tabpanel">	 <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol= 0  order="asc">
 								<thead>
 									<tr>
 										<th><b>Nombre</b></th>
@@ -246,7 +246,7 @@
 							</table>
 						</div> 
 						<div class="tab-pane col-md-12" id="Asociados" role="tabpanel">
-							<table class="ordenar display table table-hover" ordercol= 0  order="asc">
+							<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol= 0  order="asc">
 								<thead>
 									<tr>
 										<th><b>Nombre</b></th>

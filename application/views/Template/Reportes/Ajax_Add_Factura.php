@@ -18,7 +18,7 @@ if(empty($this->$modulo->result["rows"])){
 ?>
 <input id="fecha_emision" type="hidden" name="fecha_emision" value="" class="form-control datepicker" />
 <input type="hidden" name="trm" placeholder="TRM" value="<?php echo $periodotrm;?>" />
-<table id="ordenar" class="ordenar display table table-hover" ordercol=1 order="asc">
+<table id="ordenar" class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=1 order="asc">
 	<thead>
     	<th>Modelo</th>
         <th>Usuarios</th>

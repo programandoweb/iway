@@ -66,7 +66,7 @@
                             $suma_token			=	0;
                             $suma_equivalencia	=	0;
                         ?>
-                        <table class="ordenar display table table-hover" ordercol=3 order="desc">
+                        <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=3 order="desc">
                             <thead>
                                 <tr>
                                     <th class="text-center"><b>Fecha</b></th>
@@ -135,7 +135,7 @@
                             $suma_token			=	0;
                             $suma_equivalencia	=	0;
                         ?>
-                        <table class="ordenar display table table-hover">
+                        <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                             <thead>
                                 <tr>
                                     <th class="text-center"><b>Fecha</b></th>
@@ -202,7 +202,7 @@
                             $suma_token			=	0;
                             $suma_equivalencia	=	0;
                         ?>
-                        <table class="ordenar display table table-hover">
+                        <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                             <thead>
                                 <tr>
                                     <th class="text-center"><b>Fecha</b></th>

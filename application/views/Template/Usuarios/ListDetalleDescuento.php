@@ -20,7 +20,7 @@ $modulo		=	$this->ModuloActivo;
     	<div class="col">
             <div class="row">
             	<div class="col-md-12">
-					<table class="ordenar display table table-hover">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
 						<thead>
 							<tr>
 								<th width="140"><b>Nombre</b></th>

@@ -26,7 +26,7 @@
            	</div>
             <div class="row">
             	<div class="col-md-12">
-					<table class="ordenar display table table-hover">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
 						<thead>
 							<tr>
 								<td><b>Funcionario</b></td>

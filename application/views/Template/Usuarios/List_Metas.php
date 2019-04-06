@@ -41,7 +41,7 @@ if(!empty($row)){
 						$ciclo		=	$this->$modulo->fields;
 						//pre($this->$modulo->result); return;
 					?>
-					<table class="ordenar display table table-hover" ordercol=0 order="asc">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=0 order="asc">
 						<thead>
 							<tr>
 								<th><b>Tercero</b></th>

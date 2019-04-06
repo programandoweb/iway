@@ -14,7 +14,7 @@ $tipo_documento = DocumentoHonorarios(52);
 <div class="container">
 	<div class="row justify-content-md-center">
     	<div class="col-md-12">
-            <table class="ordenar display table table-hover">
+            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                 <thead>
                     <tr>
                         <th class="text-center"><b>Tipo documento</b></th>

@@ -36,7 +36,7 @@ $resumen = @resumen_seguimiento_modelos();
 				<div id="activo" class="tab-pane active row justify-content-md-center mt-3" role="tabpanel">
 		            <div class="row">
 		            	<div class="col-md-12">
-							<table class="ordenar display table table-hover" ordercol=1 order="asc">
+							<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=1 order="asc">
 								<thead>
 									<tr>
 										<th><b>Fecha</b></th>
@@ -92,7 +92,7 @@ $resumen = @resumen_seguimiento_modelos();
 		    <div id="inactivo" class="tab-pane row justify-content-md-center mt-3" role="tabpanel">
 	    		<div class="row">
 	            	<div class="col-md-12">
-						<table class="ordenar display table table-hover" ordercol=1 order="asc">
+						<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=1 order="asc">
 							<thead>
 								<tr>
 	                                <th><b>Modelo</b></th>

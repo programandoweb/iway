@@ -13,7 +13,7 @@ $modulo		=	$this->ModuloActivo;
 			?>
             <div class="row">
             	<div class="col-md-12">
-                    <table class="ordenar display table table-hover" ordercol=1 order="desc">
+                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=1 order="desc">
                         <thead>
                             <tr>
                                 <th class="text-center">Avatar</th>

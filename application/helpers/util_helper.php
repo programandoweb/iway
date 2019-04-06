@@ -2,6 +2,43 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+function json_response($response=null, $code = 200,$callback='',$redirect=false){
+  header_remove();
+  http_response_code($code);
+  header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
+  header('Content-Type: application/json');
+  $status = array(
+    200 => '200 OK',
+    203 => '203 Error',
+    400 => '400 Bad Request',
+    422 => 'Unprocessable Entity',
+    500 => '500 Internal Server Error'
+  );
+  header('Status: '.$status[$code]);
+  $message  = (isset($response->message))?$response->message:"";
+  $json=array(
+    'status'    => $code < 300,
+    'message'   => $message,
+    'response'  => $response,
+    'code' => $code,
+    'callback' => $callback
+  );
+
+  if(isset($response->result)){
+    unset($json["response"]);
+    if(!empty($response->result)){
+      foreach ($response->result as $key => $value) {
+        $json[$key]    =   $response->result[$key];
+      }
+    }
+  }
+
+
+  if($redirect){
+    $json["redirect"]	=	$redirect;
+  }
+  return json_encode($json);
+}
 
   function menu($rol_id=NULL){
     $ci   =&  get_instance();
@@ -964,15 +1001,6 @@ function FormAjax($view){
     echo '</pre>';
   }
 
-  function post($var=""){
-    $ci   =&  get_instance();
-    if($var==''){
-      return $ci->input->post();
-    }else{
-      return $ci->input->post($var, TRUE);
-    }
-  }
-
   function logs($user,$tipo_transaccion,$tabla_afectada,$registro_afectado_id=NULL,$modulo_donde_produjo_cambio=NULL,$accion=1,$json=array()){
     $ci   =&  get_instance();
     $ci->db->insert("sys_logs",array(
@@ -1347,4 +1375,52 @@ function get_bancos(){
    $option[$v->id]   =   $v->Entidad;
  }
  return $option;
+}
+
+function post($var=""){
+	$ci 	=& 	get_instance();
+	if($var==''){
+		return $ci->input->post();
+	}else{
+		return $ci->input->post($var, TRUE);
+	}
+}
+
+function get($var=""){
+	$ci 	=& 	get_instance();
+	if($var==''){
+		return $ci->input->get();
+	}else{
+		return $ci->input->get($var, TRUE);
+	}
+}
+function columnas($campo){
+	$return		=	'';
+	$lastkey 	= 	count($campo) - 1;
+	$count		=	0;
+	foreach($campo as $k => $v){
+		if($count==$lastkey || $k=='estatus' || $k=='id'){
+			$return		.=	'<th data-columna="'.$k.'" width="30" class="text-center">';
+		}else{
+			$return		.=	'<th data-columna="'.$k.'">';
+		}
+			$return		.=	$v;
+		$return		.=	'</th>';
+		$count++;
+	}
+	return $return;
+}
+
+function avatar($id){
+  $url  = IMG.'uploads/';
+  $path = PATH_IMG.'uploads/';
+  $ruta = $id.'/avatar';
+  $extension_permitida=array(".jpg",".jpeg",".png",".gif");
+  $return='<img src="'.IMG.'avatar.png" class="rounded-circle avatar-md" />';
+  foreach ($extension_permitida as $key => $value) {
+    if(file_exists($path.$ruta.$value)){
+      $return='<img src="'.IMG.$ruta.$value.'" class="rounded-circle avatar-md" />';
+    }
+  }
+  return $return;
 }

@@ -24,7 +24,7 @@
 						$ciclo		=	$this->$modulo->fields;
 						$colums		.=	'</tr>';	
 					?>
-					<table class="ordenar display table table-hover">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
 						<thead>
 							<tr>
 								<th><b>Nombre</b></th>

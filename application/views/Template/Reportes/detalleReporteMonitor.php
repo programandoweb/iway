@@ -29,7 +29,7 @@ $me_falta = 0;
             <div class="row">
             	<div class="col-md-12">
                     <div class="row">
-                        <table class="ordenar display table table-hover" ordercol=0 order="asc">
+                        <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=0 order="asc">
                             <thead>
                                 <tr>
                                     <th class="text-center">Nombre Modelo</th>

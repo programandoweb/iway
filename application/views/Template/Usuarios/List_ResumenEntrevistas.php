@@ -36,7 +36,7 @@
                     </ul>
                     <div class="row justify-content-md-center tab-content" id="imprimeme">                 
                         <div role="tabpanel" class="col-md-12 tab-pane fade active show" id="resumen" aria-labelledby="home-tab" aria-expanded="false">
-                            <table class="ordenar display table table-hover">
+                            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                 <thead>
                                     <tr>
                                         <th><b>Sucursal</b></th>
@@ -100,7 +100,7 @@
                             </table>
                         </div>
                         <div role="tabpanel" class="col-md-12 tab-pane fade" id="detalle" aria-labelledby="home-tab" aria-expanded="false">
-                            <table class="ordenar display table table-hover">
+                            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                 <thead>
                                     <tr>
                                         <th width="50" class="text-left">Cédula</th>

@@ -62,7 +62,7 @@ foreach ($row as $k => $value) {
 		            </ul>
 		            <div class="tab-content" id="myTabContent">
 		                <div role="tabpanel" class="tab-pane fade active show" id="home" aria-labelledby="home-tab" aria-expanded="false">
-							<table class="ordenar display table table-hover" ordercol=3 order="desc">
+							<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=3 order="desc">
 								<thead>
 									<tr>
 		                            	<th><b>Fecha</b></th>
@@ -131,7 +131,7 @@ foreach ($row as $k => $value) {
 							</table>                       
 		                </div>
 		                <div class="tab-pane fade" id="procesador" role="tabpanel" aria-labelledby="procesador-tab" aria-expanded="true">
-							<table class="ordenar display table table-hover" ordercol=3 order="asc">
+							<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=3 order="asc">
 								<thead>
 									<tr>
 		                            	<th><b>Fecha</b></th>
@@ -196,7 +196,7 @@ foreach ($row as $k => $value) {
 							</table>
 		                </div>
 		                <div class="tab-pane fade" id="registrocontable" role="tabpanel" aria-labelledby="registrocontable-tab" aria-expanded="true">
-							<table class="ordenar display table table-hover" ordercol=3 order="asc">
+							<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=3 order="asc">
 								<thead>
 									<tr>
 		                            	<th><b>Fecha</b></th>
@@ -243,7 +243,7 @@ foreach ($row as $k => $value) {
 							</table>                               	
 		                </div>  
 		                <div class="tab-pane fade" id="rechazado" role="tabpanel" aria-labelledby="rechazado-tab" aria-expanded="true">
-							<table class="ordenar display table table-hover" ordercol=3 order="asc">
+							<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=3 order="asc">
 								<thead>
 									<tr>
 		                            	<th><b>Fecha</b></th>

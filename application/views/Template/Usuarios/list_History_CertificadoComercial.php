@@ -26,7 +26,7 @@
 			?>
             <div class="row">
             	<div class="col-md-12">
-					<table class="ordenar display table table-hover" ordercol="0" order="asc">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol="0" order="asc">
 						<thead>
 							<tr>
 								<th><b>Consecutivo</b></th>

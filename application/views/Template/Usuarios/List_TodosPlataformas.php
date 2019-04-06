@@ -32,7 +32,7 @@ $modulo		=	$this->ModuloActivo;
                     <?php //pre($this->$modulo->result);?>
                     <div class="tab-content row">
     					<div class="tab-pane active col-md-12" id="activos" role="tabpanel">
-                        	<table class="ordenar display table table-hover" ordercol=3 order="desc">
+                        	<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=3 order="desc">
                                 <thead>
                                     <tr>
                                        <th>Nombre</th>
@@ -82,7 +82,7 @@ $modulo		=	$this->ModuloActivo;
                             </table>
                         </div>
                         <div class="col-md-12 tab-pane" id="inactivos" role="tabpanel">
-                            <table class="ordenar display table table-hover" ordercol=3 order="desc">
+                            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=3 order="desc">
                                 <thead>
                                     <tr>
                                       	<th>Nombre</th>

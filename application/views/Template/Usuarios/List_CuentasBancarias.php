@@ -33,7 +33,7 @@
 						$colums		.=	'</tr>';
 						//pre($this->$modulo->result[0]);	
 					?>
-					<table class="ordenar display table table-hover">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
 						<thead>
 							<tr>
 								<th class="text-center"><b>&nbsp;&nbsp;&nbsp;&nbsp;Tercero</b></th>

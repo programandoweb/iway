@@ -35,7 +35,7 @@
             <div style="height: 50px"></div>
 	<div class="row justify-content-md-center" id="imprimeme">
         <div class="col-md-12">
-            <table class="ordenar display table table-hover" ordercol="0" order="asc">
+            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol="0" order="asc">
                 <thead>
                     <tr>
                         <th class="text-left">Fecha</th>

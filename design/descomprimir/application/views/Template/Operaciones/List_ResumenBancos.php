@@ -30,7 +30,7 @@
 					</div> 
                     <div class="tab-content" id="myTabContent">
                     	<div role="tabpanel" class="tab-pane fade" id="nacionales" aria-labelledby="nacionales-tab" aria-expanded="false">                           
-                            <table class="ordenar display table table-hover">
+                            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                 <thead>
                                     <tr>
                                         <th>Cuentas Bancarias</th>
@@ -81,7 +81,7 @@
                             </table> 
 						</div>
                         <div role="tabpanel" class="tab-pane fade active show" id="internacionales" aria-labelledby="internacionales-tab" aria-expanded="false">
-                        	<table class="ordenar display table table-hover">
+                        	<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                 <thead>
                                     <tr>
                                         <th>Cuentas Bancarias</th>

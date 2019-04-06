@@ -47,7 +47,7 @@ $modulo		=	$this->ModuloActivo;
                     </ul>
                     <div class="tab-content row">
     					<div class="tab-pane active col-md-12" id="activos" role="tabpanel">	
-                            <table class="ordenar display table table-hover" ordercol=1 order="asc">
+                            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=1 order="asc">
                                 <thead>
                                     <th class="text-center">Avatar</th>
                                     <th class="text-center">Tercero</th>
@@ -91,7 +91,7 @@ $modulo		=	$this->ModuloActivo;
                             </table>
 						</div>
                         <div class="tab-pane  col-md-12" id="inactivos" role="tabpanel">	
-                            <table class="ordenar display table table-hover" ordercol=3 order="desc">
+                            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=3 order="desc">
                                 <thead>
                                     <th class="text-center">Avatar</th>
                                     <th>Tercero</th>

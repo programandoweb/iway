@@ -32,7 +32,7 @@
 						$suma_token			=	0;
 						$suma_equivalencia	=	0;
 					?>
-					<table class="ordenar display table table-hover">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
 						<thead>
 							<tr>
                             	<th><b>Página</b></th>

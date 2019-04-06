@@ -37,7 +37,7 @@
 </ul>
 <div class="tab-content row">
     <div class="tab-pane active col-md-12" id="activos" role="tabpanel">
-        <table class="ordenar display table table-hover" ordercol="0" order="asc">
+        <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol="0" order="asc">
             <thead>
                 <tr>
                 	<?php echo $colums;?>
@@ -72,7 +72,7 @@
         </table>
     </div>
     <div class="col-md-12 tab-pane" id="inactivos" role="tabpanel">
-        <table class="ordenar display table table-hover">
+        <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
             <thead>
                 <tr>
                    

@@ -3,10 +3,10 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Empresas extends CI_Controller {
-	
-	var $util,$user,$ModuloActivo,$path,$listar,$Empresas,$Breadcrumb,$Uri_Last;
-	
-	public function __construct(){    	
+
+	var $util,$user,$ModuloActivo,$path,$listar,$Empresas,$Breadcrumb,$Uri_Last,$data;
+
+	public function __construct(){
         parent::__construct();
 		if(!defined('APANEL_EMPRESAS')){
 			redirect(base_url("Main/modulo_inactivo"));	return;
@@ -21,11 +21,11 @@ class Empresas extends CI_Controller {
 		$this->user			=	$this->session->userdata('User');
 		$this->ModuloActivo	=	'Empresas';
 		$this->Path			=	PATH_VIEW.'/Template/'.$this->ModuloActivo;
-		$this->listar		=	new stdClass();	
-		
+		$this->listar		=	new stdClass();
+
 		if(empty($this->user)){
 			redirect(base_url("Main"));	return;
-		}		
+		}
 
 		if(defined('APANEL_EMPRESAS')){
 			$this->load->model("Empresas/Empresas_model");
@@ -33,19 +33,19 @@ class Empresas extends CI_Controller {
 		}
 		chequea_session($this->user);
     }
-	
+
 	public function Index(){
 		if(!defined('APANEL_EMPRESAS')){
 			redirect(base_url("Main/modulo_inactivo"));	return;
 		}
-	
-		if(!isset($_SERVER['HTTP_REFERER'])){
-			redirect(base_url("Main/ErrorUrl"));
-			return;
-		}
 		$this->Empresas->getEmpresa();
 		$this->listar->view="Empresas/List_Empresas";
 		$this->util->set_title($this->ModuloActivo	." - ".SEO_TITLE);
+		if ($this->input->is_ajax_request() || get("format")=='json') {
+			echo json_response($this->Empresas);
+			return;
+		}
+		$this->campos	=	array("avatar"=>"Avatar","concat_nombres"=>"Nombre Legal / Comercial","login"=>"Usuario","concat_contacto"=>"Datos","edit"=>"Acción");
 		Listados($this->listar->view);
 	}
 
@@ -59,45 +59,45 @@ class Empresas extends CI_Controller {
 		$this->Empresas->getDocumentos($this->uri->segment($this->uri->total_segments()));
 		$this->listar->view="Empresas/ConfiguracionDocumentos";
 		$this->util->set_title($this->ModuloActivo	." - ".SEO_TITLE);
-		$this->Listado		=	$this->load->view('Template/Listado',array(),TRUE);	
-		FormAjax($this->listar->view); 
+		$this->Listado		=	$this->load->view('Template/Listado',array(),TRUE);
+		FormAjax($this->listar->view);
 	}
-	
+
 	public function Listado(){
 		if(!defined('APANEL_EMPRESAS')){
 			redirect(base_url("Main/modulo_inactivo"));	return;
 		}
-		
+
 		$this->Empresas->pagination		=		$this->uri->segment($this->uri->total_segments());
 		$this->Empresas->search			=		post("search");
-		$this->Empresas->get_all();		
-		
+		$this->Empresas->get_all();
+
 		/*DEVOLVEMOS RESULTADOS DEPENDIENDO DEL TIPO DE LLAMADO*/
 		if ($this->input->is_ajax_request()) {
-			$this->Response 	=			array("result"=>$this->Empresas->result,"code"=>"200");	
-			echo answers_json($this->Response);	
+			$this->Response 	=			array("result"=>$this->Empresas->result,"code"=>"200");
+			echo answers_json($this->Response);
 		}else{
 			$this->listar->view="Empresas/List_Empresas";
 			$this->util->set_title($this->ModuloActivo	." - ".SEO_TITLE);
 			paginator($this->Empresas->total_rows);
-			$this->Listado		=	$this->load->view('Template/Listado',array(),TRUE);	
-			listados($this->listar->view); 	
+			$this->Listado		=	$this->load->view('Template/Listado',array(),TRUE);
+			listados($this->listar->view);
 		}
 	}
-	
+
 	public function Ver(){
 		if(!defined('APANEL_EMPRESAS')){
 			redirect(base_url("Main/modulo_inactivo"));	return;
 		}
 		$this->Empresas->pagination		=		$this->uri->segment($this->uri->total_segments());
 		$this->Empresas->search			=		post("search");
-	  $this->Empresas->getEmpresa();		
+	  $this->Empresas->getEmpresa();
 		$this->listar->view				=		"Empresas/List_ver";
 		$this->util->set_title($this->ModuloActivo	." - ".SEO_TITLE);
 		//paginator($this->Empresas->total_rows);
-		FormAjax($this->listar->view); 			
+		FormAjax($this->listar->view);
 	}
-	
+
 	public function Add(){
 		if(!defined('APANEL_EMPRESAS')){
 			redirect(base_url("Main/modulo_inactivo"));	return;
@@ -124,24 +124,24 @@ class Empresas extends CI_Controller {
 					redirect(current_url());
 				}
 			}
-			return;	
+			return;
 		}
 		$possible_id		=	$this->uri->segment($this->uri->total_segments());
 		if($this->uri->segment(3)){
 			$this->Empresas->getEmpresa();
-		}	
+		}
 		$this->listar->view	="Empresas/Form_Empresas";
-		$this->util->set_title($this->ModuloActivo	." - ".SEO_TITLE);	
+		$this->util->set_title($this->ModuloActivo	." - ".SEO_TITLE);
 		//$this->Listado	=	$this->load->view('Template/Form',array(),TRUE);
-		FormAjax($this->listar->view);	
+		FormAjax($this->listar->view);
 	}
-	
+
 	public function Sucursales(){
 		if(!defined('APANEL_EMPRESAS')){
 			redirect(base_url("Main/modulo_inactivo"));	return;
 		}
 		if(post()){
-			$set	=	$this->Empresas->set(post());			
+			$set	=	$this->Empresas->set(post());
 			if ($this->input->is_ajax_request()) {
 				if($set){
 					$this->Response 		=			array(	"message"	=>	"Los datos han sido guardados correctamente",
@@ -155,45 +155,45 @@ class Empresas extends CI_Controller {
 				$this->session->set_flashdata('danger', 'Lo siento, presentamos un problema y no pudimos guardar los datos');
 				redirect(current_url());
 			}
-			return;	
+			return;
 		}
 		$possible_id		=	$this->uri->segment($this->uri->total_segments());
-		$this->Empresas->get($possible_id);	
+		$this->Empresas->get($possible_id);
 		$this->listar->view	="Empresas/Form_Sucursales";
-		$this->util->set_title($this->ModuloActivo	." - ".SEO_TITLE);	
+		$this->util->set_title($this->ModuloActivo	." - ".SEO_TITLE);
 		$this->Listado	=	$this->load->view('Template/Form',array(),TRUE);
-		Form($this->listar->view);	
-	}	
-	
+		Form($this->listar->view);
+	}
+
 	public function Listado_Del(){
 		if($id 	= 	$this->uri->segment(3)){
 			$delete = $this->db->delete(DB_PREFIJO.'usuarios', array('user_id'	=>	$id));
 			if($delete){
-				$this->session->set_flashdata('success', 'El registro se borró correctamente');			
+				$this->session->set_flashdata('success', 'El registro se borró correctamente');
 			}else{
-				$this->session->set_flashdata('danger', 'No se pudo borrar el registro');	
+				$this->session->set_flashdata('danger', 'No se pudo borrar el registro');
 			}
 		}
-		redirect(base_url('Empresas/Listado'));		
+		redirect(base_url('Empresas/Listado'));
 	}
-	
+
 	public function Export(){
 		if(!defined('APANEL_USUARIOS')){
 			redirect(base_url("Main/modulo_inactivo"));	return;
 		}
-		$this->Empresas->get_all_export();		
+		$this->Empresas->get_all_export();
 		$this->section		=	"ListaEmpresas";
-		$this->listar->view	=	"Usuarios/List_Export";		
+		$this->listar->view	=	"Usuarios/List_Export";
 		$modulo		=	$this->ModuloActivo;
 		$ciclo		=	$this->$modulo->fields;
 		if(post("excel")){
-			listados_export($ciclo,$this->$modulo->result); 	
+			listados_export($ciclo,$this->$modulo->result);
 		}
 		if(post("pdf")){
-			listados_export_pdf($ciclo,$this->$modulo->result); 	
-		}	
+			listados_export_pdf($ciclo,$this->$modulo->result);
+		}
 	}
-	
+
 }
 
 ?>

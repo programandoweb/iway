@@ -40,7 +40,7 @@
 					<?php
 						$modulo		=	$this->ModuloActivo;
 					?>
-					<table class="ordenar display table table-hover" width="540">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" width="540">
 						<thead>
 							<tr>
 								<td><b>Tipo de Gasto</b></td>
@@ -103,7 +103,7 @@
 					<?php
 						$modulo		=	$this->ModuloActivo;
 					?>
-					<table class="ordenar display table table-hover" width="540">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" width="540">
 						<thead>
 							<tr>
 								<td><b>Tipo de Gasto</b></td>
@@ -166,7 +166,7 @@
 					<?php
 						$modulo		=	$this->ModuloActivo;
 					?>
-					<table class="ordenar display table table-hover" width="540">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" width="540">
 						<thead>
 							<tr>
 								<td><b>Tipo de Gasto</b></td>

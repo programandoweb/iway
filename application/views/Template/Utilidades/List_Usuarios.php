@@ -53,7 +53,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table class="ordenar display table table-hover">
+                                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                         <thead>
                                             <tr>
                                                  <th><b>Id</b></th>
@@ -119,7 +119,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table class="ordenar display table table-hover">
+                                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                         <thead>
                                             <tr>
                                                 <th><b>Id</b></th>
@@ -193,7 +193,7 @@
                         <div class="tab-pane col-md-12" id="tareasprecerradas" role="tabpanel">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table class="ordenar display table table-hover">
+                                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                         <thead>
                                             <tr>
                                                 <th><b>Id</b></th>
@@ -244,7 +244,7 @@
                         <div class="tab-pane col-md-12" id="tareascerradas" role="tabpanel">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table class="ordenar display table table-hover">
+                                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                         <thead>
                                             <tr>
                                                 <th><b>Id</b></th>
@@ -299,7 +299,7 @@
                                     <?php echo anchor('Utilidades/Edit/0', '<i class="fas fa-plus-circle"></i>', array("title"=>"Agregar Usuario","class"=>"lightbox","data-type"=>"iframe"));?>  
                                 </div>
                             </div>
-                            <table class="ordenar display table table-hover">
+                            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                 <thead>
                                     <tr>
                                         <th><b>Nombre</b></th>
@@ -349,7 +349,7 @@
                                     <?php
                                         $modulo		=	$this->ModuloActivo;
                                     ?>
-                                    <table class="ordenar display table table-hover">
+                                    <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                         <thead>
                                             <tr>
                                                 <th><b>Asunto</b></th>

@@ -36,7 +36,7 @@ $ciclos_abiertos = get_cicloabierto()->ciclo_produccion_id;
 					?>
                     <div class="tab-content row">
     					<div class="tab-pane active col-md-12" id="activos" role="tabpanel">	
-							<table class="ordenar display table table-hover" ordercol=2 order="desc">
+							<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=2 order="desc">
 								<thead>
 									<tr>
 										<th><b>Fecha</b></th>
@@ -169,7 +169,7 @@ $ciclos_abiertos = get_cicloabierto()->ciclo_produccion_id;
 							</table>
 						</div>
                         <div class="tab-pane  col-md-12" id="inactivos" role="tabpanel">
-							<table class="ordenar display table table-hover" ordercol=2 order="desc">
+							<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=2 order="desc">
 								<thead>
 									<tr>
 										<th><b>Fecha</b></th>

@@ -23,7 +23,7 @@ $cpanel	=	cpanel();
 			?>
             <div class="row">
             	<div class="col-md-12">
-					<table class="ordenar display table table-hover" ordercol=1 order="asc">
+					<table class="ordenar display table table-hover" data-url="<?php echo current_url()?>" ordercol=1 order="asc">
 						<thead>
 							<tr>
                             	<th><b>Usuario</b></th>

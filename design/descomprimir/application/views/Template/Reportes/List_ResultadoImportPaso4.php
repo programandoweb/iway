@@ -85,7 +85,7 @@
                                         </div>
                                         <div style="margin-bottom:50px; border-bottom:solid 2px #f2f2f2;"> 
                                         	<?PHP // pre($resultado2);?>
-                                            <table class="ordenar display table table-hover">
+                                            <table class="ordenar display table table-hover" data-url="<?php echo current_url()?>">
                                                 <thead>
                                                     <tr>
                                                         <td width="100"><b>Sucursal</b></td>
