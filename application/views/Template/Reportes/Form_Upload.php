@@ -19,7 +19,7 @@ $row		=	$this->$modulo->result;
 $hidden 	= 	array("redirect"=>base_url("Reportes/InformePlano"),"equivalencia"=>"0","moneda_de_pago"=>"PERFIL IMPORTADO","tipo_persona"=>"PERFIL IMPORTADO");
 echo form_open_multipart(current_url(),array("id"=>"archiv_planito"),$hidden);	?>
 
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:20px;">
 	
 	<div class="row justify-content-md-center">
     	<div class="col-md-8">

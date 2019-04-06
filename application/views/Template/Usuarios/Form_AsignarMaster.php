@@ -10,7 +10,7 @@ $modulo		=	$this->ModuloActivo;
 $row		=	$this->$modulo->result;
 $hidden 	= 	array("rel_plataforma_id"=>$this->uri->segment(4),"redirect"=>base_url("Usuarios/AsignarMaster"));
 echo form_open(current_url(),array('ajaxing' => 'true'),$hidden);	?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:70px;">
 	<div class="row justify-content-md-center">
     	<div class="col-md-8">
         	<div class="form">

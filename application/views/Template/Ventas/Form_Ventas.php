@@ -38,7 +38,7 @@ echo form_open(current_url(),array('ajaxing' => 'true'),$hidden);   ?>
     set_input_hidden("centro_de_costos","centro_de_costos",$this->user->centro_de_costos);
     $empresa    =   centrodecostos($this->user->id_empresa);
 ?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:70px;">
     
     <div class="row justify-content-md-center">
         <div class="col-md-8">

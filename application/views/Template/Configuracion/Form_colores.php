@@ -11,7 +11,7 @@ $row		=	$this->$modulo->result;
 //pre($this->Configuracion->empresa);
 $hidden 	= 	array('user_id' => $this->user->user_id);
 ?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:20px;">
 	<div class="row justify-content-md-center">
     	<div class="col-md-8">
         	<div class="form">

@@ -15,7 +15,7 @@ $modulo			=	$this->ModuloActivo;
 $row			=	$this->$modulo->notificacion;
 $Notificacion	=	Notificacion($row);
 $hidden 		= 	array('user_id' => (isset($row->user_id))?$row->user_id:'');
-echo form_open(current_url(),array('ajaxing' => 'true'),$hidden);	?><div class="container" style="margin-bottom:100px;">
+echo form_open(current_url(),array('ajaxing' => 'true'),$hidden);	?><div class="container" style="margin-bottom:70px;">
 	<div class="row justify-content-md-center">
     	<div class="col-md-12">
         	<div class="form">

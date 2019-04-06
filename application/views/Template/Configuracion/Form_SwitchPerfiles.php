@@ -11,7 +11,7 @@ $row		=	$this->$modulo->result;
 $hidden 	= 	array("redirect"=>base_url("Empresas/Listado"));
 echo form_open(current_url(),array('ajax' => 'true'),$hidden);	
 ?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:20px;">
 	
 	<div class="row justify-content-md-center">
     	<div class="col-md-8">

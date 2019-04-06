@@ -61,7 +61,7 @@ echo form_open(current_url(),array('ajaxing' => 'true'),$hidden);	?>
 		$( "#fecha_contratacion" ).val("<?php echo (isset($row->fecha_contratacion)?$row->fecha_contratacion:null);?>");
 	});
 </script>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:70px;">
 	
 	<div class="row justify-content-md-center">
     	<div class="col-md-8">

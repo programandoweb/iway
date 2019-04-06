@@ -10,7 +10,7 @@ $modulo     =   $this->ModuloActivo;
 $row        =   $this->$modulo->result;
 $hidden     =   array('user_id' => $this->uri->segment(3),'campo' => "firma","redirect"=>base_url($this->uri->segment(1)."/Firma"));
 echo form_open_multipart(current_url(),array(),$hidden); ?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:20px;">
     <div class="row justify-content-md-center">
         <div class="col-md-8">
             <div class="form">

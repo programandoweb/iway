@@ -9,7 +9,7 @@
 $modulo		=	$this->ModuloActivo;
 //pre($this->user);
 echo form_open_multipart($this->uri->segment(1).'/'.$this->uri->segment(2).'/49',array('ajax' => 'true'));	?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:70px;">
 	<div class="row justify-content-md-center">
     	<div class="col-md-12">
         <div class="form">	

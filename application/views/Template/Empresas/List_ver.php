@@ -22,7 +22,7 @@
     <div>
         <div id="step-1" class="">
           
-          <div class="container" style="margin-bottom:100px;">
+          <div class="container" style="margin-bottom:20px;">
             <div class="row justify-content-md-center">
               <div class="col-md-8">
                   <div class="form">
@@ -143,7 +143,7 @@
             </div>
         </div>
         <div id="step-2" class="">
-          <div class="container" style="margin-bottom:100px;">
+          <div class="container" style="margin-bottom:20px;">
             <div class="row justify-content-md-center">
               <div class="col-md-8">
                   <div class="form">
@@ -198,7 +198,7 @@
             </div>   
         </div>
         <div id="step-3" class="">
-          <div class="container" style="margin-bottom:100px;">
+          <div class="container" style="margin-bottom:20px;">
             <div class="row justify-content-md-center">
               <div class="col-md-8">
                   <div class="form">

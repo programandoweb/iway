@@ -1,5 +1,5 @@
 <div id="container_iframe">
-	<div class="card embed-responsive embed-responsive-16by9">
+	<div class="card embed-responsive embed-responsive embed-responsive-16by91">
 		<iframe id="iframe" src="" class="embed-responsive-item" scrolling="no" frameborder="0"></iframe>
 	</div>
 </div>

@@ -10,7 +10,7 @@ $modulo		=	$this->ModuloActivo;
 //pre($this->Usuarios->result);
 //pre($this->user);
 echo form_open(current_url(),array('ajax' => 'true'));	?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:70px;">
 	<div class="row justify-content-md-center">
     	<div class="col-md-8">
         	<div class="form">

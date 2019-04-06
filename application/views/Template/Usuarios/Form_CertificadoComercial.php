@@ -10,7 +10,7 @@ $modulo		=	$this->ModuloActivo;
 $configuracion_manual = @get_certificado($this->uri->segment(3));
 $row		=	@json_decode($configuracion_manual[0]->data);
 echo form_open(current_url(),array('ajaxing' => 'true'));	?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:70px;">
 	<div class="row justify-content-md-center">
     	<div class="col-md-8">
         	<div class="form">

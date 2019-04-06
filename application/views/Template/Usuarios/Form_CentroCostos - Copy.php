@@ -10,7 +10,7 @@ $modulo		=	$this->ModuloActivo;
 $row		=	$this->$modulo->result;
 $hidden 	= 	array('type'=>$this->uri->segment(3),'user_id' => (isset($row->user_id))?$row->user_id:'',"redirect"=>base_url("Usuarios/Todos/".$this->uri->segment(3)));
 echo form_open(current_url(),array('ajax' => 'true'),$hidden);	?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:70px;">
 	
 	<div class="row justify-content-md-center">
     	<div class="col-md-8">

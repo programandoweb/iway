@@ -2,7 +2,7 @@
 $modulo		=	$this->ModuloActivo;
 $hidden 	= 	array('token'=>$this->uri->segment(3),"redirect"=>base_url());
 echo form_open(current_url(),array('ajax' => 'true'),$hidden);	?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:20px;">
 	
 	<div class="row justify-content-md-center">
     	<div class="col-md-8">

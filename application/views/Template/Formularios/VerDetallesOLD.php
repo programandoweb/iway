@@ -9,7 +9,7 @@
 echo form_open(current_url("Formularios/Autenticacion"));
 $modulo     =   $this->ModuloActivo;
 ?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:20px;">
     <div class="row justify-content-md-center">
         <div class="col-md-12">
             <div class="form">

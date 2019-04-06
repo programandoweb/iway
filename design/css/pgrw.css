@@ -1210,3 +1210,7 @@ a.article:hover {
 	margin-left: -15px;
 	margin-right: -15px;
 }
+
+.embed-responsive{
+	height: 100%;
+}

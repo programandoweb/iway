@@ -21,7 +21,7 @@ $modulo   = $this->ModuloActivo;
                         $('[name="dias_pago"]').SoloNumeros();
                     });
                   </script>
-            <div class="container formas-pago" style="margin-bottom:100px;">
+            <div class="container formas-pago" style="margin-bottom:20px;">
                     <div class="row justify-content-md-center">
                           <div class="col-md-8"> 
                               <div class="row form-group">

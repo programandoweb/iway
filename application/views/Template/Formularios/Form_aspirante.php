@@ -9,7 +9,7 @@ echo form_open_multipart(current_url()."/49",array('ajaxing' => 'true'));   ?>
         $("#Fecha").val('<?php echo @$row->Fecha ?>');
     });
 </script>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:20px;">
     <div class="row justify-content-md-center">
         <div class="col-md-8">
             <div class="form">

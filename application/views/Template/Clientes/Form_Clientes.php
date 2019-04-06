@@ -6,7 +6,7 @@ $modulo		=	$this->ModuloActivo;
 $row		=	$this->$modulo->result;
 $hidden     =   array('id' => $this->uri->segment(3));
 echo form_open(current_url(),array(),$hidden);	?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:20px;">
 	<div class="row justify-content-md-center">
     	<div class="col-md-8">
         	<div class="form">

@@ -16,7 +16,7 @@
 	$row		=	$this->$modulo->result;
 	
 ?>
-<div class="container" style="margin-bottom:100px;" id="imprimeme">
+<div class="container" style="margin-bottom:20px;" id="imprimeme">
 	<div class="row justify-content-md-center">
     			<?php 
 					if($this->$modulo->result[0]->estatus==9){

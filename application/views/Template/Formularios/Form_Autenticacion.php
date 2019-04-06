@@ -9,7 +9,7 @@
 echo form_open(current_url("Formularios/Autenticacion"));  
 $estado=$this->Formularios->estado($this->uri->segment(3));  
 ?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:20px;">
     <div class="row justify-content-md-center" style="margin-bottom:20px;">
         <div class="col-md-12 text-center">
 	        <h3>Introduce tu documento Para confirmar.</h3>

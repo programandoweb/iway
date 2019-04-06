@@ -12,7 +12,7 @@ $hidden 	= 	array('user_id' => $this->uri->segment(3),'campo' => "logo","redirec
 echo form_open_multipart(current_url(),array("class"=>"form-horizontal"),$hidden);	
 	$user	=	centrodecostos($this->user->user_id);
 ?>
-<div class="container" style="margin-bottom:100px;">
+<div class="container" style="margin-bottom:20px;">
 	<div class="row justify-content-md-center">
     	<div class="col-md-8">
         	<div class="form">

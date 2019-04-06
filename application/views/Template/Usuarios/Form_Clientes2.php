@@ -31,7 +31,7 @@ echo form_open(current_url(),array('ajaxing' => 'true'),$hidden);
               $('[name="celular"]').SoloNumeros();
             });
           </script>
-          <div class="container" style="margin-bottom:100px;">
+          <div class="container" style="margin-bottom:70px;">
             <div class="row justify-content-md-center">
               <div class="col-md-6">
                 <label for="username">Nombre Usuario *</label>  
@@ -97,7 +97,7 @@ echo form_open(current_url(),array('ajaxing' => 'true'),$hidden);
           </div>
         </div>
         <div id="step-2" class="">
-          <div class="container" style="margin-bottom:100px;">
+          <div class="container" style="margin-bottom:70px;">
             <div class="row justify-content-md-center">
               <div class="col-md-6">
                 <label for="ciudad_user">Ciudad *</label>  
@@ -141,7 +141,7 @@ echo form_open(current_url(),array('ajaxing' => 'true'),$hidden);
           </div>   
         </div>
         <div id="step-3" class="">
-          <div class="container" style="margin-bottom:100px;">
+          <div class="container" style="margin-bottom:70px;">
             <div class="row justify-content-md-center">
               <div class="col-md-6">
                 <label for="pagina_web">pagina web *</label>  
