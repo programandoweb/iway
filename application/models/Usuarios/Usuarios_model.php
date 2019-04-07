@@ -1,19 +1,22 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Usuarios_model extends CI_Model {
-	
+
 	var $fields,$result,$where,$total_rows,$pagination,$search;
 
-	public function SearchUser($identificacion){
- 		$tabla = "usuarios t1";
-		$this->db->select("username");
+	public function SearchUser(){
+		$list		=		get("list",false);
+		$query	=		get("query");
+		$tabla 	= 	"usuarios t1";
+		$this->db->select("login");
 		$this->db->from($tabla);
-		$this->db->where('username',$identificacion);	
-		$row   = $this->db->get()->row();
-		if(!empty($row)){
-			return true;
+		$this->db->where('login',$query);
+		if($list){
+			$rows=$this->db->get()->result();
+			return (!empty($rows)?$rows:"empty");
 		}else{
-			return false;
+			$row=$this->db->get()->row();
+			return (!empty($row)?$row:"empty");
 		}
 	}
 
@@ -64,11 +67,11 @@ class Usuarios_model extends CI_Model {
 				//echo 'REPETIDA';
 			}else{
 				$this->db->insert(DB_PREFIJO."cf_nickname",$v);
-				//pre($v);				
+				//pre($v);
 			}
 			$inc++;
 		}
-		echo '<h3 class="text-center">Tabla Optimizada</h3><h4>'.$inc.' registros en total</h4>';		
+		echo '<h3 class="text-center">Tabla Optimizada</h3><h4>'.$inc.' registros en total</h4>';
 	}
 
 	public function CrearCuentaBancaria($data,$documento=16){
@@ -100,7 +103,7 @@ class Usuarios_model extends CI_Model {
 			return $response;
 		}else if($this->db->insert($tabla,$var)){
 			incrementa_consecutivo($var['empresa_id'],$documento);
-			
+
 			$this->db->where("user_id", $array[0]);
 			if($this->db->update($tabla2,$cambiosCuenta)){
 				$response = array("success","Felicitaciones ,La cuenta ha sido generada exitosamente");
@@ -144,7 +147,7 @@ class Usuarios_model extends CI_Model {
 			return $response;
 		}
 	}
-	
+
 	public function set_Certificado($data){
 		$tabla				=	DB_PREFIJO."cf_pdf_certificado_comercial";
 		$var['centro_de_costos'] = $this->user->centro_de_costos;
@@ -171,7 +174,7 @@ class Usuarios_model extends CI_Model {
 		$var['estatus'] = 	9;
 		$this->db->where('consecutivo',$consecutivo);
 		$this->db->where('modelo_id',$modelo_id);
-		$this->db->where('tipo_documento',13);	
+		$this->db->where('tipo_documento',13);
 		if($this->db->update($tabla,$var)){
 			$tabla			=	DB_PREFIJO."rp_honorarios_modelos";
 			$this->db->where('consecutivo',$consecutivo);
@@ -189,20 +192,20 @@ class Usuarios_model extends CI_Model {
 			return false;
 		}
 	}
-	
+
 	public function HonorariosModeloPagoAnular($consecutivo,$modelo_id){
 		$tabla			=	DB_PREFIJO."rp_operaciones";
 		$var['estatus'] = 	9;
 		$this->db->where('consecutivo',$consecutivo);
 		$this->db->where('modelo_id',$modelo_id);
-		$this->db->where('tipo_documento',14);	
+		$this->db->where('tipo_documento',14);
 		if($this->db->delete($tabla)){
-			return true;	
+			return true;
 		}else{
 			return false;
 		}
 	}
-	
+
 	public function getHonorariosModeloAprobados($consecutivo){
 		$tabla	=	DB_PREFIJO."rp_honorarios_modelos t1" ;
 		$this->db->select("t1.*,t2.estatus,t2.responsable_id");
@@ -217,7 +220,7 @@ class Usuarios_model extends CI_Model {
 		$query	=	$this->db->get();
 		return	$this->result =	 $query->row();
 	}
-	
+
 	public function CalcularHonorarios($modulo,$array_tipo_usuarios){
 		$config				=	$this->session->userdata('Configuracion');
 		$tabla				=	DB_PREFIJO."usuarios t1" ;
@@ -238,16 +241,16 @@ class Usuarios_model extends CI_Model {
 		$pagados=
 		$pendientes=
 		$aprobados=array();
-		
+
 		if(count($rows)>0){
 			foreach($rows as $k => $v){
-				$ajuste_a_la_decena					=	0;	
+				$ajuste_a_la_decena					=	0;
 				$debito								=	0;
 				$credito							=	0;
 				$total_monto_cuota					=	0;
 				$total_restante						=	0;
 				$escala								=	escala($v->id_escala);
-				
+
 				/*INFORMACIÓN DE CABECERA*/
 				$ciclo_informacion					=	get_cf_ciclos_pagos_new($v->id_empresa,0);
 				$escala_escala_x_user_id			=	get_escala_x_user_id2($v->user_id);
@@ -267,7 +270,7 @@ class Usuarios_model extends CI_Model {
 					}else{
 						$trm_default								=	@periodotrm($fecha)->monto;
 						if(empty($valor_trm)){
-							$valor_trm = trm_vigente(true);	
+							$valor_trm = trm_vigente(true);
 						}else{
 							$valor_trm = $trm_default;
 							if(empty($valor_trm)){
@@ -287,7 +290,7 @@ class Usuarios_model extends CI_Model {
 				$periodo_pagos						=	centrodecostos($v->id_empresa);
 				$trm_ciclo							=	trm_ciclo($periodo_pagos->periodo_pagos,get_ciclo_pago($periodo_pagos->periodo_pagos),date("m") - 1);
 				/* - - - - - - */
-				
+
 				/*INFORMACION PAGO PERFIL*/
 				$DiasTrabajados									=	DiasTrabajados($v->user_id,$ciclo_informacion->fecha_desde);
 				if(!empty($DiasTrabajados)){$dias_trabajados	=	$DiasTrabajados->dias_trabajados;}else{$dias_trabajados = 15;}
@@ -297,14 +300,14 @@ class Usuarios_model extends CI_Model {
 				$totalRQ		=	0;
 				$totalP			=	0;
 				foreach($this->HonorariosModelos($v->user_id) as $v2){
-					$user_id						=	$v->user_id;	
+					$user_id						=	$v->user_id;
 					$nickname_id					=	$v2->nickname_id;
 					@$get_diario						=	get_diario($user_id,$nickname_id,$ciclo_informacion->fecha_desde,$ciclo_informacion->fecha_hasta);
 					//pre($get_diario);
-					$conversion_token_standar		=	conversion_token_standar(@$get_diario->monto,$v2->equivalencia);					
+					$conversion_token_standar		=	conversion_token_standar(@$get_diario->monto,$v2->equivalencia);
 					$totalRQ						=	$totalRQ + $conversion_token_standar;
-					
-					
+
+
 					$items_factura_x_nickname		=	items_factura_x_nickname($v2->nickname_id);
 					if(!empty($items_factura_x_nickname)){
 						$items_factura_x_nickname	=	json_decode($items_factura_x_nickname->json);
@@ -314,24 +317,24 @@ class Usuarios_model extends CI_Model {
 					}else{
 						$produccion					=	0;
 					}
-					//pre( $produccion );	
+					//pre( $produccion );
 					$totalP			=	$totalP + conversion_token_standar(@$produccion,$v2->equivalencia);
 					$conversion		=	conversion_token_standar(@$produccion,$v2->equivalencia);
 				}
-				
-				
+
+
 				/*OTROS INGRESOS*/
 				$valor_total	= 0;
 				$ListOtrosIngresos	=	OtrosIngresos($v->user_id);
 				if(count($ListOtrosIngresos)>0){
 					foreach($ListOtrosIngresos as $v2){
 						$valor_total	= 	$valor_total+$v2->debito;
-						
+
 					}
 				}
-				
+
 				/*OTROS DESCUENTOS*/
-				
+
 				$total_monto_cuota	=	0;
 				$total_restante		=	0;
 				$ListOtrosIngresos	=	Descuentos($v->user_id);
@@ -345,7 +348,7 @@ class Usuarios_model extends CI_Model {
 						$total_restante			=	$total_restante + $restante;
 					}
 				}
-				
+
 				$escala_salario 			=	calcula_montos_x_dias(@$escala_escala_x_user_id->auxilio_transporte,$dias_trabajados);
 				$eps						=	calcula_montos_x_dias(@$escala_escala_x_user_id->eps,$dias_trabajados);
 				if($eps>0){
@@ -355,14 +358,14 @@ class Usuarios_model extends CI_Model {
 				if($arl>0){
 					 $total_monto_cuota		= 	$total_monto_cuota+$arl;
 				}
-				
+
 				$bonificacion				=	calcular_bonificacion($varmeta,$totalP,$factorBonificacion,$trm_now);
 
 				if(!empty($escala_escala_x_user_id)){
 					$salario		=	calcula_montos_x_dias(@$escala_escala_x_user_id->salario,$dias_trabajados);
 					$salario_var	=	(format($salario,false));
 				}else{
-					$salario_var	=	0;	
+					$salario_var	=	0;
 				}
 				$aux				=	calcula_montos_x_dias(@$escala_escala_x_user_id->caja_compensacion,$dias_trabajados);
 				$ahorro_prima		=	@$salario + @$escala_salario + @$eps + @$arl + @$aux + @$bonificacion;
@@ -374,18 +377,18 @@ class Usuarios_model extends CI_Model {
 					$total_monto_cuota	= 	$total_monto_cuota+$aux;
 				}
 				$ortros_ingresos 		=	TotalOtrosIngresos($v->user_id);
-				
+
 				$primas					=	round($ahorro_prima, 0) + round($total_ahorro_prima,0);
 				$hacia_arriba			=	round($primas, -3);
-				
+
 				$resultado				=	$primas	- $hacia_arriba;
-				
+
 				$totalizacion_general	=	@$salario + @$escala_salario + @$eps + @$arl + @$aux + @$bonificacion + @$ortros_ingresos->valor + @$total_ahorro_prima;
-				
-				
+
+
 				$total_ingresos			=	$totalizacion_general -	$total_monto_cuota;
 				$subtotal				=	$totalizacion_general - $total_monto_cuota;
-				
+
 				if(@$config->ajustar_decena==1 || @$config->porcentaje_retencion>0){
 					if(!empty($config->porcentaje_retencion)){
 						$porcentaje_retencion	=	$config->porcentaje_retencion / 100;
@@ -393,35 +396,35 @@ class Usuarios_model extends CI_Model {
 						$porcentaje_retencion	=	0;
 					}
 				}
-				$subtotal  			=  	$subtotal - ($subtotal * @$porcentaje_retencion);	
-				
+				$subtotal  			=  	$subtotal - ($subtotal * @$porcentaje_retencion);
+
 				$subtotal1			=	round($totalizacion_general - $total_monto_cuota, -3 );
 				$ajuste_restante	=	$totalizacion_general - $total_monto_cuota;
-				
+
 				if(@$config->ajustar_decena==1){
-					$ajuste_a_decena		=	$subtotal - $subtotal1;	
+					$ajuste_a_decena		=	$subtotal - $subtotal1;
 					$ajuste_a_la_decena		=	ajuste_a_la_decena($subtotal - $subtotal1);
-					
+
 					$final_ajuste_a_la_decena	=	$ajuste_restante - ajuste_a_la_decena($subtotal - $ajuste_a_decena);
-					
+
 					if($final_ajuste_a_la_decena<0){
 						$final_ajuste_a_la_decena	=	str_replace("-","+",$final_ajuste_a_la_decena);
 					}else{
 						$final_ajuste_a_la_decena	=	"+".$final_ajuste_a_la_decena;
 					}
-					$ajuste_a_la_decena	=	ajuste_a_la_decena($subtotal);	
+					$ajuste_a_la_decena	=	ajuste_a_la_decena($subtotal);
 				}else{
-					$ajuste_a_decena	=	$subtotal - $subtotal1;	
+					$ajuste_a_decena	=	$subtotal - $subtotal1;
 					$ajuste_a_la_decena	=	$subtotal ;
 				}
-				
+
 				//pre($this->user);
 				$chequeo	=	chequear_Honorarios_X_ciclo_de_produccion($v->user_id,$this->user->ciclo_produccion_id);
 
 				if(!empty($chequeo)){
 					$chequeo2				=	chequear_Honorarios_Pagados_X_ciclo_nro_documento($v->user_id,$chequeo->consecutivo);
 					$chequeo3				=	sum_Honorarios_Pagados_X_ciclo_nro_documento($v->user_id,$chequeo->consecutivo);
-					
+
 					if($chequeo->estatus==9){
 						/*
 						$activos[$k]								=	new stdClass();
@@ -430,8 +433,8 @@ class Usuarios_model extends CI_Model {
 						$activos[$k]->v								=	$v;	*/
 					}
 
-					
-					
+
+
 					/*
 					if(!empty($chequeo2) && ($chequeo3->credito == $chequeo->debito)){
 						$pagados[$k]								=	new stdClass();
@@ -441,25 +444,25 @@ class Usuarios_model extends CI_Model {
 						$pagados[$k]->v								=	$v;
 					}else{
 						$aprobados[$k]								=	new stdClass();
-						$aprobados[$k]->chequeo						=	$chequeo;	
+						$aprobados[$k]->chequeo						=	$chequeo;
 						$aprobados[$k]->escala						=	$escala;
 						if(is_object($chequeo2)){
 							$aprobados[$k]->ajuste_a_la_decena			=	@$chequeo->debito-@$chequeo2->credito ;
 						}else{
 							$aprobados[$k]->ajuste_a_la_decena			=	$ajuste_a_la_decena ;
 						}
-						$aprobados[$k]->v							=	$v;	
-					}	*/		
-					
+						$aprobados[$k]->v							=	$v;
+					}	*/
+
 					$aprobados[$k]								=	new stdClass();
-					$aprobados[$k]->chequeo						=	$chequeo;	
+					$aprobados[$k]->chequeo						=	$chequeo;
 					$aprobados[$k]->escala						=	$escala;
 					if(is_object($chequeo2)){
 						$aprobados[$k]->ajuste_a_la_decena			=	@$chequeo->debito-@$chequeo2->credito ;
 					}else{
 						$aprobados[$k]->ajuste_a_la_decena			=	$ajuste_a_la_decena ;
 					}
-					$aprobados[$k]->v							=	$v;	
+					$aprobados[$k]->v							=	$v;
 					//pre($chequeo);
 					//pre($chequeo2);
 					//pre($chequeo3);
@@ -472,14 +475,14 @@ class Usuarios_model extends CI_Model {
 					if($chequeo->estatus==9){
 						$aprobados[$k]->estatus						=	"Anulada";
 					}
-					
+
 				}else{
 					//pre($v);
 					if(isset($escala->nombre_escala)){
 						$activos[$k]								=	new stdClass();
 						$activos[$k]->escala						=	$escala;
 						$activos[$k]->ajuste_a_la_decena			=	$ajuste_a_la_decena;
-						$activos[$k]->v								=	$v;	
+						$activos[$k]->v								=	$v;
 					}else{
 						$pendientes[$k]								=	new stdClass();
 						$pendientes[$k]->escala						=	$escala;
@@ -499,16 +502,16 @@ class Usuarios_model extends CI_Model {
 		$var['responsable_anular'] = $this->user->user_id;
 		$this->db->where('nro_documento',$this->uri->segment(3));
 		$this->db->where('empresa_id',$this->user->id_empresa);
-		$this->db->where('tipo_documento',12);					
+		$this->db->where('tipo_documento',12);
 		if($this->db->update($tabla,$var)){
-		unset($var['responsable_anular']);	
+		unset($var['responsable_anular']);
 		$this->db->where('empresa_id',$this->user->id_empresa);
 		$this->db->where('descuento_id',$this->uri->segment(3));
 		$this->db->update($tabla2,$var);
 			return true;
 		}else{
 			return false;
-		}					
+		}
 	}
 
 	public function DeleteNickname($nickname,$id_empresa){
@@ -527,7 +530,7 @@ class Usuarios_model extends CI_Model {
 		}
 		return $return;
 	}
-	
+
 	public function get_descuento($descuento_id){
 		$tabla					=	DB_PREFIJO."rp_descuentos t1";
 		$this->db->select("	descuento_id,
@@ -548,17 +551,17 @@ class Usuarios_model extends CI_Model {
 		$query					=	$this->db->get();
 		return $this->result 	=	$query->row();
 	}
-	
-	
+
+
 	public function get($user_id,$type=''){
 		$tabla				=		"usuarios t1";
 		//pre($this->user); return;
 		if($this->uri->segment($this->uri->total_segments()) == "edit"){
-			$this->db->select("t1.*,t2.consecutivo_id");		
+			$this->db->select("t1.*,t2.consecutivo_id");
 		}
 		$this->db->from($tabla);
 		if($this->uri->segment($this->uri->total_segments()) == "edit"){
-			$this->db->join(DB_PREFIJO."sys_contratos t2",'t1.user_id = t2.user_id','left');		
+			$this->db->join(DB_PREFIJO."sys_contratos t2",'t1.user_id = t2.user_id','left');
 		}
 		$this->db->where("t1.user_id",$user_id);
 		$this->db->where("t1.empresa_id",$this->user->empresa_id);
@@ -571,13 +574,13 @@ class Usuarios_model extends CI_Model {
 		$query					=	$this->db->get();
 		return	$this->result 	=	$query->row();
 	}
-	
+
 	public function SetTotalizado($var){
 		$tabla				=		DB_PREFIJO."usuarios" ;
 		$this->db->where("user_id", $var['modelo']);
 		return $this->db->update($tabla,array("json_honorarios"=>json_encode(array("honorarios"=>$var['honorarios']))));
 	}
-	
+
 	public function ResumenModelos(){
 		$tabla			=		DB_PREFIJO."usuarios t1" ;
 		$datos			=		"	t1.user_id,
@@ -608,7 +611,7 @@ class Usuarios_model extends CI_Model {
 		$this->db->order_by('t1.primer_nombre','ASC');
 		$query			=	$this->db->get();
 		$rows		 	=	$query->result();
-		
+
 		$this->db->select($datos)->from($tabla)
 			->join(DB_PREFIJO."usuarios t2",'t1.centro_de_costos=t2.user_id','left')
 			->join(DB_PREFIJO."cf_nickname t3",'t1.user_id=t3.id_modelo','left')
@@ -619,17 +622,17 @@ class Usuarios_model extends CI_Model {
 		$this->db->order_by('t1.primer_nombre','ASC');
 		$query			=	$this->db->get();
 		$rows2		 	=	$query->result();
-			
+
 		$this->result	=	array("activos"=>$rows,"inactivos"=>$rows2);
 	}
-	
+
 	public function ResumenPaginas(){
 		$this->ResumenModelos();
 	}
 
 	public function ResumenSeguridadSocial($type = array('Modelos','Administrativos','Monitores')){
 		$tabla				=		DB_PREFIJO."usuarios t1";
-		
+
 		$this->db->select(     "t1.centro_de_costos,
 								t1.user_id,
 								t1.direccion,
@@ -661,11 +664,11 @@ class Usuarios_model extends CI_Model {
 		$query			=	$this->db->get();
 		$return			=	array();
 		foreach($query->result() as $v){
-			$return[$v->type][]		=	$v;	
-		}		
-		$this->result = $return;		
+			$return[$v->type][]		=	$v;
+		}
+		$this->result = $return;
 	}
-	
+
 	public function OtrosIngresos(){
 		$tabla				=		DB_PREFIJO."rp_operaciones t1" ;
 		$this->db->select("t1.*");
@@ -679,7 +682,7 @@ class Usuarios_model extends CI_Model {
 		$query			=	$this->db->get();
 		$this->result 	=	$query->result();
 	}
-	
+
 	public function HonorariosModelos($id_modelo){
 		$tabla	=	DB_PREFIJO."cf_nickname t1";
 		$this->db->select("*");
@@ -694,7 +697,7 @@ class Usuarios_model extends CI_Model {
 		$query			=	$this->db->get();
 		return $query->result();
 	}
-	
+
 	public function CertificadoLaboral($names=null){
 		$tabla				=		DB_PREFIJO."usuarios t1" ;
 		$this->db->select("*");
@@ -723,7 +726,7 @@ class Usuarios_model extends CI_Model {
 		}*/
 		$this->result	=	$row;
 	}
-	
+
 	public function Cumpleanos(){
 		$tabla				=		DB_PREFIJO."usuarios t1";
 		$this->db->select("*,MONTH(fecha_nacimiento) mes_nacimiento,DAY(fecha_nacimiento) dia_nacimiento");
@@ -743,37 +746,37 @@ class Usuarios_model extends CI_Model {
 		$query			=	$this->db->get();
 		$this->result 	=	$query->result();
 	}
-	
+
 	public function setDiasTrabajados($var){
 		$tabla		=		DB_PREFIJO."rp_dias_trabajados";
 		if(isset($var['redirect'])){
-			unset($var['redirect']);	
+			unset($var['redirect']);
 		}
 		$var['id_empresa']			=	(post("id_empresa"))?post("id_empresa"):$this->user->id_empresa;
-		//$var['centro_de_costos']	=	(post("centro_de_costos"))?post("centro_de_costos"):$this->user->centro_de_costos;	
-		
+		//$var['centro_de_costos']	=	(post("centro_de_costos"))?post("centro_de_costos"):$this->user->centro_de_costos;
+
 		if(!empty($var['dias_trabajados_id'])){
 			$this->db->where("dias_trabajados_id", $var['dias_trabajados_id']);
 			if($this->db->update($tabla,$var)){
 				return array("error"=>array(	"callback"	=>	"set_count('".post("user_id")."','".post("dias_trabajados")."')",
 												"code"		=>	"200"));
-				return true;	
+				return true;
 			}else{
 				return array("error"=>array(	"message"	=>	"Lo siento, no ha sido modificado",
 												"code"		=>	"203"));
-			}	
+			}
 		}else{
 			if($this->db->insert($tabla,$var)){
 				return array("error"=>array(	"callback"	=>	"set_count('".post("user_id")."','".post("dias_trabajados")."')",
 												"code"		=>	"200"));
-				return true;	
+				return true;
 			}else{
 				return array("error"=>array(	"message"	=>	"Lo siento, no ha sido modificado",
 												"code"		=>	"203"));
-			}	
+			}
 		}
 	}
-	
+
 	public function set_Descuentos($var){
 		$value			=	@$var['value'];
 		$var['centro_de_costos'] = centrodecostos($var['user_id'])->centro_de_costos;
@@ -783,7 +786,7 @@ class Usuarios_model extends CI_Model {
 		$this->db->from($tabla);
 		$this->db->where("descuento_id",@$var['descuento_id']);
 		$query				=	$this->db->get();
-		$row				=	$query->row();	
+		$row				=	$query->row();
 		$var['empresa_id']	=	$this->user->id_empresa;
 		unset($var["iframe"]);
 		if(!empty($row) && ($row->empresa_id == $this->user->id_empresa)){
@@ -815,8 +818,8 @@ class Usuarios_model extends CI_Model {
 
 			$nro_documento					=	$ultimo_id;
 			$ciclos_pagos_end  				=   get_ciclos_pagos_end();
-			
-			$insert							=	new stdClass();	
+
+			$insert							=	new stdClass();
 			$insert->responsable_id			=	$this->user->user_id;
 			$insert->consecutivo			=	$consecutivo;
 			$insert->empresa_id				=	$this->user->id_empresa;
@@ -845,12 +848,12 @@ class Usuarios_model extends CI_Model {
 				}else{
 					$codigo_contable	=	110505;
 				}*/
-				
+
 				//$codigo_contable			=	$procesador_destino_codigo_contable;
 				//$codigo_contable_subfijo	=	$procesador_destino_codigo_contable_subfijo;
 				$var['estatus']		=	1;
-				
-				$insert							=	new stdClass();	
+
+				$insert							=	new stdClass();
 				$insert->responsable_id			=	$this->user->user_id;
 				$insert->consecutivo			=	$consecutivo;
 				$insert->empresa_id				=	$this->user->id_empresa;
@@ -873,11 +876,11 @@ class Usuarios_model extends CI_Model {
 			}
 			return true;
 		}else{
-			
-			return false;	
+
+			return false;
 		}
 	}
-	
+
 	public function setOtrosIngresos(){
 		$ciclo_informacion=get_cf_ciclos_pagos_new($this->user->id_empresa,0);
 		$tipo_documento=8;
@@ -902,7 +905,7 @@ class Usuarios_model extends CI_Model {
 		$insert_json['ciclo_produccion_id']=$campos_tabla["ciclo_produccion_id"];
 		foreach($var['valor'] as $k => $v){
 			if($var['valor'][$k]>0){
-				$insert_531510[$k] 								=	new stdClass();	
+				$insert_531510[$k] 								=	new stdClass();
 				$insert_531510[$k] ->responsable_id				=	$this->user->user_id;
 				$insert_531510[$k] ->consecutivo				=	$campos_tabla["consecutivo"];
 				$insert_531510[$k] ->empresa_id					=	$campos_tabla["empresa_id"];
@@ -919,14 +922,14 @@ class Usuarios_model extends CI_Model {
 				$insert_531510[$k] ->plataforma_id				=	0;
 				$insert_531510[$k] ->master_id					=	0;
 				$insert_531510[$k] ->modelo_id					=	0;
-				$insert_531510[$k] ->cliente_id					=	$var['cliente_id'];			
+				$insert_531510[$k] ->cliente_id					=	$var['cliente_id'];
 				$insert_531510[$k] ->debito						=	$var['valor'][$k];
 				$insert_531510[$k] ->credito					=	0;
 				$insert_531510[$k] ->json						=	json_encode( $var	);
-				
-				
-				
-				$insert_233595[$k] 								=	new stdClass();	
+
+
+
+				$insert_233595[$k] 								=	new stdClass();
 				$insert_233595[$k] ->responsable_id				=	$this->user->user_id;
 				$insert_233595[$k] ->consecutivo				=	$campos_tabla["consecutivo"];
 				$insert_233595[$k] ->empresa_id					=	$campos_tabla["empresa_id"];
@@ -943,7 +946,7 @@ class Usuarios_model extends CI_Model {
 				$insert_233595[$k] ->plataforma_id				=	0;
 				$insert_233595[$k] ->master_id					=	0;
 				$insert_233595[$k] ->modelo_id					=	0;
-				$insert_233595[$k] ->cliente_id					=	$var['cliente_id'];			
+				$insert_233595[$k] ->cliente_id					=	$var['cliente_id'];
 				$insert_233595[$k] ->debito						=	0;
 				$insert_233595[$k] ->credito					=	$var['valor'][$k];
 				$insert_233595[$k] ->json						=	json_encode( $var	);
@@ -952,16 +955,16 @@ class Usuarios_model extends CI_Model {
 		$tabla	=	DB_PREFIJO."rp_operaciones";
 		if($this->db->insert_batch($tabla, $insert_531510) && $this->db->insert_batch($tabla, $insert_233595)){
 			incrementa_consecutivo($this->user->id_empresa,$tipo_documento);
-			return true;			
+			return true;
 		}else{
-			return false;			
-		}	
+			return false;
+		}
 	}
-	
+
 	public function setOtrosIngresos_OLD($var){
 		$tabla		=		DB_PREFIJO."rp_otros_ingresos";
 		if(isset($var['redirect'])){
-			unset($var['redirect']);	
+			unset($var['redirect']);
 		}
 		unset($var["iframe"]);
 		$var['id_empresa']			=	(post("id_empresa"))?post("id_empresa"):$this->user->id_empresa;
@@ -972,15 +975,15 @@ class Usuarios_model extends CI_Model {
 			logs($this->user,1,$tabla,$insert_id,"rp_otros_ingresos","1",$var);
 			return $insert_id;
 		}else{
-			return false;	
+			return false;
 		}
 	}
-	
+
 	public function get_Descuentos($user_id){
 		$tabla				=		DB_PREFIJO."usuarios t1";
 		$this->db->select("*");
 		$this->db->from($tabla);
-		$this->db->join(DB_PREFIJO."rp_descuentos t2", 't1.user_id 	= 	t2.user_id', 'left');		
+		$this->db->join(DB_PREFIJO."rp_descuentos t2", 't1.user_id 	= 	t2.user_id', 'left');
 		$this->db->where("t1.user_id",$user_id);
 		if(!empty($type)){
 			$this->db->where("t1.type",$type);
@@ -989,9 +992,9 @@ class Usuarios_model extends CI_Model {
 			$this->db->where('t1.estado', 1);
 		}
 		$query			=	$this->db->get();
-		$this->result 	=	$query->row();	
+		$this->result 	=	$query->row();
 	}
-	
+
 	public function getNickname($nickname_id){
 		$tabla				=		DB_PREFIJO."cf_nickname t1";
 		$this->db->select("*");
@@ -1000,7 +1003,7 @@ class Usuarios_model extends CI_Model {
 		$query			=	$this->db->get();
 		$this->result 	=	$query->row();
 	}
-	
+
 	public function getNicknames($id_modelo,$rss=false,$estatus=""){
 		$tabla				=		DB_PREFIJO."cf_nickname t1";
 		$this->db->select("t1.*,t2.primer_nombre as plataforma,t2.tipo_persona as tipo");
@@ -1019,7 +1022,7 @@ class Usuarios_model extends CI_Model {
 		$query			=	$this->db->get();
 		$this->result 	=	$query->result();
 	}
-	
+
 	public function getModelos($type = array("Modelos")){
 		$tabla				=		DB_PREFIJO."usuarios t1";
 		foreach ($type as $k => $v) {
@@ -1038,14 +1041,14 @@ class Usuarios_model extends CI_Model {
 			$this->db->order_by('primer_nombre','ASC');
 			$query			=	$this->db->get();
 			if(count($type) > 1){
-				$this->result[$v] 	=	$query->result();		
+				$this->result[$v] 	=	$query->result();
 			}
 		}
 		if(count($type) <= 1){
-			$this->result 	=	$query->result();		
+			$this->result 	=	$query->result();
 		}
 	}
-	
+
 	public function get_FormasPagos(){
 		$tabla					=	DB_PREFIJO."ve_forma_pagos";
 		$this->db->select("*");
@@ -1085,7 +1088,7 @@ class Usuarios_model extends CI_Model {
 		}
 		$this->db->where('t1.estatus',1);
 		if($id){
-			$this->db->where('t1.user_id',$id);	
+			$this->db->where('t1.user_id',$id);
 		}
 		$this->db->order_by('user_id','ASC');
 		$query					=	$this->db->get();
@@ -1095,7 +1098,7 @@ class Usuarios_model extends CI_Model {
 			return $this->result 	=	$query->result();
 		}
 	}
-	
+
 	public function get_usuario_descuentos($descuento_id){
 		$tabla					=	DB_PREFIJO."rp_descuentos t1";
 		$this->db->select("	t3.codigo_contable,
@@ -1126,7 +1129,7 @@ class Usuarios_model extends CI_Model {
 		$query					=	$this->db->get();
 		return $this->result 	=	$query->result();
 	}
-	
+
 	public function get_RolesForm($rol_id=''){
 		$tabla						=	"sys_roles";
 		$this->db->select("*")->from($tabla);
@@ -1141,12 +1144,12 @@ class Usuarios_model extends CI_Model {
 		foreach($this->roles_modulos_padre as $k =>$v){
 			$hijos									=	$this->db->select("*")->from($tabla)->where('modulo_padre',$v->id)->get()->result();
 			$this->roles_modulos_hijos[$v->id][]	=	$hijos;
-			foreach($hijos as $k2 => $v2){	
+			foreach($hijos as $k2 => $v2){
 				$this->roles_modulos_nietos[$v2->id]	=	$this->db->select("*")->from($tabla)->where('modulo_padre',$v2->id)->get()->result();
-			}			
+			}
 		}
 	}
-	
+
 	public function SeguridadSocial($names=array(),$user=null){
 		$tabla				=		DB_PREFIJO."usuarios t1";
 		$this->db->select("t1.*,t2.*,t3.nombre_escala,t3.estado,t4.Entidad as entidad_bancaria,t4.banco_id,t5.abreviacion as Sucursal,t6.consecutivo_id,t6.id as contrato_id,t6.fecha_creacion,t7.data");
@@ -1166,27 +1169,27 @@ class Usuarios_model extends CI_Model {
 			//$names 				= 		array('Modelos', 'Monitores', 'Administrativos', 'Asociados');
 			/*DAVID PIDIO SÓLO MODELOS*/
 			$names 				= 		array('Modelos');
-			
+
 		}
-		$this->db->where_in('t1.type', $names);	
+		$this->db->where_in('t1.type', $names);
 		if($this->user->principal<>1){
 			$this->db->where('t1.centro_de_costos', $this->user->centro_de_costos);
 		}
-		
+
 		$this->db->where('t1.estado', 1);
-		
+
 		if($this->user->mostrar_inactivos==0){}
 		$this->db->where("t1.id_empresa",$this->user->id_empresa);
 		if($this->uri->segment(3) != "cf_meta"){
 			$this->db->group_by('user_id');
 		}
 		$this->db->order_by('primer_nombre','ASC');
-		$this->db->limit(ELEMENTOS_X_PAGINA,$this->Usuarios->pagination);		
+		$this->db->limit(ELEMENTOS_X_PAGINA,$this->Usuarios->pagination);
 		$query				=	$this->db->get();
 		$this->result 		=	$query->result();
 		//pre($this->result);
 		$this->total_rows	= 	$this->total_filas($tabla);
-	} 
+	}
 
 	public function AllUsersSucursales($names=array(),$user=null){
 		$tabla				=		DB_PREFIJO."usuarios t1";
@@ -1197,7 +1200,7 @@ class Usuarios_model extends CI_Model {
 											' ',
 											t1.segundo_nombre,
 											' ',
-											t1.primer_apellido,	
+											t1.primer_apellido,
 											' ',
 											t1.segundo_apellido SEPARATOR '|s|') AS nombre_modelo,
 							GROUP_CONCAT(	t1.turno_manama SEPARATOR '|s|') AS turno_manama,
@@ -1228,7 +1231,7 @@ class Usuarios_model extends CI_Model {
 											' ',
 											t1.segundo_nombre,
 											' ',
-											t1.primer_apellido,	
+											t1.primer_apellido,
 											' ',
 											t1.segundo_apellido SEPARATOR '|s|') AS nombre_modelo,
 							GROUP_CONCAT(	t1.turno_manama SEPARATOR '|s|') AS turno_manama,
@@ -1249,12 +1252,12 @@ class Usuarios_model extends CI_Model {
 		$this->result['sede']	=	$query->result();
 		$this->total_rows	= 	$this->total_filas($tabla);
 	}
-	
+
 	public function ContratoModelo(){
 		$tabla				=		DB_PREFIJO."usuarios";
 		$this->db->select("*");
 		$this->db->from($tabla);
-		$this->db->where('user_id',$this->uri->segment(3));	
+		$this->db->where('user_id',$this->uri->segment(3));
 		$query				=	$this->db->get();
 		$this->result 		=	$query->result();
 		//pre($this->result);
@@ -1272,32 +1275,32 @@ class Usuarios_model extends CI_Model {
 		$this->db->select(array_keys($this->fields));
 		$this->db->from($tabla);
 		$this->db->where('estado', 1);
-		$this->db->where("empresa_id",$this->user->empresa_id);			
+		$this->db->where("empresa_id",$this->user->empresa_id);
 		if($this->search){
-			$this->db->like('rol', $this->search);			
-			$this->db->or_like('estado', $this->search);			
+			$this->db->like('rol', $this->search);
+			$this->db->or_like('estado', $this->search);
 		}
 		$this->db->order_by('rol','ASC');
-		$this->db->limit(ELEMENTOS_X_PAGINA,$this->Usuarios->pagination);		
+		$this->db->limit(ELEMENTOS_X_PAGINA,$this->Usuarios->pagination);
 		$query						=	$this->db->get();
 		$this->result['activos']	=	$query->result();
-		
+
 		$this->db->select(array_keys($this->fields));
 		$this->db->from($tabla);
-		$this->db->where('estado', 0);	
+		$this->db->where('estado', 0);
 		if($this->search){
-			$this->db->like('rol', $this->search);			
-			$this->db->or_like('estado', $this->search);			
+			$this->db->like('rol', $this->search);
+			$this->db->or_like('estado', $this->search);
 		}
 		$this->db->where("empresa_id",$this->user->empresa_id);
 		$this->db->order_by('rol','ASC');
-		$this->db->limit(ELEMENTOS_X_PAGINA,$this->Usuarios->pagination);		
+		$this->db->limit(ELEMENTOS_X_PAGINA,$this->Usuarios->pagination);
 		$query						=	$this->db->get();
 		$this->result['inactivos']	=	$query->result();
 
 		$this->total_rows			= 	$this->total_filas($tabla);
 	}
-	
+
 	public function get_all2(){
 		$tabla=  "mae_cliente_joberp t1";
 		$tabla2	="usuarios t2";
@@ -1311,7 +1314,7 @@ class Usuarios_model extends CI_Model {
             $this->db->where("t1.empresa_id",$this->user->empresa_id);
         }
 		$this->result["Activos"]=$this->db->get()->result();
-		
+
 		$tabla=  "mae_cliente_joberp t1";
 		$tabla2	="usuarios t2";
 	    $tabla3=  "sys_roles t3";
@@ -1325,15 +1328,15 @@ class Usuarios_model extends CI_Model {
         }
 		$this->result["Inactivos"]=$this->db->get()->result();
 		}
-	
+
 	public function get_all(){
 		$tabla				=		DB_PREFIJO."usuarios t1";
   		$html_group_open	=		'<div class="btn-group btn-group-sm" role="group" aria-label="Small button group">';
 		$html_group_close	=		'</div>';
 		$edit_open			=		$html_group_open.'<a class="btn-btn-secondary-" title="Editar Usuario" href="'.base_url('Usuarios/Add_Todos/');
 		$edit_close			=		'"><i class="fas fa-edit" aria-hidden="true"></i></a>';
-		$this->fields		=		array("CASE WHEN t1.type='CentroCostos' && t1.nombre_legal='Principal' THEN t2.nombre_legal  
-												WHEN t1.type='CentroCostos' && t1.nombre_legal!='Principal' THEN t1.nombre_legal				
+		$this->fields		=		array("CASE WHEN t1.type='CentroCostos' && t1.nombre_legal='Principal' THEN t2.nombre_legal
+												WHEN t1.type='CentroCostos' && t1.nombre_legal!='Principal' THEN t1.nombre_legal
 												ELSE t1.persona_contacto END "=>"Nombre","CASE WHEN t1.estado=1 THEN 'Activo' ELSE 'Inactivo' END"=>"Estado"," CONCAT('".$edit_open."',t1.type,'/',t1.user_id,'".$edit_close."') AS edit"=>"Acción");
 		$this->db->select(array_keys($this->fields));
 		$this->db->from($tabla);
@@ -1344,16 +1347,16 @@ class Usuarios_model extends CI_Model {
 			$this->db->where('t1.estado', 1);
 		}
 		if($this->search){
-			$this->db->like('t1.persona_contacto', $this->search);			
-			$this->db->or_like('t1.estado', $this->search);			
+			$this->db->like('t1.persona_contacto', $this->search);
+			$this->db->or_like('t1.estado', $this->search);
 		}
 		$this->db->order_by('t1.persona_contacto','ASC');
-		$this->db->limit(ELEMENTOS_X_PAGINA,$this->Usuarios->pagination);		
+		$this->db->limit(ELEMENTOS_X_PAGINA,$this->Usuarios->pagination);
 		$query			=	$this->db->get();
 		$this->result 	=	$query->result();
 		$this->total_rows= $this->total_filas($tabla);
 	}
-	
+
 	public function get_all_x_type($names,$centro_de_costos="",$case=''){
 		$tabla				=		DB_PREFIJO."usuarios t1";
 		for($a=0;$a<=1;$a++){
@@ -1373,8 +1376,8 @@ class Usuarios_model extends CI_Model {
 				$this->fields		=		array("t1.nombre_legal"=>"Nombre","CONCAT(if(t1.cod_telefono is null ,'',t1.cod_telefono),' ',if(t1.telefono is null ,'',t1.telefono),' <BR> ',if(t1.email is null ,'',t1.email)) AS contactos"=>"Datos de Contacto","CASE WHEN t1.estado=1 THEN 'Activo' ELSE 'Inactivo' END"=>"Estado");
 				$this->fields		=		array("	CONCAT(t1.nombre_legal,' <b>(',t1.nombre_comercial,')</b>') as nombre_legal"=>"Tercero",
 													"CONCAT(if(t1.cod_telefono is null ,'',t1.cod_telefono),' ',if(t1.telefono is null ,'',t1.telefono),' <BR> ',if(t1.email is null ,'',t1.email)) AS contactos"=>"Datos de Contacto",
-													"CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."') 
-																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."') 
+													"CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."')
+																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."')
 																			END as accion"=>"Acción");
 			}else if($this->uri->segment(3)=='Plataformas' ){
 				$this->fields		=		array("t1.primer_nombre"=>"Nombre","CONCAT(t1.tipo_persona)"
@@ -1383,8 +1386,8 @@ class Usuarios_model extends CI_Model {
 																				=>"Moneda de Pago",
 																				"CONCAT(t1.equivalencia)"
 																				=>"Equivalencia","CASE WHEN t1.estado=1 THEN 'Activo' ELSE 'Inactivo' END"=>"Estado",
-													"CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."') 
-													ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."') 
+													"CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."')
+													ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."')
 																END"=>"Acción","t1.user_id"=>"id");
 			}else if($this->uri->segment(3)=='Plataforma' ){
 				$html_group_open	=		'<div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
@@ -1393,8 +1396,8 @@ class Usuarios_model extends CI_Model {
 				$edit_open			=		'	<a class="btn-btn-secondary- lightbox" title="Editar Usuario" data-type="iframe" href="'.base_url($this->uri->segment(1).'/Add_Todos/'.$this->uri->segment(3).'/');
 				$edit_close			=		'"><i class="fas fa-edit" aria-hidden="true"></i></a></div>';
 				$this->fields		=		array("t1.primer_nombre"=>"Nombre","CONCAT(tipo_persona,' | ',moneda_de_pago,' | ',equivalencia)"=>"Tipo de Página | Moneda de Pago | Equivalencia",
-					"CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."') 
-																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."') 
+					"CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."')
+																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."')
 																			END"=>"Acción");
 				$names				=		array("Plataformas");
 			}else if($this->uri->segment(3)=='CentroCostos' ){
@@ -1404,99 +1407,99 @@ class Usuarios_model extends CI_Model {
 				$edit_open			=		'	<a class="btn-btn-secondary- lightbox" title="Editar Sucursal" data-type="iframe" href="'.base_url($this->uri->segment(1).'/Add_Todos/'.$this->uri->segment(3).'/');
 				$edit_close			=		'"><i class="fas fa-edit" aria-hidden="true"></i></a></div>';
 				$this->fields		=		array("CONCAT('<b>' ,t2.nombre_legal,' </b>')"=>"Nombre Legal","CONCAT(t1.nombre_legal)"=>"Nombre","t1.abreviacion"=>"Abreviación","CASE WHEN t1.estado=1 THEN 'Activo' ELSE 'Inactivo' END"=>"Estado",
-					"CASE WHEN t1.estado=1 	THEN CONCAT('".$html_group_open."',t1.user_id,'".$html_group_close."','".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."') 
-																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."') 
+					"CASE WHEN t1.estado=1 	THEN CONCAT('".$html_group_open."',t1.user_id,'".$html_group_close."','".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."')
+																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."')
 																			END"=>"Acción");
 			}else if($this->uri->segment(3)=='CentroCostos' || $case=='CentroCostos'){
-				$this->fields		=		array("t1.nombre_legal"=>"Nombre","abreviacion"=>"Abreviación","CASE WHEN estado=1 THEN 'Activo' ELSE 'Inactivo' END"=>"Estado","CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."') 
-																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."') 
+				$this->fields		=		array("t1.nombre_legal"=>"Nombre","abreviacion"=>"Abreviación","CASE WHEN estado=1 THEN 'Activo' ELSE 'Inactivo' END"=>"Estado","CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."')
+																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."')
 																			END"=>"Acción");
 			}else if($this->uri->segment(3)=='Modelos'){
 				$this->fields		=		array("CONCAT(t1.primer_nombre,' ',if(t1.segundo_nombre is null ,'',t1.segundo_nombre) ,' ',t1.primer_apellido,' ',if(t1.segundo_apellido is null ,'',t1.segundo_apellido)) as nombre"=>"Nombre","CONCAT(t1.cod_telefono,' ',t1.telefono,' <BR> ',t1.email) AS contactos"=>"Datos de Contacto","CONCAT('<center>',t1.tipo_modelo,'</center>') as abreviacion"=>"<center>Tipo Modelo</center>",
-					"CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."') 
-																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."') 
+					"CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."')
+																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."')
 																			END"=>"Acción");
 			}else if($this->uri->segment(3)=='Monitores'){
 				$this->fields		=		array("CONCAT(t1.primer_nombre,' ',if(t1.segundo_nombre is null ,'',t1.segundo_nombre) ,' ',t1.primer_apellido,' ',if(t1.segundo_apellido is null ,'',t1.segundo_apellido)) as nombre"=>"Nombre","CONCAT(t1.cod_telefono,' ',t1.telefono,' <BR> ',t1.email) AS contactos"=>"Datos de Contacto","CASE WHEN t1.estado=1 THEN 'Activo' ELSE 'Inactivo' END"=>"Estado",
-					"CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."') 
-																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."') 
+					"CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."')
+																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."')
 																			END"=>"Acción");
 			}else if($this->uri->segment(3)=='Administrativos'){
-				$this->fields		=		array("CONCAT(t1.primer_nombre,' ',if(t1.segundo_nombre is null ,'',t1.segundo_nombre) ,' ',t1.primer_apellido,' ',if(t1.segundo_apellido is null ,'',t1.segundo_apellido)) as nombre"=>"Nombre","CONCAT(t1.cod_telefono,' ',t1.telefono,' <BR> ',t1.email) AS contactos"=>"Datos de Contacto","CASE WHEN t1.estado=1 THEN 'Activo' ELSE 'Inactivo' END"=>"Estado","CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."') 
-																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."') 
+				$this->fields		=		array("CONCAT(t1.primer_nombre,' ',if(t1.segundo_nombre is null ,'',t1.segundo_nombre) ,' ',t1.primer_apellido,' ',if(t1.segundo_apellido is null ,'',t1.segundo_apellido)) as nombre"=>"Nombre","CONCAT(t1.cod_telefono,' ',t1.telefono,' <BR> ',t1.email) AS contactos"=>"Datos de Contacto","CASE WHEN t1.estado=1 THEN 'Activo' ELSE 'Inactivo' END"=>"Estado","CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."')
+																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."')
 																			END"=>"Acción");
 			}else{
 				$this->fields		=		array("CONCAT(t1.primer_nombre,' ',if(t1.segundo_nombre is null ,'',t1.segundo_nombre) ,' ',t1.primer_apellido,' ',if(t1.segundo_apellido is null ,'',t1.segundo_apellido)) as nombre"=>"Nombre","CONCAT(t1.porcentaje_participacion, '%' )"=>"Participación","CASE WHEN t1.estado=1 THEN 'Activo' ELSE 'Inactivo' END"=>"Estado",
-					"CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."') 
-																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."') 
+					"CASE WHEN t1.estado=1 	THEN CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open1."',t1.user_id,'".$edit_close1."')
+																			ELSE CONCAT('".$edit_open."',t1.user_id,'".$edit_close." ".$edit_open2."',t1.user_id,'".$edit_close2."')
 																			END"=>"Acción");
 			}
 			$this->db->select(array_keys($this->fields));
 			$this->db->from($tabla);
 			$this->db->join(DB_PREFIJO."usuarios t20", 't1.centro_de_costos=t20.user_id', 'left');
-			
+
 			if($this->uri->segment(3)!='CentroCostos'){
 				//echo  $this->user->centro_de_costos;
 				//$this->db->where('t1.centro_de_costos', $this->user->centro_de_costos);
 			}
-			
+
 			if($this->user->principal<>1){
-				$this->db->where('t1.id_empresa', $this->user->id_empresa);	
+				$this->db->where('t1.id_empresa', $this->user->id_empresa);
 			}
 			if($this->user->mostrar_inactivos==0){
 				$this->db->where('t1.estado', 1);
 			}
-					
+
 			if($this->uri->segment(3)=='CentroCostos' ){
 				$this->db->join(DB_PREFIJO."usuarios t2", 't1.id_empresa 	= 	t2.user_id', 'left');
-			}		
+			}
 			if(count($names)>0){
-				$this->db->where_in('t1.type', $names);	
-			}		
+				$this->db->where_in('t1.type', $names);
+			}
 			if($centro_de_costos!=''){
 				$this->db->where('t1.centro_de_costos', $centro_de_costos);
 			}
-			
+
 			if($this->user->principal<>1 && $this->uri->segment(3)<>'CentroCostos'){
 				$this->db->where('t1.centro_de_costos', $this->user->centro_de_costos);
 			}
-			
+
 			if($this->user->principal<>1 && $this->uri->segment(3)=='Monitores'){
 				$this->db->where('t1.centro_de_costos', $this->user->centro_de_costos);
 			}else if($this->user->principal==1 && $this->uri->segment(3)=='Monitores'){
-				$this->db->where("t1.id_empresa",$this->user->id_empresa);			
+				$this->db->where("t1.id_empresa",$this->user->id_empresa);
 			}else if($this->user->principal==1 && $this->uri->segment(3)=='CentroCostos'){
-				$this->db->where("t1.id_empresa",$this->user->id_empresa);			
+				$this->db->where("t1.id_empresa",$this->user->id_empresa);
 			}
-			
+
 			if($this->user->principal<>1 && $this->uri->segment(3)=='Administrativos'){
 				$this->db->where('t1.centro_de_costos', $this->user->centro_de_costos);
 			}else if($this->user->principal==1 && $this->uri->segment(3)=='Administrativos'){
-				$this->db->where("t1.id_empresa",$this->user->id_empresa);			
+				$this->db->where("t1.id_empresa",$this->user->id_empresa);
 			}
-			
+
 			if($this->user->principal<>1 && $this->uri->segment(3)=='Proveedores'){
 				$this->db->where('t1.centro_de_costos', $this->user->centro_de_costos);
 			}else if($this->user->principal==1 && $this->uri->segment(3)=='Proveedores'){
-				$this->db->where("t1.id_empresa",$this->user->id_empresa);			
+				$this->db->where("t1.id_empresa",$this->user->id_empresa);
 			}
-			
+
 			if($this->user->principal<>1 && $this->uri->segment(3)=='Modelos'){
 				$this->db->where('t1.centro_de_costos', $this->user->centro_de_costos);
 			}else if($this->user->principal==1 && $this->uri->segment(3)=='Modelos'){
-				$this->db->where("t1.id_empresa",$this->user->id_empresa);			
+				$this->db->where("t1.id_empresa",$this->user->id_empresa);
 			}
-			
-			
+
+
 			if($this->user->principal<>1 && $this->uri->segment(3)=='Asociados'){
 				$this->db->where('t1.centro_de_costos', $this->user->centro_de_costos);
 			}else if($this->user->principal==1 && $this->uri->segment(3)=='Asociados'){
-				$this->db->where("t1.id_empresa",$this->user->id_empresa);			
+				$this->db->where("t1.id_empresa",$this->user->id_empresa);
 			}
-			
+
 			if($this->search){
-				$this->db->like('t1.persona_contacto', $this->search);			
-				$this->db->or_like('estado', $this->search);			
+				$this->db->like('t1.persona_contacto', $this->search);
+				$this->db->or_like('estado', $this->search);
 			}
 			if($this->uri->segment(3)=='Plataformas' ){
 				$this->db->order_by('t1.primer_nombre','ASC');
@@ -1513,16 +1516,16 @@ class Usuarios_model extends CI_Model {
 				$this->db->order_by('t1.nombre_legal','ASC');
 			}
 			else{
-				$this->db->order_by('t1.persona_contacto','ASC');	
+				$this->db->order_by('t1.persona_contacto','ASC');
 			}
-			$this->db->limit(ELEMENTOS_X_PAGINA,$this->Usuarios->pagination);		
+			$this->db->limit(ELEMENTOS_X_PAGINA,$this->Usuarios->pagination);
 			$this->db->where("t1.estado",$a);
 			$query					=	$this->db->get();
 			$this->result[$a] 		=	$query->result();
 			$this->total_rows		= $this->total_filas($tabla);
 		}
 	}
-	
+
 	public function get_all_accionistas($names,$centro_de_costos=""){
 		$tabla				=		DB_PREFIJO."usuarios";
   		$html_group_open	=		'<div class="btn-group btn-group-sm" role="group" aria-label="Small button group">';
@@ -1536,27 +1539,27 @@ class Usuarios_model extends CI_Model {
 		}
 		$this->db->select(array_keys($this->fields));
 		$this->db->from($tabla);
-		
+
 		if($this->user->mostrar_inactivos==0){
 			$this->db->where('t1.estado', 1);
 		}
 		if(count($names)>0){
-			$this->db->where_in('type', $names);	
-		}		
+			$this->db->where_in('type', $names);
+		}
 		if($centro_de_costos!=''){
 			$this->db->where('centro_de_costos', $centro_de_costos);
 		}
 		if($this->search){
-			$this->db->like('persona_contacto', $this->search);			
-			$this->db->or_like('estado', $this->search);			
+			$this->db->like('persona_contacto', $this->search);
+			$this->db->or_like('estado', $this->search);
 		}
 		$this->db->order_by('persona_contacto','ASC');
-		$this->db->limit(ELEMENTOS_X_PAGINA,$this->Usuarios->pagination);		
+		$this->db->limit(ELEMENTOS_X_PAGINA,$this->Usuarios->pagination);
 		$query			=	$this->db->get();
 		$this->result 	=	$query->result();
 		$this->total_rows= $this->total_filas($tabla);
 	}
-	
+
 	public function get_sedes($id_esquema=''){
 		$this->db->select('t2.*,CONCAT(t1.nombre," (",abreviacion,")") AS nombre_legal,t1.id_esquema as user_id');
 		$this->db->from("ma_departamentos t1");
@@ -1565,9 +1568,9 @@ class Usuarios_model extends CI_Model {
 			$this->db->where("t1.id_esquema",$id_esquema);
 		}
 		$query 	= 	$this->db->get();
-		return $query->result() ;			
+		return $query->result() ;
 	}
-	
+
 	public function get_plataformas(){
 		$tabla				=		DB_PREFIJO."usuarios t1";
 		$this->db->select('*');
@@ -1578,26 +1581,26 @@ class Usuarios_model extends CI_Model {
 		}else{
 			//$this->db->where("t1.id_empresa","-1");
 		}
-		
+
 		$this->db->where('t1.estado', 1);
 		/*
 		if($this->user->mostrar_inactivos==0){
 			$this->db->where('t1.estado', 1);
 		}*/
-		
+
 		if($this->user->type=='root' && $this->user->principal==0){
 			$this->db->where("t1.id_empresa","-1");
 		}
-		
+
 		//$this->db->where("t1.moneda_de_pago<>","RSS");
 		$this->db->order_by('t1.primer_nombre','ASC');
 		$query				=	$this->db->get();
 		foreach($query->result() as $v){
-			$this->result[$v->tipo_persona][]	=	$v;	
+			$this->result[$v->tipo_persona][]	=	$v;
 		}
 		$this->total_rows	= 	$this->total_filas($tabla);
 	}
-	
+
 	public function get_CuentasBancarias($filtro = null){
 		$tabla				=		DB_PREFIJO."fi_cuentas t1";
 		$this->db->select("*");
@@ -1612,7 +1615,7 @@ class Usuarios_model extends CI_Model {
 		$query			=	$this->db->get();
 		return $this->result 	=	$query->result();
 	}
-	
+
 	public function get_AsignarMaster($rel_plataforma_id){
 		$tabla				=		DB_PREFIJO."cf_rel_master t1";
 		$this->db->select('t1.*');
@@ -1642,7 +1645,7 @@ class Usuarios_model extends CI_Model {
 		$this->total_rows	= 	$this->total_filas($tabla);
 		return $this->result 		=	$query->result();
 	}
-	
+
 	public function get_eps(){
 		$tabla				=		DB_PREFIJO."sys_eps t1";
 		$this->db->select('t1.*');
@@ -1652,28 +1655,28 @@ class Usuarios_model extends CI_Model {
 		$query				=	$this->db->get();
 		$this->total_rows	= 	$this->total_filas($tabla);
 		return $this->result 		=	$query->result();
-	}	
-	
+	}
+
 	public function get_sedes_by_empresa($id_empresa=''){
 		$this->db->select('CONCAT(t1.nombre," (",abreviacion,")") AS nombre_legal,t1.id_esquema as user_id,t1.*');
 		$this->db->from(DB_PREFIJO."ma_departamentos t1");
 		$this->db->where("t1.id_empresa",$id_empresa);
 		$query 	= 	$this->db->get();
-		return $query->result() ;			
+		return $query->result() ;
 	}
-	
+
 	public function get_atributos_sedes(){
 		$this->db->select('*');
 		$this->db->from(DB_PREFIJO."ma_departamentos t1");
 		$query 	= 	$this->db->get();
-        $result	= $query->result() ;			
+        $result	= $query->result() ;
 		$return	=	array();
 		foreach($result as $v){
 			$return[$v->id_esquema]	=	array("n_rooms"=>$v->n_rooms);
 		}
 		return json_encode($return);
 	}
-	
+
 	public function centroCosto($id_esquema){
 		$this->db->select('*');
 		$this->db->from(DB_PREFIJO."ma_departamentos t1");
@@ -1681,7 +1684,7 @@ class Usuarios_model extends CI_Model {
 		$query 	= 	$this->db->get();
 		return $query->row() ;
 	}
-	
+
 	public function centro_costo_rooms($id_empresa){
 		$this->db->select('*');
 		$this->db->from("usuarios t1");
@@ -1693,7 +1696,7 @@ class Usuarios_model extends CI_Model {
 		$query 	= 	$this->db->get();
 		return $query->result() ;
 	}
-	
+
 	public function get_empresas(){
 		$tabla				=		"usuarios t1";
 		$this->db->select("*");
@@ -1703,10 +1706,10 @@ class Usuarios_model extends CI_Model {
 			$this->db->where('t1.estado', 1);
 		}
 		$query			=	$this->db->get();
-	     
-		return $query->result();	
+
+		return $query->result();
 	}
-	
+
 	public function get_empresa($user_id){
 		$tabla				=		DB_PREFIJO."usuarios t1";
 		$this->db->select("*");
@@ -1716,13 +1719,13 @@ class Usuarios_model extends CI_Model {
 			$this->db->where('t1.estado', 1);
 		}
 		$query			=	$this->db->get();
-		return $this->result 	=	$query->row();	
+		return $this->result 	=	$query->row();
 	}
-	
+
 	public function setClave($var){
 		$tabla		=	"usuarios";
 		if(isset($var['redirect'])){
-			unset($var['redirect']);	
+			unset($var['redirect']);
 		}
 		$this->db->select("password");
 		$this->db->from($tabla);
@@ -1730,9 +1733,9 @@ class Usuarios_model extends CI_Model {
 		$query			=	$this->db->get();
 		//pre($query->row()->password);
 		//pre(md5(post("clave_actual")));
-		
+
 		if(desencriptar($query->row()->password) == post("clave_actual")){
-			
+
 			$this->db->where("user_id", $this->user->user_id);
 			if($this->db->update($tabla,array("password"=>encriptar(post("clave_nueva"))))){
 				//logs($this->user,2,$tabla,$this->user->user_id,"Usuarios","1",array("password"=>md5(post("clave_nueva"))));
@@ -1746,44 +1749,44 @@ class Usuarios_model extends CI_Model {
 
 				return array("error"=>array(	"message"	=>	"Exito, la clave ha sido modificada",
 												"code"		=>	"200"));
-				return true;	
+				return true;
 			}else{
 				logs($this->user,2,$tabla,$this->user->user_id,"Usuarios","0",array("password"=>md5(post("clave_nueva"))));
 				return array("error"=>array(	"message"	=>	"Lo siento, la clave no ha sido modificada",
 												"code"		=>	"203"));
 
-			}	
+			}
 		}else{
 			return array("error"=>array(	"message"	=>	"Lo siento, la clave anterior no coincide con el sistema",
 											"code"		=>	"203"));
 		}
-		
+
 	}
-	
+
 	public function set($var){
 		$tabla		=		"usuarios";
 		if(!empty($var["json"])){
 			if(!empty($var["json"]['email'])){
-				$email		=		$var["json"]["email"];	
+				$email		=		$var["json"]["email"];
 			}
 			if(!empty($var["json"]['dominio'])){
-				$dominio	=		$var["json"]["dominio"];	
+				$dominio	=		$var["json"]["dominio"];
 			}
 			if(!empty($var["json"]['porcentaje_pago'])){
-				$var["user_id"] = $this->uri->segment(3);	
-			}	
+				$var["user_id"] = $this->uri->segment(3);
+			}
 		}
-		
+
 		if(isset($var['consecutivo_id'])){
 			$cuenta = $var['consecutivo_id'];
 			unset($var['consecutivo_id']);
 		}
 		if(isset($var['redirect'])){
-			unset($var['redirect']);	
+			unset($var['redirect']);
 		}
-		
+
 		unset($var["iframe"]);
-		
+
 		if(!empty($var['json'])){
 			$u=$this->get($var['user_id']);
 			if(!empty($u)){
@@ -1792,24 +1795,24 @@ class Usuarios_model extends CI_Model {
 				$var['json']	=	json_encode($var['json']);
 			}
 		}
-		
+
 		if(isset($var['user_id']) && !empty($var['user_id'])){
 			$id			=		array("user_id",$var['user_id']);
 			if($this->uri->segment(2)!='CambiarEstado' && $this->uri->segment(2) != "AddCuentasBancarias" && $this->uri->segment(2) != "Add_ActualizarEscala" && $this->uri->segment(2) != "Metas"){
 				if(!isset($var['turno_manama'])){
-					$var['turno_manama']=0;	
+					$var['turno_manama']=0;
 				}
 				if(!isset($var['turno_tarde'])){
-					$var['turno_tarde']=0;	
+					$var['turno_tarde']=0;
 				}
 				if(!isset($var['turno_noche'])){
-					$var['turno_noche']=0;	
+					$var['turno_noche']=0;
 				}
 				if(!isset($var['turno_intermedio'])){
-					$var['turno_intermedio']=0;	
+					$var['turno_intermedio']=0;
 				}
 			}
-			
+
 			if(!empty($var['entidad_bancaria']) && !empty($var['tipo_cuenta']) && !empty($var['nro_cuenta'])){
 				//pre($var['user_id']);
 				$oldCuenta = $this->get($var['user_id'])->cambio_cuentas_bancarias;
@@ -1842,10 +1845,10 @@ class Usuarios_model extends CI_Model {
 					}
 				}
 				logs($this->user,2,$tabla,$id[1],"Usuarios","1",$var);
-				return $var['user_id'];	
+				return $var['user_id'];
 			}else{
 				logs($this->user,2,$tabla,$id[1],"Usuarios","0",$var);
-				return false;	
+				return false;
 			}
 		}else{
 			unset($var['user_id']);
@@ -1860,12 +1863,12 @@ class Usuarios_model extends CI_Model {
 				if($var['type']!='Plataformas'){
 					$pass					=	explode("@",$var["email"]);
 				}else{
-					$pass[0]				=	$var["primer_nombre"];	
+					$pass[0]				=	$var["primer_nombre"];
 				}
 
 				$password				=	$pass[0].rand(1000,50000);
 				$var['password']		=	md5($password);
-				//$var['centro_de_costos']=	$this->user->centro_de_costos; 18/03/2018 
+				//$var['centro_de_costos']=	$this->user->centro_de_costos; 18/03/2018
 				$var['id_empresa']		=	(post("id_empresa"))?post("id_empresa"):$this->user->id_empresa;
 			}
 			$var['id_responsable'] = $this->user->user_id;
@@ -1875,7 +1878,7 @@ class Usuarios_model extends CI_Model {
 				if(is_object($json_decode)){
 					if(isset($json_decode->reenvio)){
 						$reenvio	=	$json_decode->reenvio;
-					}	
+					}
 				}
 				$insert_id			=	$this->db->insert_id();
 				logs($this->user,1,$tabla,$insert_id,"Usuarios","1",$var);
@@ -1896,15 +1899,15 @@ class Usuarios_model extends CI_Model {
 				}
 				return $insert_id;
 			}else{
-				return false;	
+				return false;
 			}
 		}
 	}
-	
+
 	public function setRol($var){
 		$tabla		=	"sys_roles";
 		if(isset($var['redirect'])){
-			unset($var['redirect']);	
+			unset($var['redirect']);
 		}
 		if(isset($var['rol_id'])&& !empty($var['rol_id'])){
 			//pre($var); return;
@@ -1917,10 +1920,10 @@ class Usuarios_model extends CI_Model {
 			$this->db->where("empresa_id",$this->user->empresa_id);
 			if($this->db->update($tabla,$var)){
 				logs($this->user->user_id,2,$tabla,$id[1],"Usuarios","1",$var);
-				return $var['rol_id'];	
+				return $var['rol_id'];
 			}else{
 				logs($this->user->user_id,2,$tabla,$id[1],"Usuarios","0",$var);
-				return false;	
+				return false;
 			}
 		}else{
 			if(isset($var["roles_search"])){
@@ -1938,27 +1941,27 @@ class Usuarios_model extends CI_Model {
 				logs($this->user->user_id,1,$tabla,$insert_id,"Usuarios","1",$var);
 				return $insert_id;
 			}else{
-				return false;	
+				return false;
 			}
 		}
 	}
-	
+
 	public function setAsignarMaster($var){
 		$tabla						=		DB_PREFIJO."cf_rel_master";
 		$var['centro_de_costos']	=	$this->user->centro_de_costos;
 		$var['id_empresa']			=	$this->user->id_empresa;
 		if(isset($var['redirect'])){
-			unset($var['redirect']);	
+			unset($var['redirect']);
 		}
 		if(isset($var['rel_plataforma_id'])&& !empty($var['rel_plataforma_id'])){
 			$id					=		array("rel_plataforma_id",$var['rel_plataforma_id']);
 			$this->db->where($id[0], $id[1]);
 			if($this->db->update($tabla,$var)){
 				logs($this->user,2,$tabla,$id[1],$tabla,"1",$var);
-				return $var['rel_plataforma_id'];	
+				return $var['rel_plataforma_id'];
 			}else{
 				logs($this->user,2,$tabla,$id[1],$tabla,"0",$var);
-				return false;	
+				return false;
 			}
 		}else{
 			if($this->db->insert($tabla,$var)){
@@ -1966,11 +1969,11 @@ class Usuarios_model extends CI_Model {
 				logs($this->user,1,$tabla,$insert_id,$tabla,"1",$var);
 				return $insert_id;
 			}else{
-				return false;	
+				return false;
 			}
 		}
 	}
-	
+
 	public function setPassNickname($var){
 		$tabla						=	DB_PREFIJO."cf_nickname";
 		$var['centro_de_costos']	=	$this->user->centro_de_costos;
@@ -1982,13 +1985,13 @@ class Usuarios_model extends CI_Model {
 		$this->db->where("id_plataforma", $usuarios_like_name);
 		if($this->db->update($tabla,$var)){
 			logs($this->user,2,$tabla,$id[1],$tabla,"1",$var);
-			return $this->uri->segment(3);	
+			return $this->uri->segment(3);
 		}else{
 			logs($this->user,2,$tabla,$id[1],$tabla,"0",$var);
-			return false;	
+			return false;
 		}
 	}
-	
+
 	public function getAsignarNickname($nickname_id){
 		$tabla						=	DB_PREFIJO."cf_nickname";
 		$var['id_empresa']			=	$this->user->id_empresa;
@@ -1997,7 +2000,7 @@ class Usuarios_model extends CI_Model {
 									->where('id_empresa',$var['id_empresa'])
 									->where('nickname_id',$nickname_id)
 									->get()->row();
-		
+
 	}
 
 	public function consultarModelos_x_Master($var){
@@ -2012,9 +2015,9 @@ class Usuarios_model extends CI_Model {
 									->where('nickname',$var['usuario'])
 									->get()->row();
 		echo json_encode($this->result);
-		
+
 	}
-	
+
 	public function getAsignarNicknameNEW($id_modelo){
 		$tabla						=	DB_PREFIJO."cf_nickname";
 		$var['id_empresa']			=	$this->user->id_empresa;
@@ -2023,9 +2026,9 @@ class Usuarios_model extends CI_Model {
 									->where('id_empresa',$var['id_empresa'])
 									->where('id_modelo',$id_modelo)
 									->get()->row();
-		
+
 	}
-	
+
 	/*public function setAsignarNickname($var){
 		$tabla						=	DB_PREFIJO."cf_nickname t1";
 		//$nickname					=	nickname_like_name($var['nickname'],$var['plataforma']);
@@ -2047,30 +2050,30 @@ class Usuarios_model extends CI_Model {
 			//->where('id_master',$var['id_master'])
 			->where('nickname',$var['nickname'])
 			->get()->row();
-		
+
 		if(!empty($var['nickname_id']) && !empty($nickname)){
 			if(@$nickname->id_modelo==0 && @$nickname->id_master==0 && @$nickname->estado==0){
 				$nickname_id=$var['nickname_id'];
 				if(isset($var['plataforma'])){
-					unset($var['plataforma']);	
+					unset($var['plataforma']);
 				}
 				unset($var['nickname_id']);
 				$this->db->where("nickname_id",$nickname->nickname_id);
 				$this->db->update($tabla,$var);
-				
+
 				$tabla1		=	DB_PREFIJO."rp_tmp";
 				$this->db->where("nickname",$var['nickname']);
 				$this->db->where("id_empresa",$var['id_empresa']);
 				$this->db->where("pagina",$nickname->primer_nombre);
-	
+
 				$this->db->update($tabla1,array("centro_de_costos"=>$var['centro_de_costos']));
-				
+
 				logs($this->user,2,$tabla,"nickname_id",$tabla,"1",$var);
-				return true;		
+				return true;
 			}
-		
+
 		if(isset($var['redirect'])){
-			unset($var['redirect']);	
+			unset($var['redirect']);
 		}
 
 			if(!empty($nickname)){
@@ -2081,13 +2084,13 @@ class Usuarios_model extends CI_Model {
 					$this->db->where("pagina",@$nickname->primer_nombre);
 					$this->db->update(DB_PREFIJO."rp_tmp",array("centro_de_costos"=>$var['centro_de_costos']));
 					logs($this->user,2,$tabla,$id[1],$tabla,"1",$var);
-					return $var['nickname_id'];	
+					return $var['nickname_id'];
 				}else{
 					logs($this->user,2,$tabla,$id[1],$tabla,"0",$var);
-					return false;	
+					return false;
 				}
 
-			}		
+			}
 
 		}else{
 			$var['centro_de_costos'] = $this->user->centro_de_costos;
@@ -2097,7 +2100,7 @@ class Usuarios_model extends CI_Model {
 				logs($this->user,1,$tabla,$insert_id,$tabla,"1",$var);
 				return $insert_id;
 			}else{
-				return false;	
+				return false;
 			}
 		}
 	}*/
@@ -2121,37 +2124,37 @@ class Usuarios_model extends CI_Model {
 							//->where('id_master',$var['id_master'])
 							->where('nickname',$var['nickname'])
 							->get()->row();
-		
+
 		if(!empty($nickname)){
 			if(@$nickname->id_modelo==0 && @$nickname->id_master==0 && @$nickname->estado==0){
 				$nickname_id=$var['nickname_id'];
 				if(isset($var['plataforma'])){
-					unset($var['plataforma']);	
+					unset($var['plataforma']);
 				}
 				unset($var['nickname_id']);
 				$this->db->where("nickname_id",$nickname->nickname_id);
 				$this->db->update($tabla,$var);
-				
+
 				$tabla		=	DB_PREFIJO."rp_tmp";
 				$this->db->where("nickname",$var['nickname']);
 				$this->db->where("id_empresa",$var['id_empresa']);
 				$this->db->where("pagina",$nickname->primer_nombre);
-	
+
 				$this->db->update($tabla,array("centro_de_costos"=>$var['centro_de_costos']));
-				
+
 				logs($this->user,2,$tabla,"nickname_id",$tabla,"1",$var);
-				return true;		
+				return true;
 			}
 		}
-		
+
 		if(isset($var['redirect'])){
-			unset($var['redirect']);	
+			unset($var['redirect']);
 		}
 		if(isset($var['plataforma'])){
 			$plataforma=$var['plataforma'];
-			unset($var['plataforma']);	
+			unset($var['plataforma']);
 		}
-		
+
 		if(isset($var['nickname_id'])	&& 	!empty($var['nickname_id'])){
 			$id	=	array("nickname_id",$var['nickname_id']);
 			$this->db->where($id[0], $id[1]);
@@ -2159,13 +2162,13 @@ class Usuarios_model extends CI_Model {
 			if($this->db->update($tabla,$var)){
 				$this->db->where("nickname", $var['nickname']);
 				$this->db->where("pagina",@$plataforma);
-				
+
 				$this->db->update(DB_PREFIJO."rp_tmp",array("centro_de_costos"=>$var['centro_de_costos']));
 				logs($this->user,2,$tabla,$id[1],$tabla,"1",$var);
-				return $var['nickname_id'];	
+				return $var['nickname_id'];
 			}else{
 				logs($this->user,2,$tabla,$id[1],$tabla,"0",$var);
-				return false;	
+				return false;
 			}
 		}else{
 			if($this->db->insert(DB_PREFIJO."cf_nickname",$var)){
@@ -2173,18 +2176,18 @@ class Usuarios_model extends CI_Model {
 				logs($this->user,1,$tabla,$insert_id,$tabla,"1",$var);
 				return $insert_id;
 			}else{
-				return false;	
+				return false;
 			}
 		}
 	}
-	
+
 	public function total_filas($tabla){
 		if($this->search){
 			$this->db->from($tabla);
-			$this->db->like('nombre', $this->search);			
-			$this->db->like('persona_contacto', $this->search);			
+			$this->db->like('nombre', $this->search);
+			$this->db->like('persona_contacto', $this->search);
 			$this->db->or_like('estado', $this->search);
-			return $this->db->get()->num_rows();			 
+			return $this->db->get()->num_rows();
 		}
 		return $this->db->get($tabla)->num_rows();
 	}
@@ -2225,17 +2228,17 @@ class Usuarios_model extends CI_Model {
             	$response = "El cliente se ha guardado correctamente";
 			}else{
 				$response = "Error al guardar";
-			}	
+			}
 		}
 		return $response;
 	}
 
-	public function get_all_clientes(){  
+	public function get_all_clientes(){
 		$tabla	=	"usuarios";
 		$this->db->select('*')->from($tabla)->where("estado",1)->where("type",$this->uri->segment(3))->where("empresa_id",$this->user->empresa_id);
 		if($this->uri->segment(4)){
 			$this->db->where("user_id",$this->uri->segment(4));
-			
+
 			return $this->result = $this->db->get()->result();;
 		}
         $this->result["Activos"]=$this->db->get()->result();
@@ -2295,7 +2298,7 @@ class Usuarios_model extends CI_Model {
                 }else{
                     $response = "el cliente ha sido modificado, pero el usuario asociado al cliente no";
                 }
-			
+
 			}
 		}else{
 			$email                  =   $var['email'];
@@ -2327,7 +2330,7 @@ class Usuarios_model extends CI_Model {
                 	$response = "El cliente se ha guardado correctamente";
 				}else{
 					$response = "Error al guardar";
-				}	
+				}
 			}
 		}
 		return $response;
@@ -2343,7 +2346,7 @@ class Usuarios_model extends CI_Model {
 		if($this->user->rol_id <> 1){
             $this->db->where("id_empresa",$this->user->empresa_id);
         }
-		
+
         $this->result["Activos"]=$this->db->get()->result();
 		$tabla	=	"mae_proveedores t1";
 		$tabla2	=	"usuarios t2";

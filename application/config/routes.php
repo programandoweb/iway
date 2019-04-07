@@ -50,6 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
+$route['api/(get|post|push|delete)']  = 'api/apirequest';
 $route['install'] = 'Main/Install';
 $route['Configuracion/CerrarCiclo'] 	= 	'Ventas/CerrarCiclo';
 $route['default_controller'] 	= 	'Main';

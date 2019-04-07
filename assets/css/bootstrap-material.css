@@ -1275,7 +1275,7 @@ pre {
   .form-control:focus, .custom-file-control:focus {
     color: #495057;
     background-color: transparent;
-    border-color: #17ffe9;
+    border-color: #4ae387;
     outline: 0;
     box-shadow: none, 0 0 0 0.2rem rgba(0, 150, 136, 0.25); }
   .form-control::placeholder, .custom-file-control::placeholder {
@@ -9337,7 +9337,7 @@ form {
 .form-control, .custom-file-control,
 .is-focused .form-control,
 .is-focused .custom-file-control {
-  background-image: linear-gradient(to top, #00c7ce 2px, rgba(0, 150, 136, 0) 2px), linear-gradient(to top, rgba(0, 0, 0, 0.26) 1px, transparent 1px); }
+  background-image: linear-gradient(to top, #4ae387 2px, rgba(0, 150, 136, 0) 2px), linear-gradient(to top, rgba(0, 0, 0, 0.26) 1px, transparent 1px); }
 
 .form-control:invalid, .custom-file-control:invalid {
   background-image: linear-gradient(to top, #d50000 2px, rgba(213, 0, 0, 0) 2px), linear-gradient(to top, rgba(0, 0, 0, 0.26) 1px, transparent 1px); }

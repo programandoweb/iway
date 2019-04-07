@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-function json_response($response=null, $code = 200,$callback='',$redirect=false){
+function json_response($response=null, $code = 200,$callback='',$redirect=false,$message_return=false){
   header_remove();
   http_response_code($code);
   header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
@@ -15,15 +15,17 @@ function json_response($response=null, $code = 200,$callback='',$redirect=false)
     500 => '500 Internal Server Error'
   );
   header('Status: '.$status[$code]);
-  $message  = (isset($response->message))?$response->message:"";
+  $message      = (isset($response->message))?$response->message:"Bienvenido, Api Versión 1.0";
+  if(!$message_return){
+    $message    = "";
+  }
   $json=array(
     'status'    => $code < 300,
     'message'   => $message,
     'response'  => $response,
-    'code' => $code,
+    'code'      => $code,
     'callback' => $callback
   );
-
   if(isset($response->result)){
     unset($json["response"]);
     if(!empty($response->result)){
@@ -32,15 +34,21 @@ function json_response($response=null, $code = 200,$callback='',$redirect=false)
       }
     }
   }
-
-
   if($redirect){
     $json["redirect"]	=	$redirect;
   }
   return json_encode($json);
 }
 
-  function menu($rol_id=NULL){
+function import($type,$file){
+  switch($type){
+    case "js":
+      echo '<script async src="'.JS.$file.'.js"></script>';
+    break;
+  }
+}
+
+function menu($rol_id=NULL){
     $ci   =&  get_instance();
     $tabla            = "sys_roles";
     $ci->db->select("*")->from($tabla);
@@ -1184,7 +1192,7 @@ function FormAjax($view){
   if(!empty($row)){
     $ci   =&  get_instance();
     $tabla  = "sys_profesiones";
-    $rowid = $ci->db->select("*")->from($tabla)->where('id',$row)->get()->row();
+    $rowid = $ci->db->select("*")->from($tabla)->where('profesion_id',$row)->get()->row();
   }
 
   $html = '';
@@ -1386,14 +1394,15 @@ function post($var=""){
 	}
 }
 
-function get($var=""){
+function get($var="",$default=false){
 	$ci 	=& 	get_instance();
 	if($var==''){
 		return $ci->input->get();
 	}else{
-		return $ci->input->get($var, TRUE);
+    return ($ci->input->get($var, true))?$ci->input->get($var,true):$default;
 	}
 }
+
 function columnas($campo){
 	$return		=	'';
 	$lastkey 	= 	count($campo) - 1;
@@ -1423,4 +1432,45 @@ function avatar($id){
     }
   }
   return $return;
+}
+
+function foreach_edit($data,$count=0){
+	$return	=	array();
+	foreach($data as $k => $v){
+		$id	=	'';
+		foreach($v as $k2 => $v2){
+			if($k2=='id'){
+				$id	=	$v2;
+			}
+			if($k2=='nombre'){
+				$nombre	=	$v2;
+			}
+			$explode	=	explode("::",$k2);
+			if($k2=="edit"){
+				$return[$k][$k2]	=		'<a class="edit lightbox" title="Editar" data-btnsuccess="true" data-type="iframe" data-form="true" data-size="modal-lg" href="'.current_url().'/Add/'.$id.'/Iframe"><i class="fas fa-edit"></i></a>';
+			}else if($k2=="estatus"){
+				$return[$k][$k2]	=		($v2==1)?'Activo':'Inactivo';
+			}else if($explode[0]=="json" && isset($explode[1])){
+				$json_decode				=	json_decode($v->json);
+				$label							=	$explode[1];
+				$return[$k][$label]	=	@$json_decode->$label;
+			}else if($k2=="nombre_frontOffice"){
+				$return[$k][$k2]	=		'<a target="_blank" title="Ver" href="'.base_url($v2.$id).'-BackOffice">'.$nombre.' <i class="fas fa-search"></i></a>';
+			}else if($k2=="json"){
+				$return[$k][$k2]			=		$v2;
+				$return[$k]["nombres"]		=		@json_decode($v2)->nombres .' '.@json_decode($v2)->apellidos;
+				$return[$k]["ciudad"]		=		@json_decode($v2)->ciudad;
+				$return[$k]["departamento"]	=		@json_decode($v2)->departamento;
+				$return[$k]["title"]					=	@json_decode($v2)->name;
+			}else{
+				$return[$k][$k2]	=		$v2;
+			}
+			if(@$return[$k]["title"]==''){
+				@$return[$k]["title"]=$v->title;
+			}
+		}
+	}
+	return array(	"data"=>$return,
+								"recordsTotal"=>$count,
+								"recordsFiltered"=>$count);
 }

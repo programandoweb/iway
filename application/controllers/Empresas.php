@@ -7,7 +7,7 @@ class Empresas extends CI_Controller {
 	var $util,$user,$ModuloActivo,$path,$listar,$Empresas,$Breadcrumb,$Uri_Last,$data;
 
 	public function __construct(){
-        parent::__construct();
+    parent::__construct();
 		if(!defined('APANEL_EMPRESAS')){
 			redirect(base_url("Main/modulo_inactivo"));	return;
 		}
@@ -32,7 +32,7 @@ class Empresas extends CI_Controller {
 			$this->Empresas	= 	new Empresas_model();
 		}
 		chequea_session($this->user);
-    }
+  }
 
 	public function Index(){
 		if(!defined('APANEL_EMPRESAS')){
@@ -47,6 +47,39 @@ class Empresas extends CI_Controller {
 		}
 		$this->campos	=	array("avatar"=>"Avatar","concat_nombres"=>"Nombre Legal / Comercial","login"=>"Usuario","concat_contacto"=>"Datos","edit"=>"Acción");
 		Listados($this->listar->view);
+	}
+
+	public function Add(){
+		if(post()){
+			$set	=	$this->Empresas->set(post());
+		    return;
+			if ($this->input->is_ajax_request()){
+				if($set){
+					$this->Response 		=			array(	"message"	=>	"Los datos han sido guardados correctamente",
+																				"code"		=>	"200");
+				}else{
+					$this->Response 		=			array(	"message"	=>	"Lo siento, presentamos un problema y no pudimos guardar los datos",
+																"code"		=>	"203");
+				}
+			}else{
+				if($set){
+					$this->session->set_flashdata('success', 'El registro se guardó correctamente');
+					echo '<script>parent.location.reload();</script>';return;
+				}else{
+					$this->session->set_flashdata('danger', 'Lo siento, presentamos un problema y no pudimos guardar los datos');
+					redirect(current_url());
+				}
+			}
+			return;
+		}
+
+		if($this->uri->segment(3)){
+			$this->row=$this->Empresas->getEmpresa_X_Id($this->uri->segment(3));
+		}
+
+		$this->listar->view	="Empresas/Form_Empresas";
+		$this->util->set_title($this->ModuloActivo	." - ".SEO_TITLE);
+		FormAjax($this->listar->view);
 	}
 
 	public function ConfiguracionDocumentos(){
@@ -67,7 +100,6 @@ class Empresas extends CI_Controller {
 		if(!defined('APANEL_EMPRESAS')){
 			redirect(base_url("Main/modulo_inactivo"));	return;
 		}
-
 		$this->Empresas->pagination		=		$this->uri->segment($this->uri->total_segments());
 		$this->Empresas->search			=		post("search");
 		$this->Empresas->get_all();
@@ -95,44 +127,6 @@ class Empresas extends CI_Controller {
 		$this->listar->view				=		"Empresas/List_ver";
 		$this->util->set_title($this->ModuloActivo	." - ".SEO_TITLE);
 		//paginator($this->Empresas->total_rows);
-		FormAjax($this->listar->view);
-	}
-
-	public function Add(){
-		if(!defined('APANEL_EMPRESAS')){
-			redirect(base_url("Main/modulo_inactivo"));	return;
-		}
-		if(post()){
-			//pre(post()); return;
-			$set	=	$this->Empresas->set(post());
-		    return;
-			if ($this->input->is_ajax_request()){
-				if($set){
-					$this->Response 		=			array(	"message"	=>	"Los datos han sido guardados correctamente",
-																				"code"		=>	"200");
-				}else{
-					$this->Response 		=			array(	"message"	=>	"Lo siento, presentamos un problema y no pudimos guardar los datos",
-																"code"		=>	"203");
-				}
-				//echo answers_json($this->Response);
-			}else{
-				if($set){
-					$this->session->set_flashdata('success', 'El registro se guardó correctamente');
-					echo '<script>parent.location.reload();</script>';return;
-				}else{
-					$this->session->set_flashdata('danger', 'Lo siento, presentamos un problema y no pudimos guardar los datos');
-					redirect(current_url());
-				}
-			}
-			return;
-		}
-		$possible_id		=	$this->uri->segment($this->uri->total_segments());
-		if($this->uri->segment(3)){
-			$this->Empresas->getEmpresa();
-		}
-		$this->listar->view	="Empresas/Form_Empresas";
-		$this->util->set_title($this->ModuloActivo	." - ".SEO_TITLE);
-		//$this->Listado	=	$this->load->view('Template/Form',array(),TRUE);
 		FormAjax($this->listar->view);
 	}
 

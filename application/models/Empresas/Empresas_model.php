@@ -13,10 +13,12 @@ class Empresas_model extends CI_Model {
 												login,
 												concat(telefono, ' ', celular , '<br/>',direccion) as concat_contacto,
 												user_id,
-												1 as edit")
+												user_id as id,
+												'iway' as edit")
 							->from($tabla)
 							->join($tabla2,"t1.empresa_id = t2.empresa_id","left")
-							->where("t1.estado",1);
+							->where("t1.estado",1)
+							->group_by("t1.empresa_id");
 							//->where("t1.empresa_id>",1);
         if($this->uri->segment(3)){
             $this->db->where("t1.id",$this->uri->segment(3));
@@ -32,13 +34,21 @@ class Empresas_model extends CI_Model {
 					$result[$key]->avatar=avatar($value->user_id);
 					$result[$key]->concat_nombres=$value->concat_nombres;
 				}
-				$this->result["data"]	=	$rows;
-				$totalquery = 	$this->db->query('SELECT FOUND_ROWS() as total;');
-				$this->result["recordsTotal"]	=	(!empty($totalquery->row()))?$totalquery->row()->total:0;
-				$this->result["recordsFiltered"]	=	(!empty($totalquery->row()))?$totalquery->row()->total:0;
+
+				$totalquery = $this->db->query('SELECT FOUND_ROWS() as total;');
+				$this->result	=	foreach_edit($result,$totalquery->row()->total);
 	}
 
-    public function set($var){
+	public function getEmpresa_X_Id($empresa_id){
+		$this->db->select("*")->from("mae_cliente_joberp t1")->join("usuarios t2","t1.empresa_id = t2.empresa_id","left")->where("t1.empresa_id",1);
+		if($this->user->type_id>1){
+			$this->db->where("t2.user_id",$this->user->type_id);
+		}
+		$query	=	$this->db->get();
+		return $query->row();
+	}
+
+  public function set($var){
         $tabla      =       "mae_cliente_joberp";
         $tabla2     =       "usuarios";
         if(isset($var["empresa_id"]) && !empty($var["empresa_id"]) && isset($var['user_id'])&& !empty($var['user_id'])){

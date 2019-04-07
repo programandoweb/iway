@@ -42,46 +42,47 @@ class Util_model extends CI_Model {
 		$return		.=	'<!--CSS-->';
 		$return		.=	'<link href="assets/css/tether.min.css" rel="stylesheet">';
 		$return		.=	'<link href="assets/css/bootstrap.min.css" rel="stylesheet">';
-		$return		.=	'<link href="assets/css/animate.css" rel="stylesheet">';
+		//$return		.=	'<link href="assets/css/animate.css" rel="stylesheet">';
 		//$return		.=	'<link href="assets/css/font-awesome.min.css" rel="stylesheet">';
 		$return		.=	'<link href="assets/fontawesome/css/fontawesome-all.min.css" rel="stylesheet">';
 		$return		.=	'<link href="assets/css/jquery-ui.css" rel="stylesheet">';
 		$return		.=	'<link href="assets/css/yamm.css" rel="stylesheet">';
-		$return		.=	'<link href="assets/css/croppic.css" rel="stylesheet">';
+		//$return		.=	'<link href="assets/css/croppic.css" rel="stylesheet">';
 		$return		.=	'<link href="design/css/blue/style.css" rel="stylesheet">';
 		$return		.=	'<link href="design/css/dataTables.bootstrap4.min.css" rel="stylesheet">';
-		$return		.=	'<link href="design/css/fullcalendar.min.css" rel="stylesheet">';
+		//$return		.=	'<link href="design/css/fullcalendar.min.css" rel="stylesheet">';
 		//$return		.=	'<link href="design/css/fullcalendar.print.min.css" rel="stylesheet">';
+		$return		.=	'<link href="assets/css/css.css" rel="stylesheet">';
 
 
 		$return		.=	'<!--JS-->';
 		$return		.=	'<script src="assets/js/accounting.min.js"></script>';
 		$return		.=	'<script src="assets/js/jquery-3.1.1.slim.min.js"  crossorigin="anonymous"></script>';
 		$return		.=	'<script src="assets/js/jquery-3.2.1.min.js"></script>';
-		$return		.=	'<script src="assets/js/jquery.number.min.js"></script>';
+		//$return		.=	'<script src="assets/js/jquery.number.min.js"></script>';
 		$return		.=	'<script src="assets/js/jquery-ui.js"></script>';
-		$return		.=	'<script src="assets/js/maskedinput.min.js"></script>';
+		//$return		.=	'<script src="assets/js/maskedinput.min.js"></script>';
 		$return		.=	'<script src="assets/js/tether.min.js"></script>';
 		$return		.=	'<script src="assets/js/bootstrap.min.js"></script>';
 		$return		.=	'<script src="design/js/pgrw.js"></script>';
 		$return		.=	'<script src="design/js/pgrw.forms.js"></script>';
 		//$return		.=	'<script src="design/js/pgrw.Windows.js"></script>';
-		$return		.=	'<script src="design/js/pgrw.Tables.js"></script>';
+		//$return		.=	'<script src="design/js/pgrw.Tables.js"></script>';
 		$return		.=	'<script src="design/js/pgrw.forms.empresas.js"></script>';
-		$return		.=	'<script src="design/js/jscolor.min.js"></script>';
-		$return		.=	'<script src="assets/js/Chart.js"></script>';
+		//$return		.=	'<script src="design/js/jscolor.min.js"></script>';
+		//$return		.=	'<script src="assets/js/Chart.js"></script>';
 /*		$return		.=	'<script src="design/js/jquery-latest.js"></script>';*/
 		/*$return		.=	'<script src="design/js/jquery.tablesorter.min.js"></script>';
 		/*$return		.=	'<script src="design/js/pgrw.Clipboard.js"></script>';*/
-		$return		.=	'<script src="assets/js/jquery.mask.min.js"></script>';
+		//$return		.=	'<script src="assets/js/jquery.mask.min.js"></script>';
 		$return		.=	'<link rel="stylesheet" type="text/css" href="design/css/jquery.dataTables.css">';
-  		$return		.=	'<script type="text/javascript" charset="utf8" src="design/js/jquery.dataTables.js"></script>';
+  	$return		.=	'<script type="text/javascript" charset="utf8" src="design/js/jquery.dataTables.js"></script>';
 		$return		.=	'<script type="text/javascript" charset="utf8" src="design/js/dataTables.bootstrap4.min.js"></script>';
 		$return		.=	'<link href="design/css/pgrw.css" rel="stylesheet">';
 		$return		.=	'<script type="text/javascript" charset="utf8" src="design/js/moment.min.js"></script>';
-		$return		.=	'<script type="text/javascript" charset="utf8" src="design/js/fullcalendar.min.js"></script>';
-		$return		.=	'<script type="text/javascript" charset="utf8" src="design/js/gcal.min.js"></script>';
-		$return		.=	'<script type="text/javascript" charset="utf8" src="design/js/locale-all.js"></script>';
+		//$return		.=	'<script type="text/javascript" charset="utf8" src="design/js/fullcalendar.min.js"></script>';
+		//$return		.=	'<script type="text/javascript" charset="utf8" src="design/js/gcal.min.js"></script>';
+		//$return		.=	'<script type="text/javascript" charset="utf8" src="design/js/locale-all.js"></script>';
 		$return		.=	'<script type="text/javascript" charset="utf8" src="design/js/Api-calendar.js"></script>';
 		$return		.=	'<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.2/umd/popper.min.js"></script>';
 		$return		.=	'<script type="text/javascript" charset="utf8" src="design/js/jquery.mCustomScrollbar.concat.min.js"></script>';
@@ -123,6 +124,7 @@ class Util_model extends CI_Model {
 	    $return     .=  '<link href="design/css/smart_wizard_theme_circles.css" rel="stylesheet" type="text/css" />';
 		$return		.=	'<link href="design/css/forms.css" rel="stylesheet">';
 		$return		.=	'<link href="design/css/jquery.datetimepicker.min.css" rel="stylesheet">';
+		$return		.=	'<link href="design/css/css.css" rel="stylesheet">';
 
 		$return		.=	'<!--JS-->';
 		$return		.=	'<script src="assets/js/accounting.min.js"></script>';
